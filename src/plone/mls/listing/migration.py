@@ -303,21 +303,27 @@ def migrate_to_1013(context):
             return tuple(token_values)
 
         if isinstance(district, unicode):
+            # case unicode: u'CR-GU-XX'
+            content['location_district'] = (district,)
+        elif isinstance(district, str):
+            # case str: 'Guanacaste'
             vocab = district_vocab_factory(obj)
             token_values = convert_value_to_token(district, vocab, 'district')
             content['location_district'] = token_values
 
         if isinstance(county, unicode):
+            content['location_county'] = (county,)
+        elif isinstance(county, str):
             vocab = county_vocab_factory(obj)
             token_values = convert_value_to_token(county, vocab, 'county')
             content['location_county'] = token_values
 
         if isinstance(state, unicode):
+            content['location_state'] = (state,)
+        if isinstance(state, str):
             vocab = state_vocab_factory(obj)
             token_values = convert_value_to_token(state, vocab, 'state')
             content['location_state'] = token_values
 
         annotations[COLLECTION] = content
 
-    import transaction
-    transaction.commit()
