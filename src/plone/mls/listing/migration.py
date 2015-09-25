@@ -7,6 +7,7 @@ import pkg_resources
 # zope imports
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from plone import api
 from plone.browserlayer import utils as layerutils
 from plone.registry.interfaces import IRegistry
 from zope.annotation.interfaces import IAnnotations
@@ -23,9 +24,8 @@ from plone.mls.listing.interfaces import IMLSAgencyContactInformation
 
 # Plone Loggig
 import logging
-logger = logging.getLogger("Plone")
-
-from Products.statusmessages.interfaces import IStatusMessage
+from plone.mls.listing import PRODUCT_NAME
+logger = logging.getLogger(PRODUCT_NAME)
 
 LISTING_TYPE = 'plone.mls.listing.listing'
 PROFILE_ID = 'profile-plone.mls.listing:default'
@@ -311,8 +311,7 @@ def migrate_to_1013(context):
                 # add message to log
                 logger.info(log_msg)
                 # add visible status message in Plone
-                status_msg = IStatusMessage(request)
-                status_msg.add(log_msg, type=u"warning")
+                api.portal.show_message(message=log_msg, request=request)
 
             return tuple(token_values)
 
