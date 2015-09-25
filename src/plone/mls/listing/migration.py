@@ -291,11 +291,11 @@ def migrate_to_1013(context):
             if len(token_values) == 0:
                 token_values = [value]
                 log_msg = (
-                    '{0} Could not migrate location_{1}: \'{2}\''
-                    'not found. Please check this manually'.format(
-                        obj.absolute_url(),
+                    'No ListingCollection entry found for {0}: \'{1}\''
+                    'Please check: {2}'.format(
                         loc_type,
                         value,
+                        obj.absolute_url(),
                     )
                 )
             elif len(token_values) > 1:
