@@ -21,6 +21,11 @@ from plone.mls.listing.browser.listing_collection import (
 )
 from plone.mls.listing.interfaces import IMLSAgencyContactInformation
 
+# Plone Loggig
+import logging
+logger = logging.getLogger("Plone")
+
+from Products.statusmessages.interfaces import IStatusMessage
 
 LISTING_TYPE = 'plone.mls.listing.listing'
 PROFILE_ID = 'profile-plone.mls.listing:default'
@@ -250,6 +255,7 @@ def migrate_to_1013(context):
     """"Migrate from 1012 to 1013
     * update existing ListingCollections
     """
+    request = getattr(context, "REQUEST", None)
     state_vocab_factory = getUtility(
         IVocabularyFactory,
         'plone.mls.listing.LocationStates',
@@ -277,22 +283,23 @@ def migrate_to_1013(context):
 
         def convert_value_to_token(value, vocab, loc_type):
             token_values = []
+            log_msg = None
             for term in vocab:
                 if value == term.title:
                     token_values.append(term.token)
 
             if len(token_values) == 0:
                 token_values = [value]
-                print(
-                    'Error when trying to migrate the {0} name for '
-                    'collection: \'{1}\' not found. {2}'.format(
+                log_msg = (
+                    '{0} Could not migrate location_{1}: \'{2}\''
+                    'not found. Please check this manually'.format(
+                        obj.absolute_url(),
                         loc_type,
                         value,
-                        obj.absolute_url(),
                     )
                 )
             elif len(token_values) > 1:
-                print(
+                log_msg(
                     'Warning: multiple valuse match the previously selected '
                     '{0} name of \'{1}\': {2}'.format(
                         loc_type,
@@ -300,30 +307,28 @@ def migrate_to_1013(context):
                         obj.absolute_url(),
                     )
                 )
+            if log_msg:
+                # add message to log
+                logger.info(log_msg)
+                # add visible status message in Plone
+                status_msg = IStatusMessage(request)
+                status_msg.add(log_msg, type=u"warning")
+
             return tuple(token_values)
 
-        if isinstance(district, unicode):
-            # case unicode: u'CR-GU-XX'
-            content['location_district'] = (district,)
-        elif isinstance(district, str):
-            # case str: 'Guanacaste'
+        if isinstance(district, str) or isinstance(district, unicode):
             vocab = district_vocab_factory(obj)
             token_values = convert_value_to_token(district, vocab, 'district')
             content['location_district'] = token_values
 
-        if isinstance(county, unicode):
-            content['location_county'] = (county,)
-        elif isinstance(county, str):
+        if isinstance(county, str) or isinstance(county, unicode):
             vocab = county_vocab_factory(obj)
             token_values = convert_value_to_token(county, vocab, 'county')
             content['location_county'] = token_values
 
-        if isinstance(state, unicode):
-            content['location_state'] = (state,)
-        if isinstance(state, str):
+        if isinstance(state, str) or isinstance(state, unicode):
             vocab = state_vocab_factory(obj)
             token_values = convert_value_to_token(state, vocab, 'state')
             content['location_state'] = token_values
 
         annotations[COLLECTION] = content
-
