@@ -315,17 +315,17 @@ def migrate_to_1013(context):
 
             return tuple(token_values)
 
-        if isinstance(district, str) or isinstance(district, unicode):
+        if isinstance(district, basestring):
             vocab = district_vocab_factory(obj)
             token_values = convert_value_to_token(district, vocab, 'district')
             content['location_district'] = token_values
 
-        if isinstance(county, str) or isinstance(county, unicode):
+        if isinstance(county, basestring):
             vocab = county_vocab_factory(obj)
             token_values = convert_value_to_token(county, vocab, 'county')
             content['location_county'] = token_values
 
-        if isinstance(state, str) or isinstance(state, unicode):
+        if isinstance(state, basestring):
             vocab = state_vocab_factory(obj)
             token_values = convert_value_to_token(state, vocab, 'state')
             content['location_state'] = token_values
