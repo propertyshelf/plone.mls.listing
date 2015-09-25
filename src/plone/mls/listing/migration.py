@@ -291,7 +291,7 @@ def migrate_to_1013(context):
             if len(token_values) == 0:
                 token_values = [value]
                 log_msg = (
-                    'No ListingCollection entry found for {0}: \'{1}\''
+                    'No ListingCollection entry found for {0}: \'{1}\' . '
                     'Please check: {2}'.format(
                         loc_type,
                         value,
@@ -311,7 +311,7 @@ def migrate_to_1013(context):
                 # add message to log
                 logger.info(log_msg)
                 # add visible status message in Plone
-                api.portal.show_message(message=log_msg, request=request)
+                api.portal.show_message(message=log_msg, request=request, type='warn')  # noqa
 
             return tuple(token_values)
 
