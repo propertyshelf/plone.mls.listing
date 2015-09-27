@@ -284,8 +284,9 @@ def migrate_to_1013(context):
         def convert_value_to_token(value, vocab, loc_type):
             token_values = []
             log_msg = None
+            value_dec = value.encode('utf-8').decode('unicode_escape')
             for term in vocab:
-                if value == term.title:
+                if value == term.title or value_dec == term.title:
                     token_values.append(term.token)
 
             if len(token_values) == 0:
