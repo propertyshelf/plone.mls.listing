@@ -269,7 +269,7 @@ def migrate_to_1013(context):
         'plone.mls.listing.LocationDistricts',
     )
     catalog = getToolByName(context, 'portal_catalog')
-    collections = catalog(object_provides=IListingCollection.__identifier__)
+    collections = catalog(Language="", object_provides=IListingCollection.__identifier__)  # noqa
     for c in collections:
         obj = c.getObject()
         annotations = IAnnotations(obj)
