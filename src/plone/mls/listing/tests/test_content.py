@@ -2,7 +2,10 @@
 """Test Content Types of plone.mls.listing."""
 
 # python imports
-import unittest2 as unittest
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
 
 # zope imports
 from Products.CMFCore.utils import getToolByName

@@ -2,7 +2,10 @@
 """Test Setup of plone.mls.listing."""
 
 # python imports
-import unittest2 as unittest
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
 
 # local imports
 from plone.mls.listing.testing import PLONE_MLS_LISTING_INTEGRATION_TESTING
