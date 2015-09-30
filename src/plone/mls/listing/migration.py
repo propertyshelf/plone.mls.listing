@@ -272,7 +272,9 @@ def migrate_to_1013(context):
     )
     catalog = getToolByName(context, 'portal_catalog')
     for lang in languages.getSupportedLanguages():
-        print "###### " + lang + " ########"
+        logger.info(
+            '######## Searching for Listing Collections in '
+            'language \'{0}\' #######'.format(lang))
         lc = catalog(
             Language=lang,
             object_provides=IListingCollection.__identifier__,
@@ -280,7 +282,8 @@ def migrate_to_1013(context):
 
         for c in lc:
             obj = c.getObject()
-            print obj
+            logger.info(
+                'Migrating Listing Collection: {0}'.format(obj.absolute_url()))
             annotations = IAnnotations(obj)
             content = annotations.get(COLLECTION, None)
             if content is None:
