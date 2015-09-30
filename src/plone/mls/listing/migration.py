@@ -309,7 +309,7 @@ def migrate_to_1013(context):
                         )
                     )
                 elif len(token_values) > 1:
-                    log_msg(
+                    log_msg = (
                         'Warning: multiple valuse match the previously '
                         'selected {0} name of \'{1}\': {2}'.format(
                             loc_type,
