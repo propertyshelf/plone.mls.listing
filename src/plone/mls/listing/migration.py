@@ -319,7 +319,7 @@ def migrate_to_1013(context):
                     )
                 if log_msg:
                     # add message to log
-                    logger.info(log_msg)
+                    logger.warn(log_msg)
                     # add visible status message in Plone
                     api.portal.show_message(
                         message=log_msg,
