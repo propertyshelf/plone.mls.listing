@@ -3,7 +3,7 @@
 
 # zope imports
 from Acquisition import aq_inner
-from Products.CMFPlone import PloneMessageFactory as PMF
+from Products.CMFPlone import PloneMessageFactory as PMF  # noqa
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.autoform import directives

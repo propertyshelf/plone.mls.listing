@@ -42,3 +42,9 @@ Mostly Harmless
 .. image:: https://pypip.in/license/plone.mls.listing/badge.png
     :target: https://pypi.python.org/pypi/plone.mls.listing/
     :alt: License
+
+
+Requirements
+------------
+
+Currently z3c.form needs to be pinned down to version 3.2.1 to render multi-select widgets for ListingCollections.

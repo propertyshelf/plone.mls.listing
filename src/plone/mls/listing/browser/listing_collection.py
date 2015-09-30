@@ -115,22 +115,28 @@ class IListingCollectionConfiguration(Interface):
         ),
     )
 
-    location_state = schema.Choice(
+    location_state = schema.Tuple(
         required=False,
         title=_(u'State'),
-        source='plone.mls.listing.LocationStates',
+        value_type=schema.Choice(
+            source='plone.mls.listing.LocationStates'
+        ),
     )
 
-    location_county = schema.Choice(
+    location_county = schema.Tuple(
         required=False,
         title=_(u'County'),
-        source='plone.mls.listing.LocationCounties',
+        value_type=schema.Choice(
+            source='plone.mls.listing.LocationCounties',
+        ),
     )
 
-    location_district = schema.Choice(
+    location_district = schema.Tuple(
         required=False,
         title=_(u'District'),
-        source='plone.mls.listing.LocationDistricts',
+        value_type=schema.Choice(
+            source='plone.mls.listing.LocationDistricts',
+        )
     )
 
     price_min = schema.Int(
@@ -206,6 +212,7 @@ class ListingCollectionConfiguration(form.Form):
     fields['object_type'].widgetFactory = checkbox.CheckBoxFieldWidget
     fields['ownership_type'].widgetFactory = checkbox.CheckBoxFieldWidget
     fields['view_type'].widgetFactory = checkbox.CheckBoxFieldWidget
+
     label = _(u"'Listing Collection' Configuration")
     description = _(
         u"Adjust the behaviour for this 'Listing Collection' viewlet."

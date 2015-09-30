@@ -7,14 +7,25 @@ import pkg_resources
 # zope imports
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+from plone import api
 from plone.browserlayer import utils as layerutils
 from plone.registry.interfaces import IRegistry
+from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
+from zope.schema.interfaces import IVocabularyFactory
 
 # local imports
 from plone.mls.listing.browser.interfaces import IListingSpecific
+from plone.mls.listing.browser.listing_collection import (
+    CONFIGURATION_KEY as COLLECTION,
+    IListingCollection,
+)
 from plone.mls.listing.interfaces import IMLSAgencyContactInformation
 
+# Plone Loggig
+import logging
+from plone.mls.listing import PRODUCT_NAME
+logger = logging.getLogger(PRODUCT_NAME)
 
 LISTING_TYPE = 'plone.mls.listing.listing'
 PROFILE_ID = 'profile-plone.mls.listing:default'
@@ -238,3 +249,106 @@ def migrate_to_1012(context):
     setup = getToolByName(site, 'portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'jsregistry')
     setup.runImportStepFromProfile(PROFILE_ID, 'cssregistry')
+
+
+def migrate_to_1013(context):
+    """"Migrate from 1012 to 1013
+    * update existing ListingCollections
+    """
+    request = getattr(context, "REQUEST", None)
+    languages = getToolByName(context, 'portal_languages')
+
+    state_vocab_factory = getUtility(
+        IVocabularyFactory,
+        'plone.mls.listing.LocationStates',
+    )
+    county_vocab_factory = getUtility(
+        IVocabularyFactory,
+        'plone.mls.listing.LocationCounties',
+    )
+    district_vocab_factory = getUtility(
+        IVocabularyFactory,
+        'plone.mls.listing.LocationDistricts',
+    )
+    catalog = getToolByName(context, 'portal_catalog')
+    for lang in languages.getSupportedLanguages():
+        logger.info(
+            '######## Searching for Listing Collections in '
+            'language \'{0}\' #######'.format(lang))
+        lc = catalog(
+            Language=lang,
+            object_provides=IListingCollection.__identifier__,
+        )
+
+        for c in lc:
+            obj = c.getObject()
+            logger.info(
+                'Migrating Listing Collection: {0}'.format(obj.absolute_url()))
+            annotations = IAnnotations(obj)
+            content = annotations.get(COLLECTION, None)
+            if content is None:
+                continue
+
+            district = content.get('location_district', None)
+            county = content.get('location_county', None)
+            state = content.get('location_state', None)
+
+            def convert_value_to_token(value, vocab, loc_type):
+                token_values = []
+                log_msg = None
+                value_dec = value.encode('utf-8').decode('unicode_escape')
+                for term in vocab:
+                    if value == term.title or value_dec == term.title:
+                        token_values.append(term.token)
+
+                if len(token_values) == 0:
+                    token_values = [value]
+                    log_msg = (
+                        u'No ListingCollection entry found for {0}: \'{1}\'. '
+                        u'Please check: {2}'.format(
+                            loc_type,
+                            value,
+                            obj.absolute_url(),
+                        )
+                    )
+                elif len(token_values) > 1:
+                    log_msg = (
+                        u'Warning: multiple values match the previously '
+                        u'selected {0} name of \'{1}\': {2}'.format(
+                            loc_type,
+                            value,
+                            obj.absolute_url(),
+                        )
+                    )
+                if log_msg:
+                    # add message to log
+                    logger.warn(log_msg)
+                    # add visible status message in Plone
+                    api.portal.show_message(
+                        message=log_msg,
+                        request=request,
+                        type='warn',
+                    )
+
+                return tuple(token_values)
+
+            if isinstance(district, basestring):
+                vocab = district_vocab_factory(obj)
+                token_values = convert_value_to_token(
+                    district,
+                    vocab,
+                    'district'
+                )
+                content['location_district'] = token_values
+
+            if isinstance(county, basestring):
+                vocab = county_vocab_factory(obj)
+                token_values = convert_value_to_token(county, vocab, 'county')
+                content['location_county'] = token_values
+
+            if isinstance(state, basestring):
+                vocab = state_vocab_factory(obj)
+                token_values = convert_value_to_token(state, vocab, 'state')
+                content['location_state'] = token_values
+
+            annotations[COLLECTION] = content

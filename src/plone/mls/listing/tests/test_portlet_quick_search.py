@@ -2,7 +2,10 @@
 """Test plone.mls.listing Quick Search portlet."""
 
 # python imports
-import unittest2 as unittest
+try:
+    import unittest2 as unittest
+except ImportError:
+    import unittest
 
 # zope imports
 from plone.app.portlets.storage import PortletAssignmentMapping
