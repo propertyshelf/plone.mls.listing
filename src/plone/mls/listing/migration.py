@@ -301,8 +301,8 @@ def migrate_to_1013(context):
                 if len(token_values) == 0:
                     token_values = [value]
                     log_msg = (
-                        'No ListingCollection entry found for {0}: \'{1}\' . '
-                        'Please check: {2}'.format(
+                        u'No ListingCollection entry found for {0}: \'{1}\'. '
+                        u'Please check: {2}'.format(
                             loc_type,
                             value,
                             obj.absolute_url(),
@@ -310,8 +310,8 @@ def migrate_to_1013(context):
                     )
                 elif len(token_values) > 1:
                     log_msg = (
-                        'Warning: multiple valuse match the previously '
-                        'selected {0} name of \'{1}\': {2}'.format(
+                        u'Warning: multiple values match the previously '
+                        u'selected {0} name of \'{1}\': {2}'.format(
                             loc_type,
                             value,
                             obj.absolute_url(),
