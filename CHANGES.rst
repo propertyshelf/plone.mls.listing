@@ -5,7 +5,9 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- add MultiSelect widgets to ListingCollections
+- migrate existing ListingCollections 
+
 
 
 1.0 (2015-09-02)
