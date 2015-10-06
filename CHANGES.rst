@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.1 (unreleased)
+1.1 (2015-10-06)
 ----------------
 
 - add MultiSelect widgets to ListingCollections
