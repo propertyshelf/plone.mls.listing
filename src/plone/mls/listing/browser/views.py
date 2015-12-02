@@ -47,9 +47,9 @@ window.addEventListener('touchmove', function MoveDetector(){{
 }});
 
 function initializeMap() {{
-    var center = new google.maps.LatLng({lat}, {lng});
+    var center = new google.maps.LatLng(%(lat)s, %(lng)s);
     var myOptions = {{
-        zoom: {zoom},
+        zoom: %(zoom)s,
         center: center,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         mapTypeControl: true,
@@ -61,13 +61,13 @@ function initializeMap() {{
     }};
 
     var map = new google.maps.Map(
-        document.getElementById('{map_id}'),
+        document.getElementById('%(map_id)s'),
         myOptions
     );
 
     var has_marker = true;
     if(has_marker) {{
-        var myLatlng = new google.maps.LatLng({lat}, {lng});
+        var myLatlng = new google.maps.LatLng(%(lat)s, %(lng)s);
         var marker = new google.maps.Marker({{
             position: myLatlng,
             map: map
@@ -385,9 +385,9 @@ class ListingDetails(BrowserView):
             # on error no map
             return
 
-        return MAP_JS.format(
-            lat=lat,
-            lng=lng,
-            map_id=self.map_id,
-            zoom=self.zoomlevel
-        )
+        return MAP_JS % {
+            'lat': unicode(lat),
+            'lng': unicode(lng),
+            'map_id': self.map_id,
+            'zoom': self.zoomlevel,
+        }
