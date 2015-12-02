@@ -104,4 +104,9 @@
       name="plone.mls.listing.InteriorAreaSizes"
       />
 
+  <utility
+      component=".vocabularies.WorkflowStatesVocabularyFactory"
+      name="plone.mls.listing.WorkflowStates"
+      />
+
 </configure>

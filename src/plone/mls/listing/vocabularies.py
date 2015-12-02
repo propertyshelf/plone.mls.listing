@@ -61,6 +61,12 @@ INTERIOR_AREA_VALUES = [
     ('--MAXVALUE--', _(u'Max')),
 ]
 
+WORKFLOW_STATE_VALUES = [
+    ('Active', u'Active'),
+    ('PendingSale', u'PendingSale'),
+    ('Sold', u'Sold'),
+]
+
 
 @implementer(IVocabularyFactory)
 class BasePriorityVocabulary(object):
@@ -309,3 +315,15 @@ class InteriorAreaVocabulary(object):
         return SimpleVocabulary(items)
 
 InteriorAreaVocabularyFactory = InteriorAreaVocabulary()
+
+
+@implementer(IVocabularyFactory)
+class WorkflowStatesVocabulary(object):
+
+    def __call__(self, context):
+        items = []
+        for item in WORKFLOW_STATE_VALUES:
+            items.append(SimpleTerm(item[0], item[0], item[1]))
+        return SimpleVocabulary(items)
+
+WorkflowStatesVocabularyFactory = WorkflowStatesVocabulary()
