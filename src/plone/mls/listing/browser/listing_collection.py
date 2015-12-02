@@ -98,12 +98,34 @@ class ListingCollectionViewlet(ViewletBase):
 class IListingCollectionConfiguration(Interface):
     """Listing Collection Configuration Form."""
 
+    overriding_agency_id = schema.TextLine(
+        description=_(
+            u'Specify an agency ID (or a comma-separated list of multiple '
+            u'agency IDs) that will override the Base/Local MLS Settings. If '
+            u'left blank, the agency ID from the Base/Local MLS settings will '
+            u'be used.'
+        ),
+        required=False,
+        title=_(u'Overriding Agency IDs'),
+    )
+
     agency_listings = schema.Bool(
         description=_(
             u'If activated, only listings of the configured agency are shown.',
         ),
         required=False,
         title=_(u'Agency Listings'),
+    )
+
+    agency_priority = schema.Bool(
+        description=_(
+            u'If selected, the results will first display the listings from '
+            u'this agency and then display the rest of the applicable '
+            u'listings. This option will supersede the \'Agency Listings\' '
+            u'option if selected.'
+        ),
+        required=False,
+        title=_(u'Agency Priority Ordering'),
     )
 
     listing_type = schema.Tuple(

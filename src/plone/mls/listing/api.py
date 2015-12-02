@@ -225,8 +225,13 @@ def search(params={}, batching=True, context=None, config=None):
             listing_types = listing_types.intersection(search_listing_types)
         params['listing_type'] = ','.join(listing_types)
     agency_listings = params.pop('agency_listings', False)
-    if agency_listings is True:
-        search_params['agency_id'] = settings.get('agency_id', None)
+    agency_priority = params.get('agency_priority', False)
+    if agency_listings is True or agency_priority is True:
+        agency_id = params.pop('overriding_agency_id', None)
+        if not agency_id:
+            agency_id = settings.get('agency_id', None)
+        agency_id = agency_id.replace(' ', '')
+        search_params['agency_id'] = agency_id
     search_params.update(params)
     base_url = settings.get('mls_site', None)
     api_key = settings.get('mls_key', None)
