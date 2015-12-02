@@ -115,6 +115,15 @@ class IListingCollectionConfiguration(Interface):
         ),
     )
 
+    workflow_state = schema.Tuple(
+        default=('Active', 'PendingSale', 'Sold', ),
+        required=False,
+        title=_(u'Workflow Status'),
+        value_type=schema.Choice(
+            source='plone.mls.listing.WorkflowStates'
+        ),
+    )
+
     location_state = schema.Tuple(
         required=False,
         title=_(u'State'),
@@ -260,6 +269,7 @@ class ListingCollectionConfiguration(form.Form):
     fields = field.Fields(IListingCollectionConfiguration)
     fields['geographic_type'].widgetFactory = checkbox.CheckBoxFieldWidget
     fields['listing_type'].widgetFactory = checkbox.CheckBoxFieldWidget
+    fields['workflow_state'].widgetFactory = checkbox.CheckBoxFieldWidget
     fields['location_type'].widgetFactory = checkbox.CheckBoxFieldWidget
     fields['object_type'].widgetFactory = checkbox.CheckBoxFieldWidget
     fields['ownership_type'].widgetFactory = checkbox.CheckBoxFieldWidget
