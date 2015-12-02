@@ -149,6 +149,58 @@ class IListingCollectionConfiguration(Interface):
         title=_(u'Price (Max)'),
     )
 
+    lot_size_min = schema.Int(
+        required=False,
+        title=_(u'Lot Size in square meters (Min)'),
+    )
+
+    lot_size_max = schema.Int(
+        required=False,
+        title=_(u'Lot Size in square meters (Max)'),
+    )
+
+    floor_area_min = schema.Int(
+        required=False,
+        title=_(u'Interior Area in square meters (Min)'),
+        description=_(
+            u'Reminder: All land listings will be excluded once any value is '
+            u'set.'
+        ),
+    )
+
+    floor_area_max = schema.Int(
+        required=False,
+        title=_(u'Interior Area in square meters (Max)'),
+    )
+
+    beds_min = schema.Int(
+        required=False,
+        title=_(u'Bedrooms (Min)'),
+        description=_(
+            u'Reminder: All land listings will be excluded once any value is '
+            u'set as well as any commercial listings with no bedrooms.'
+        ),
+    )
+
+    beds_max = schema.Int(
+        required=False,
+        title=_(u'Bedrooms (Max)'),
+    )
+
+    baths_min = schema.Int(
+        required=False,
+        title=_(u'Bathrooms (Min)'),
+        description=_(
+            u'Reminder: All land listings will be excluded once any value is '
+            u'set as well as any commercial listings with no bathrooms.'
+        ),
+    )
+
+    baths_max = schema.Int(
+        required=False,
+        title=_(u'Bathrooms (Max)'),
+    )
+
     location_type = schema.Tuple(
         required=False,
         title=_(u'Location Type'),
