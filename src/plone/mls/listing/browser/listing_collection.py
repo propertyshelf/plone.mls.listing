@@ -98,6 +98,13 @@ class ListingCollectionViewlet(ViewletBase):
 class IListingCollectionConfiguration(Interface):
     """Listing Collection Configuration Form."""
 
+    sort_on = schema.Choice(
+        default='last_activated_date',
+        required=True,
+        title=_(u'Sort by'),
+        source='plone.mls.listing.SortIndices',
+    )
+
     overriding_agency_id = schema.TextLine(
         description=_(
             u'Specify an agency ID (or a comma-separated list of multiple '

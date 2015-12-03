@@ -105,6 +105,11 @@
       />
 
   <utility
+      component=".vocabularies.SortIndicesVocabularyFactory"
+      name="plone.mls.listing.SortIndices"
+      />
+
+  <utility
       component=".vocabularies.WorkflowStatesVocabularyFactory"
       name="plone.mls.listing.WorkflowStates"
       />

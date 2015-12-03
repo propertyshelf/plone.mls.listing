@@ -61,6 +61,31 @@ INTERIOR_AREA_VALUES = [
     ('--MAXVALUE--', _(u'Max')),
 ]
 
+SORT_INDICES = [
+    ('size_under_roof_area', u'Area Under Roof'),
+    ('number_of_bedrooms', u'Bedrooms'),
+    ('sortable_city', u'City'),
+    ('location_country', u'Country'),
+    ('location_county', u'County'),
+    ('location_district', u'District'),
+    ('development', u'Development'),
+    ('size_interior_area', u'Interior Area'),
+    ('last_activated_date', u'Last Activated Date'),
+    ('size_living_area', u'Living Area'),
+    ('size_lot', u'Lot Size'),
+    ('price_asking', u'Price Asking (RS, CS, LL)'),
+    ('price_high_season_month', u'Price High Season Month (RL)'),
+    ('price_low_season_month', u'Price Low Season Month (RL)'),
+    ('price_longterm_month', u'Price Longterm Month (CL)'),
+    ('number_of_rooms', u'Rooms'),
+    ('sleeping_capacity', u'Sleeping Capacity'),
+    ('location_state', u'State'),
+    ('sortable_title', u'Title'),
+    ('unit_floor', u'Unit Floor'),
+    ('sortable_workflow_state', u'Workflow Status'),
+    ('year_built', u'Year Built'),
+]
+
 WORKFLOW_STATE_VALUES = [
     ('Active', u'Active'),
     ('PendingSale', u'PendingSale'),
@@ -315,6 +340,18 @@ class InteriorAreaVocabulary(object):
         return SimpleVocabulary(items)
 
 InteriorAreaVocabularyFactory = InteriorAreaVocabulary()
+
+
+@implementer(IVocabularyFactory)
+class SortIndicesVocabulary(object):
+
+    def __call__(self, context):
+        items = []
+        for item in SORT_INDICES:
+            items.append(SimpleTerm(item[0], item[0], item[1]))
+        return SimpleVocabulary(items)
+
+SortIndicesVocabularyFactory = SortIndicesVocabulary()
 
 
 @implementer(IVocabularyFactory)
