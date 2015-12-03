@@ -105,6 +105,12 @@ class IListingCollectionConfiguration(Interface):
         source='plone.mls.listing.SortIndices',
     )
 
+    reverse = schema.Bool(
+        default=True,
+        required=False,
+        title=(u'Reverse'),
+    )
+
     overriding_agency_id = schema.TextLine(
         description=_(
             u'Specify an agency ID (or a comma-separated list of multiple '
