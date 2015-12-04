@@ -5,12 +5,12 @@ Changelog
 1.2 (unreleased)
 ----------------
 
-- [MLSPE-97] Add workflow state options for Active, PendingSale, and Sold to listing collection configuration.
-- [MLSPE-98] Add sort options to configuration for Listing Collections.
-- [MLSPE-99] Add the reverse sort parameter as a configurable option in Listing Collections.
-- [MLSPE-100] Add the agency priority option and override agency ID option to Listing Collections.
-- [MLSPE-105] Add lot size, interior area, bedroom, bathroom configuration options to listing collections.
-- [MLSPE-108] Bugfix: special characters in geocoordinates cause errors when trying to view the listing.
+- Add workflow state options for Active, PendingSale, and Sold to listing collection configuration.
+- Add sort options to configuration for Listing Collections.
+- Add the reverse sort parameter as a configurable option in Listing Collections.
+- Add the agency priority option and override agency ID option to Listing Collections.
+- Add lot size, interior area, bedroom, bathroom configuration options to listing collections.
+- Bugfix: special characters in geocoordinates cause errors when trying to view the listing.
 
 
 1.1 (2015-10-06)
