@@ -61,7 +61,7 @@ FIELD_ORDER = {
     ],
     'row_sizes': [
         'lot_size',
-        'interior_area',
+        'floor_area',
     ],
     'row_other': [
         'air_condition',
@@ -242,8 +242,8 @@ class IListingSearchForm(form.Schema):
         ),
     )
 
-    form.widget(interior_area=ValueRangeFieldWidget)
-    interior_area = schema.Tuple(
+    form.widget(floor_area=ValueRangeFieldWidget)
+    floor_area = schema.Tuple(
         default=('--MINVALUE--', '--MAXVALUE--'),
         required=False,
         title=_(u'Interior Area'),
@@ -263,7 +263,7 @@ class ListingSearchForm(form.Form):
     fields['air_condition'].widgetFactory = radio.RadioFieldWidget
     fields['baths'].widgetFactory = ValueRangeFieldWidget
     fields['lot_size'].widgetFactory = ValueRangeFieldWidget
-    fields['interior_area'].widgetFactory = ValueRangeFieldWidget
+    fields['floor_area'].widgetFactory = ValueRangeFieldWidget
     fields['beds'].widgetFactory = ValueRangeFieldWidget
     fields['geographic_type'].widgetFactory = checkbox.CheckBoxFieldWidget
     fields['jacuzzi'].widgetFactory = radio.RadioFieldWidget

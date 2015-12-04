@@ -58,7 +58,7 @@ FIELD_ORDER = {
     ],
     'row_sizes': [
         'lot_size',
-        'interior_area',
+        'floor_area',
     ],
     'row_filter': [
         'air_condition',
@@ -83,7 +83,7 @@ class QuickSearchForm(form.Form):
     fields['baths'].widgetFactory = ValueRangeFieldWidget
     fields['beds'].widgetFactory = ValueRangeFieldWidget
     fields['lot_size'].widgetFactory = ValueRangeFieldWidget
-    fields['interior_area'].widgetFactory = ValueRangeFieldWidget
+    fields['floor_area'].widgetFactory = ValueRangeFieldWidget
 
     # Additional fields for filtering.
     fields['geographic_type'].widgetFactory = checkbox.CheckBoxFieldWidget
