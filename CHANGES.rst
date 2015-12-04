@@ -9,7 +9,6 @@ Changelog
 - [MLSPE-98] Add sort options to configuration for Listing Collections.
 - [MLSPE-99] Add the reverse sort parameter as a configurable option in Listing Collections.
 - [MLSPE-100] Add the agency priority option and override agency ID option to Listing Collections.
-- [MLSPE-102] Bugfix: The interior area search is now mapped to the 'floor_area' index, which applies to both residential and commercial types.
 - [MLSPE-105] Add lot size, interior area, bedroom, bathroom configuration options to listing collections.
 - [MLSPE-108] Bugfix: special characters in geocoordinates cause errors when trying to view the listing.
 
