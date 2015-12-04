@@ -2,7 +2,7 @@ Changelog
 =========
 
 
-1.2 (unreleased)
+1.2 (2015-12-3)
 ----------------
 
 - Add workflow state options for Active, PendingSale, and Sold to listing collection configuration.
