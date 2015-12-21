@@ -40,15 +40,15 @@ MAP_JS = """
 var isTouch = false;
 var map;
 
-window.addEventListener('touchmove', function MoveDetector(){{
+window.addEventListener('touchmove', function MoveDetector() {
     isTouch = true;
     window.removeEventListener('touchmove', MoveDetector);
     map = initializeMap();
-}});
+});
 
-function initializeMap() {{
+function initializeMap() {
     var center = new google.maps.LatLng(%(lat)s, %(lng)s);
-    var myOptions = {{
+    var myOptions = {
         zoom: %(zoom)s,
         center: center,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
@@ -58,7 +58,7 @@ function initializeMap() {{
         streetViewControl: true,
         scrollwheel: false,
         draggable:!isTouch
-    }};
+    };
 
     var map = new google.maps.Map(
         document.getElementById('%(map_id)s'),
@@ -66,15 +66,15 @@ function initializeMap() {{
     );
 
     var has_marker = true;
-    if(has_marker) {{
+    if(has_marker) {
         var myLatlng = new google.maps.LatLng(%(lat)s, %(lng)s);
-        var marker = new google.maps.Marker({{
+        var marker = new google.maps.Marker({
             position: myLatlng,
             map: map
-        }});
-    }}
+        });
+    }
     return map;
-}};
+};
 """
 
 
