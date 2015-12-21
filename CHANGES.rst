@@ -1,6 +1,11 @@
 Changelog
 =========
 
+1.3 (unreleased)
+----------------
+
+- Fixed wrong JS code for map in listing details.
+
 
 1.2 (2015-12-3)
 ----------------
