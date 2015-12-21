@@ -5,6 +5,8 @@ Changelog
 ----------------
 
 - Fixed wrong JS code for map in listing details.
+- Bugfix: The interior area search is now mapped to the 'floor_area' index, which applies to both residential and commercial types.
+
 
 
 1.2 (2015-12-3)
