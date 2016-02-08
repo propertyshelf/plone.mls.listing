@@ -3,7 +3,7 @@
  * Copyright (c) 2010, Aino
  * Licensed under the MIT license.
  */
- 
+
 .galleria-container {
     border: 1px solid #DDD;
     position: relative;
@@ -82,7 +82,7 @@
     font: bold 12px/1.1 arial,sans-serif;
     margin: 0;
     color: #555;
-	margin-bottom: 7px;
+    margin-bottom: 7px;
 }
 .galleria-info-description {
     font: italic 12px/1.4 georgia,serif;

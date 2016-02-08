@@ -17,7 +17,7 @@
 
   <!-- Schema interface. -->
   <!-- ================= -->
-  <property name="schema">plone.mls.listing.content.listing.IListing</property> 
+  <property name="schema">plone.mls.listing.content.listing.IListing</property>
 
   <!-- Class used for content items. -->
   <!-- ============================= -->

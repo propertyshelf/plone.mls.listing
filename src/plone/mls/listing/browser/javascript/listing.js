@@ -121,7 +121,7 @@ jQuery(function($) {
     if ($('.portletQuickSearch #formfield-form-widgets-jacuzzi input:checked').val() != '--NOVALUE--') {
       $('.portletQuickSearch #formfield-form-widgets-jacuzzi > .collapser').click();
     }
-    
+
   }
 
 });

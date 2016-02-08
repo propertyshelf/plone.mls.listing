@@ -47,7 +47,7 @@ var undef,
     },
 
     // list of Galleria events
-    _eventlist = 'data ready thumbnail loadstart loadfinish image play pause progress ' + 
+    _eventlist = 'data ready thumbnail loadstart loadfinish image play pause progress ' +
               'fullscreen_enter fullscreen_exit idle_enter idle_exit rescale ' +
               'lightbox_open lightbox_close lightbox_image',
 
@@ -1663,7 +1663,7 @@ Galleria.prototype = {
                             self._run();
                         }, 1);
                     } else {
-                        
+
                         self._run();
                     }
                 },
@@ -1787,7 +1787,7 @@ Galleria.prototype = {
         ) );
 
         this.setCounter('&#8211;');
-        
+
         Utils.hide( self.get('tooltip') );
 
         // add images to the controls
@@ -2070,7 +2070,7 @@ Galleria.prototype = {
 
             this._thumbnails.push( thumb );
         }
-	},
+    },
 
     // the internal _run method should be called after loading data into galleria
     // makes sure the gallery has proper measurements before triggering ready
@@ -2078,23 +2078,23 @@ Galleria.prototype = {
 
         var self = this;
 
-		self._createThumbnails();
+        self._createThumbnails();
 
         // make sure we have a stageHeight && stageWidth
 
         Utils.wait({
 
             until: function() {
-                
+
                 // Opera crap
                 if ( Galleria.OPERA ) {
                     self.$( 'stage' ).css( 'display', 'inline-block' );
                 }
-                
+
                 self._stageWidth  = self.$( 'stage' ).width();
                 self._stageHeight = self.$( 'stage' ).height();
-                
-                return( self._stageWidth && 
+
+                return( self._stageWidth &&
                         self._stageHeight > 50 ); // what is an acceptable height?
             },
 
@@ -2220,23 +2220,23 @@ Galleria.prototype = {
 
     /**
         Adds and/or removes images from the gallery
-		Works just like Array.splice
-		https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/splice
+        Works just like Array.splice
+        https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/splice
 
         @example this.splice( 2, 4 ); // removes 4 images after the second image
 
         @returns Instance
     */
 
-	splice: function() {
-		Array.prototype.splice.apply( this._data, Utils.array( arguments ) );
-		return this._parseData()._createThumbnails();
-	},
+    splice: function() {
+        Array.prototype.splice.apply( this._data, Utils.array( arguments ) );
+        return this._parseData()._createThumbnails();
+    },
 
-	/**
+    /**
         Append images to the gallery
-		Works just like Array.push
-		https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/push
+        Works just like Array.push
+        https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/push
 
         @example this.push({
             image: 'image1.jpg'
@@ -2245,10 +2245,10 @@ Galleria.prototype = {
         @returns Instance
     */
 
-	push: function() {
-		Array.prototype.push.apply( this._data, Utils.array( arguments ) );
-		return this._parseData()._createThumbnails();
-	},
+    push: function() {
+        Array.prototype.push.apply( this._data, Utils.array( arguments ) );
+        return this._parseData()._createThumbnails();
+    },
 
     _getActive: function() {
         return this._controls.getActive();
@@ -3323,11 +3323,11 @@ this.prependChild( 'info', 'myElement' );
             played = 0,
             interval = 20,
             now = Utils.timestamp(),
-			timer_id = 'play' + this._id;
+            timer_id = 'play' + this._id;
 
         if ( this._playing ) {
 
-			Utils.clearTimer( timer_id );
+            Utils.clearTimer( timer_id );
 
             var fn = function() {
 
@@ -3383,7 +3383,7 @@ this.prependChild( 'info', 'myElement' );
             var count = this.$( 'counter' ),
                 opacity = count.css( 'opacity' ),
                 style = count.attr('style');
-                
+
             if ( style && parseInt( opacity, 10 ) === 1) {
                 count.attr('style', style.replace(/filter[^\;]+\;/i,''));
             } else {
@@ -3553,22 +3553,22 @@ Galleria.addTheme = function( theme ) {
 
     var css = false,
         reg;
-    
+
     if ( typeof theme.css === 'string' ) {
-        
+
         // look for manually added CSS
         $('link').each(function( i, link ) {
             reg = new RegExp( theme.css );
             if ( reg.test( link.href ) ) {
-                
+
                 // we found the css
                 css = true;
                 Galleria.theme = theme;
-                
+
                 return false;
             }
         });
-        
+
         // else look for the absolute path and load the CSS dynamic
         if ( !css ) {
 
@@ -3595,7 +3595,7 @@ Galleria.addTheme = function( theme ) {
             Galleria.raise('No theme CSS loaded');
         }
     } else {
-        
+
         // pass
         Galleria.theme = theme;
     }
@@ -3800,9 +3800,9 @@ Galleria.Picture.prototype = {
 
             // create the image
             image = new Image(),
-            
+
             onload = function() {
-                
+
                 // force chrome to reload the image in case of cache bug
                 // set a limit just in case
                 if ( ( !this.width || !this.height ) && i < 1000 ) {
@@ -3821,7 +3821,7 @@ Galleria.Picture.prototype = {
 
         // force a block display
         $( image ).css( 'display', 'block');
-        
+
         if ( self.cache[ src ] ) {
             // no need to onload if the image is cached
             image.src = src;
@@ -4059,7 +4059,7 @@ Galleria.Picture.prototype = {
     }
 };
 
-// our own easings 
+// our own easings
 $.extend( $.easing, {
 
     galleria: function (_, t, b, c, d) {
