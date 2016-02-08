@@ -185,6 +185,12 @@
                 </dd>
               </tal:group>
             </tal:groups>
+            <tal:calendar tal:define="item view/availability_calendar | nothing" tal:condition="item">
+              <dt id="fieldsetlegend-calendar"><span i18n:translate="">Calendar</span></dt>
+              <dd>
+                <div tal:content="structure item">[EMBEDDING_CODE]</div>
+              </dd>
+            </tal:calendar>
           </dl>
 
           <tal:map tal:define="js view/javascript_map | nothing" tal:condition="js">

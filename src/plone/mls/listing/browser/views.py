@@ -177,6 +177,11 @@ class ListingDetails(BrowserView):
             return self.data.get('property_video_embedding', None)
 
     @property
+    def availability_calendar(self):
+        if self.data is not None:
+            return self.data.get('availability_calendar', None)
+
+    @property
     def config(self):
         """Get all annotations to for this content."""
         return IAnnotations(self.context)
