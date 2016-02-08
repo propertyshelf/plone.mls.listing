@@ -186,15 +186,14 @@
               </tal:group>
             </tal:groups>
             <tal:map tal:define="js view/javascript_map | nothing" tal:condition="js">
-               <dt id="fieldsetlegend-map"><span i18n:translate="">Map</span></dt>
-               <dd>
-                  <section class="listing-map">
-                    <div class="map__canvas" id="map"
-                        i18n:translate=""
-                        tal:attributes="id view/map_id">Please enable JavaScript to show the Map.</div>
-                    <script type="text/javascript" tal:content="structure js"></script>
-                  </section>
-               </dd>
+              <dt id="fieldsetlegend-map"><span i18n:translate="">Map</span></dt>
+              <dd>
+                <section class="listing-map">
+                  <div class="map__canvas" id="map" tal:attributes="id view/map_id"></div>
+                  <script type="text/javascript" tal:content="structure js"></script>
+                  <noscript i18n:translate="">Please enable JavaScript to show the Map.</noscript>
+                </section>
+              </dd>
             </tal:map>
           </dl>
 
