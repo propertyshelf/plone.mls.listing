@@ -4,7 +4,8 @@ Changelog
 1.4 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Show availability calendar for rental listings, if available.
+- Listing map is now shown below the listing details section.
 
 
 1.3 (2015-12-22)
