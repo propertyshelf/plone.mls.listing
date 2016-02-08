@@ -176,8 +176,40 @@ class ListingDetails(BrowserView):
         if self.data is not None:
             return self.data.get('property_video_embedding', None)
 
+    def is_calendar_visibile(self):
+        """Check if the availability calendar can be shown."""
+        if self.registry is not None:
+            try:
+                settings = self.registry.forInterface(IMLSUISettings)
+            except:
+                logger.warning('MLS UI settings not available.')
+                return False
+        else:
+            return False
+
+        # Check if the calender should be shown at all.
+        enabled = getattr(settings, 'availability_calendar')
+        if not enabled:
+            return False
+
+        # Check if the calendar should not be hidden for 3rd party listings.
+        agency_only = getattr(settings, 'availability_calendar_agency')
+        if not agency_only:
+            return True
+
+        # Check if the listing is owned by the agency.
+        mls_settings = api.get_settings(context=self.context)
+        agency_id = mls_settings.get('agency_id', None)
+        contact_data = self.data.get('contact', None)
+        agency = contact_data.get('agency', {})
+        if agency.get('id', {}).get('value', None) == agency_id:
+            return True
+        return False
+
     @property
     def availability_calendar(self):
+        if not self.is_calendar_visibile():
+            return
         if self.data is not None:
             return self.data.get('availability_calendar', None)
 

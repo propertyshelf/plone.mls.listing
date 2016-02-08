@@ -111,6 +111,27 @@ class IMLSUISettings(Interface):
         values=[u'galleria', u'fotorama'],
     )
 
+    availability_calendar = schema.Bool(
+        default=True,
+        description=_(
+            u'If activated, the availability calendar (if configured for '
+            u'a listing) will be shown for rental listings.'
+        ),
+        required=False,
+        title=_(u'Enable Availability Calendar'),
+    )
+
+    availability_calendar_agency = schema.Bool(
+        default=True,
+        description=_(
+            u'If activated, the availability calendar (if configured for '
+            u'a listing) will only be shown for listings of the configured '
+            u'agency.'
+        ),
+        required=False,
+        title=_(u'Show Availability Calendar only for my agency listings'),
+    )
+
 
 FIELDS_AGENCY = (
     'agency_name',
