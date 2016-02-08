@@ -255,7 +255,7 @@ def migrate_to_1013(context):
     """"Migrate from 1012 to 1013
     * update existing ListingCollections
     """
-    request = getattr(context, "REQUEST", None)
+    request = getattr(context, 'REQUEST', None)
     languages = getToolByName(context, 'portal_languages')
 
     state_vocab_factory = getUtility(

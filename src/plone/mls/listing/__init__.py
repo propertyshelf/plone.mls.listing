@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Plone support for MLS Listings."""
 
 PRODUCT_NAME = 'plone.mls.listing'
