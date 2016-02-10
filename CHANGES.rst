@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4 (unreleased)
+1.4 (2016-02-10)
 ----------------
 
 - Show availability calendar for rental listings, if available.
