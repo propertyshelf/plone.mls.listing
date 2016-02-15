@@ -11,7 +11,9 @@ from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets.portlets import base
+from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
@@ -347,6 +349,27 @@ class IAgentContactPortlet(IPortletDataProvider):
         title=_('Description'),
     )
 
+    country_visible = schema.Bool(
+        required=False,
+        title=_(u'Show Country field in email form?')
+    )
+
+    zipcode_visible = schema.Bool(
+        required=False,
+        title=_(u'Show ZIP field in email form?')
+    )
+
+    accept_tcs_visible = schema.Bool(
+        required=False,
+        title=_(u'Show Accept Terms & Conditions field in email form?')
+    )
+
+    accept_tcs_target = schema.Choice(
+        required=False,
+        source=SearchableTextSourceBinder({}, default_query='path:'),
+        title=_(u'Terms & Conditions page'),
+    )
+
     mail_sent_msg = schema.Text(
         description=_(
             u'Thank you message that is shown after the mail was sent.'
@@ -391,6 +414,12 @@ class Assignment(base.Assignment):
 
     heading = FieldProperty(IAgentContactPortlet['heading'])
     description = FieldProperty(IAgentContactPortlet['description'])
+    country_visible = FieldProperty(IAgentContactPortlet['country_visible'])
+    zipcode_visible = FieldProperty(IAgentContactPortlet['zipcode_visible'])
+    accept_tcs_visible = FieldProperty(
+        IAgentContactPortlet['accept_tcs_visible']
+    )
+    accept_tcs_target = None
     mail_sent_msg = FieldProperty(IAgentContactPortlet['mail_sent_msg'])
     recipient = FieldProperty(IAgentContactPortlet['recipient'])
     bcc = FieldProperty(IAgentContactPortlet['bcc'])
@@ -398,11 +427,27 @@ class Assignment(base.Assignment):
 
     title = _(u'Agent Contact')
 
-    def __init__(self, heading=None, description=None, mail_sent_msg=None,
-                 bcc=None, reject_links=None):
+    def __init__(
+        self,
+        heading=None,
+        description=None,
+        country_visible=None,
+        zipcode_visible=None,
+        accept_tcs_visible=None,
+        accept_tcs_target=None,
+        mail_sent_msg=None,
+        recipient=None,
+        bcc=None,
+        reject_links=None,
+    ):
         self.heading = heading
         self.description = description
+        self.country_visible = country_visible
+        self.zipcode_visible = zipcode_visible
+        self.accept_tcs_visible = accept_tcs_visible
+        self.accept_tcs_target = accept_tcs_target
         self.mail_sent_msg = mail_sent_msg
+        self.recipient = recipient
         self.bcc = bcc
         self.reject_links = reject_links
 
@@ -456,6 +501,7 @@ class Renderer(base.Renderer):
 class AddForm(base.AddForm):
     """Add form for the Agent Contact portlet."""
     form_fields = formlib.form.Fields(IAgentContactPortlet)
+    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Add Agent Information portlet')
     description = MSG_PORTLET_DESCRIPTION
 
@@ -468,5 +514,6 @@ class AddForm(base.AddForm):
 class EditForm(base.EditForm):
     """Edit form for the Agent Contact portlet"""
     form_fields = formlib.form.Fields(IAgentContactPortlet)
+    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Edit Agent Information portlet')
     description = MSG_PORTLET_DESCRIPTION
