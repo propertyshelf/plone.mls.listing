@@ -125,6 +125,23 @@ class IEmailForm(Interface):
         title=PMF(u'label_sender_from_address', default=u'E-Mail'),
     )
 
+    country = schema.TextLine(
+        description=_(u'Please enter your country of residence.'),
+        required=True,
+        title=_(u'Country'),
+    )
+
+    zipcode = schema.TextLine(
+        description=_(u'Please enter your ZIP code.'),
+        required=True,
+        title=_(u'ZIP'),
+    )
+
+    accept_tcs = schema.Bool(
+        required=True,
+        title=_(u'I accept the Terms & Conditions'),
+    )
+
     phone = schema.TextLine(
         description=_(
             u'Please enter a phone number. Some agents will not respond '
