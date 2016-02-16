@@ -31,6 +31,7 @@ from zope.schema.fieldproperty import FieldProperty
 
 # local imports
 from plone.mls.listing.browser.interfaces import IListingDetails
+from plone.mls.listing.browser.tcwidget.widget import TCFieldWidget
 from plone.mls.listing.i18n import _
 
 # starting from 0.6.0 version plone.z3cform has IWrappedForm interface
@@ -209,7 +210,6 @@ class IEmailForm(Interface):
 
     accept_tcs = schema.Bool(
         constraint=validate_accept,
-        description=_(u'Required'),
         required=True,
         title=_(u'I accept the Terms & Conditions'),
     )
@@ -267,6 +267,9 @@ class EmailForm(form.Form):
 
         self.fields = field.Fields(IEmailForm).omit(*omitted)
 
+        if 'accept_tcs' in self.fields:
+            self.fields['accept_tcs'].widgetFactory = TCFieldWidget
+
         if 'captcha' in self.fields:
             self.fields['captcha'].widgetFactory = CaptchaFieldWidget
         super(EmailForm, self).update()
@@ -282,6 +285,8 @@ class EmailForm(form.Form):
         )
         self.widgets['subject'].mode = HIDDEN_MODE
         self.widgets['subject'].value = subject
+        if 'accept_tcs' in self.widgets:
+            self.widgets['accept_tcs'].target = self.data.accept_tcs_target
 
         if not self.check_for_spam:
             schema_field = copy.copy(self.widgets['message'].field)
