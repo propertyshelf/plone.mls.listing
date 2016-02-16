@@ -262,6 +262,8 @@ class EmailForm(form.Form):
             omitted.append('zipcode')
         if not self.data.accept_tcs_visible:
             omitted.append('accept_tcs')
+        if not self.data.captcha_visible:
+            omitted.append('captcha')
 
         self.fields = field.Fields(IEmailForm).omit(*omitted)
 
@@ -405,6 +407,12 @@ class IAgentContactPortlet(IPortletDataProvider):
         title=_(u'Terms & Conditions page'),
     )
 
+    captcha_visible = schema.Bool(
+        default=True,
+        required=False,
+        title=(u'Show Captcha field in email form?'),
+    )
+
     mail_sent_msg = schema.Text(
         description=_(
             u'Thank you message that is shown after the mail was sent.'
@@ -455,6 +463,7 @@ class Assignment(base.Assignment):
         IAgentContactPortlet['accept_tcs_visible']
     )
     accept_tcs_target = None
+    captcha_visible = FieldProperty(IAgentContactPortlet['captcha_visible'])
     mail_sent_msg = FieldProperty(IAgentContactPortlet['mail_sent_msg'])
     recipient = FieldProperty(IAgentContactPortlet['recipient'])
     bcc = FieldProperty(IAgentContactPortlet['bcc'])
@@ -470,6 +479,7 @@ class Assignment(base.Assignment):
         zipcode_visible=None,
         accept_tcs_visible=None,
         accept_tcs_target=None,
+        captcha_visible=None,
         mail_sent_msg=None,
         recipient=None,
         bcc=None,
@@ -481,6 +491,7 @@ class Assignment(base.Assignment):
         self.zipcode_visible = zipcode_visible
         self.accept_tcs_visible = accept_tcs_visible
         self.accept_tcs_target = accept_tcs_target
+        self.captcha_visible = captcha_visible
         self.mail_sent_msg = mail_sent_msg
         self.recipient = recipient
         self.bcc = bcc
