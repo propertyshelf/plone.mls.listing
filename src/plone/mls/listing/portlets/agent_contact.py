@@ -11,7 +11,9 @@ from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets.portlets import base
+from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
@@ -19,11 +21,17 @@ from z3c.form import button, field, validator
 from z3c.form.interfaces import HIDDEN_MODE, IFormLayer
 from zope import formlib, schema
 from zope.i18n import translate
-from zope.interface import Interface, Invalid, alsoProvides, implementer
+from zope.interface import (
+    Interface,
+    Invalid,
+    alsoProvides,
+    implementer,
+)
 from zope.schema.fieldproperty import FieldProperty
 
 # local imports
 from plone.mls.listing.browser.interfaces import IListingDetails
+from plone.mls.listing.browser.tcwidget.widget import TCFieldWidget
 from plone.mls.listing.i18n import _
 
 # starting from 0.6.0 version plone.z3cform has IWrappedForm interface
@@ -47,6 +55,9 @@ EMAIL_TEMPLATE = _(
     u'Listing URL: {url}\n'
     u'\n'
     u'Phone Number: {phone}\n'
+    u'Country: {country}\n'
+    u'ZIP Code: {zipcode}\n'
+    u'T&C accepted: {accept_tcs}\n'
     u'\n'
     u'Message:\n'
     u'{message}'
@@ -58,6 +69,10 @@ EMAIL_TEMPLATE_RL = _(
     u'Listing URL: {url}\n'
     u'\n'
     u'Phone Number: {phone}\n'
+    u'Country: {country}\n'
+    u'ZIP Code: {zipcode}\n'
+    u'T&C accepted: {accept_tcs}\n'
+    u'\n'
     u'Arrival Date: {arrival_date}\n'
     u'Departure Date: {departure_date}\n'
     u'Adults: {adults}\n'
@@ -81,6 +96,12 @@ check_email = re.compile(
 
 check_for_url = re.compile(
     r'http[s]?://').search
+
+
+def validate_accept(value):
+    if value is not True:
+        return False
+    return True
 
 
 def validate_email(value):
@@ -123,6 +144,18 @@ class IEmailForm(Interface):
         ),
         required=True,
         title=PMF(u'label_sender_from_address', default=u'E-Mail'),
+    )
+
+    country = schema.TextLine(
+        description=_(u'Please enter your country of residence.'),
+        required=True,
+        title=_(u'Country'),
+    )
+
+    zipcode = schema.TextLine(
+        description=_(u'Please enter your ZIP code.'),
+        required=True,
+        title=_(u'ZIP'),
     )
 
     phone = schema.TextLine(
@@ -175,11 +208,23 @@ class IEmailForm(Interface):
         title=_(u'Captcha'),
     )
 
+    accept_tcs = schema.Bool(
+        constraint=validate_accept,
+        required=True,
+        title=_(u'I accept the Terms & Conditions'),
+    )
+
 
 class EmailForm(form.Form):
     """Email Form."""
     fields = field.Fields(IEmailForm).omit(
-        'arrival_date', 'departure_date', 'adults', 'children',
+        'country',
+        'zipcode',
+        'accept_tcs',
+        'arrival_date',
+        'departure_date',
+        'adults',
+        'children',
     )
     ignoreContext = True
     method = 'post'
@@ -203,9 +248,30 @@ class EmailForm(form.Form):
         return self.listing_info.get('listing_id', '').lower().startswith('rl')
 
     def update(self):
-        if self.is_residential_lease:
-            self.fields = field.Fields(IEmailForm)
-        self.fields['captcha'].widgetFactory = CaptchaFieldWidget
+        omitted = []
+        if not self.is_residential_lease:
+            omitted = [
+                'arrival_date',
+                'departure_date',
+                'adults',
+                'children',
+            ]
+        if not self.data.country_visible:
+            omitted.append('country')
+        if not self.data.zipcode_visible:
+            omitted.append('zipcode')
+        if not self.data.accept_tcs_visible:
+            omitted.append('accept_tcs')
+        if not self.data.captcha_visible:
+            omitted.append('captcha')
+
+        self.fields = field.Fields(IEmailForm).omit(*omitted)
+
+        if 'accept_tcs' in self.fields:
+            self.fields['accept_tcs'].widgetFactory = TCFieldWidget
+
+        if 'captcha' in self.fields:
+            self.fields['captcha'].widgetFactory = CaptchaFieldWidget
         super(EmailForm, self).update()
 
     def updateWidgets(self):
@@ -219,6 +285,8 @@ class EmailForm(form.Form):
         )
         self.widgets['subject'].mode = HIDDEN_MODE
         self.widgets['subject'].value = subject
+        if 'accept_tcs' in self.widgets:
+            self.widgets['accept_tcs'].target = self.data.accept_tcs_target
 
         if not self.check_for_spam:
             schema_field = copy.copy(self.widgets['message'].field)
@@ -323,6 +391,33 @@ class IAgentContactPortlet(IPortletDataProvider):
         title=_('Description'),
     )
 
+    country_visible = schema.Bool(
+        required=False,
+        title=_(u'Show Country field in email form?')
+    )
+
+    zipcode_visible = schema.Bool(
+        required=False,
+        title=_(u'Show ZIP field in email form?')
+    )
+
+    accept_tcs_visible = schema.Bool(
+        required=False,
+        title=_(u'Show Accept Terms & Conditions field in email form?')
+    )
+
+    accept_tcs_target = schema.Choice(
+        required=False,
+        source=SearchableTextSourceBinder({}, default_query='path:'),
+        title=_(u'Terms & Conditions page'),
+    )
+
+    captcha_visible = schema.Bool(
+        default=True,
+        required=False,
+        title=(u'Show Captcha field in email form?'),
+    )
+
     mail_sent_msg = schema.Text(
         description=_(
             u'Thank you message that is shown after the mail was sent.'
@@ -367,6 +462,13 @@ class Assignment(base.Assignment):
 
     heading = FieldProperty(IAgentContactPortlet['heading'])
     description = FieldProperty(IAgentContactPortlet['description'])
+    country_visible = FieldProperty(IAgentContactPortlet['country_visible'])
+    zipcode_visible = FieldProperty(IAgentContactPortlet['zipcode_visible'])
+    accept_tcs_visible = FieldProperty(
+        IAgentContactPortlet['accept_tcs_visible']
+    )
+    accept_tcs_target = None
+    captcha_visible = FieldProperty(IAgentContactPortlet['captcha_visible'])
     mail_sent_msg = FieldProperty(IAgentContactPortlet['mail_sent_msg'])
     recipient = FieldProperty(IAgentContactPortlet['recipient'])
     bcc = FieldProperty(IAgentContactPortlet['bcc'])
@@ -374,11 +476,29 @@ class Assignment(base.Assignment):
 
     title = _(u'Agent Contact')
 
-    def __init__(self, heading=None, description=None, mail_sent_msg=None,
-                 bcc=None, reject_links=None):
+    def __init__(
+        self,
+        heading=None,
+        description=None,
+        country_visible=None,
+        zipcode_visible=None,
+        accept_tcs_visible=None,
+        accept_tcs_target=None,
+        captcha_visible=None,
+        mail_sent_msg=None,
+        recipient=None,
+        bcc=None,
+        reject_links=None,
+    ):
         self.heading = heading
         self.description = description
+        self.country_visible = country_visible
+        self.zipcode_visible = zipcode_visible
+        self.accept_tcs_visible = accept_tcs_visible
+        self.accept_tcs_target = accept_tcs_target
+        self.captcha_visible = captcha_visible
         self.mail_sent_msg = mail_sent_msg
+        self.recipient = recipient
         self.bcc = bcc
         self.reject_links = reject_links
 
@@ -432,6 +552,7 @@ class Renderer(base.Renderer):
 class AddForm(base.AddForm):
     """Add form for the Agent Contact portlet."""
     form_fields = formlib.form.Fields(IAgentContactPortlet)
+    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Add Agent Information portlet')
     description = MSG_PORTLET_DESCRIPTION
 
@@ -444,5 +565,6 @@ class AddForm(base.AddForm):
 class EditForm(base.EditForm):
     """Edit form for the Agent Contact portlet"""
     form_fields = formlib.form.Fields(IAgentContactPortlet)
+    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Edit Agent Information portlet')
     description = MSG_PORTLET_DESCRIPTION
