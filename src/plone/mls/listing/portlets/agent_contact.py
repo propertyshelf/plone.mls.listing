@@ -151,11 +151,6 @@ class IEmailForm(Interface):
         title=_(u'ZIP'),
     )
 
-    accept_tcs = schema.Bool(
-        required=True,
-        title=_(u'I accept the Terms & Conditions'),
-    )
-
     phone = schema.TextLine(
         description=_(
             u'Please enter a phone number. Some agents will not respond '
@@ -204,6 +199,12 @@ class IEmailForm(Interface):
     captcha = schema.TextLine(
         required=True,
         title=_(u'Captcha'),
+    )
+
+    accept_tcs = schema.Bool(
+        description=_(u'Required'),
+        required=True,
+        title=_(u'I accept the Terms & Conditions'),
     )
 
 
