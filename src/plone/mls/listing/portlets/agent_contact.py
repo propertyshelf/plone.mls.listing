@@ -258,6 +258,8 @@ class EmailForm(form.Form):
 
         self.fields = field.Fields(IEmailForm).omit(*omitted)
 
+        if 'captcha' in self.fields:
+            self.fields['captcha'].widgetFactory = CaptchaFieldWidget
         super(EmailForm, self).update()
 
     def updateWidgets(self):
