@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5 (unreleased)
+1.5 (2016-02-16)
 ----------------
 
 - Add new fields (country, zip and accept terms & conditions) to agent contact portlet.
