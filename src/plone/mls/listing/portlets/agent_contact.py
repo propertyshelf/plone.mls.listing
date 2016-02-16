@@ -241,9 +241,23 @@ class EmailForm(form.Form):
         return self.listing_info.get('listing_id', '').lower().startswith('rl')
 
     def update(self):
-        if self.is_residential_lease:
-            self.fields = field.Fields(IEmailForm)
-        self.fields['captcha'].widgetFactory = CaptchaFieldWidget
+        omitted = []
+        if not self.is_residential_lease:
+            omitted = [
+                'arrival_date',
+                'departure_date',
+                'adults',
+                'children',
+            ]
+        if not self.data.country_visible:
+            omitted.append('country')
+        if not self.data.zipcode_visible:
+            omitted.append('zipcode')
+        if not self.data.accept_tcs_visible:
+            omitted.append('accept_tcs')
+
+        self.fields = field.Fields(IEmailForm).omit(*omitted)
+
         super(EmailForm, self).update()
 
     def updateWidgets(self):
