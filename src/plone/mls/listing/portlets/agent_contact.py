@@ -21,7 +21,12 @@ from z3c.form import button, field, validator
 from z3c.form.interfaces import HIDDEN_MODE, IFormLayer
 from zope import formlib, schema
 from zope.i18n import translate
-from zope.interface import Interface, Invalid, alsoProvides, implementer
+from zope.interface import (
+    Interface,
+    Invalid,
+    alsoProvides,
+    implementer,
+)
 from zope.schema.fieldproperty import FieldProperty
 
 # local imports
