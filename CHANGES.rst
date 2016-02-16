@@ -4,7 +4,9 @@ Changelog
 1.5 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add new fields (country, zip and accept terms & conditions) to agent contact portlet.
+  Fields can be configured to be shown or not.
+  A link to an internal document can be set for the terms & conditions.
 
 
 1.4 (2016-02-10)
