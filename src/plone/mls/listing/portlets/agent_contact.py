@@ -97,6 +97,12 @@ check_for_url = re.compile(
     r'http[s]?://').search
 
 
+def validate_accept(value):
+    if value is not True:
+        return False
+    return True
+
+
 def validate_email(value):
     if value:
         if not check_email(value):
@@ -202,6 +208,7 @@ class IEmailForm(Interface):
     )
 
     accept_tcs = schema.Bool(
+        constraint=validate_accept,
         description=_(u'Required'),
         required=True,
         title=_(u'I accept the Terms & Conditions'),
