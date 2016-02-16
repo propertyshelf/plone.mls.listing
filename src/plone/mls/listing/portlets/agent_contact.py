@@ -211,7 +211,13 @@ class IEmailForm(Interface):
 class EmailForm(form.Form):
     """Email Form."""
     fields = field.Fields(IEmailForm).omit(
-        'arrival_date', 'departure_date', 'adults', 'children',
+        'country',
+        'zipcode',
+        'accept_tcs',
+        'arrival_date',
+        'departure_date',
+        'adults',
+        'children',
     )
     ignoreContext = True
     method = 'post'
