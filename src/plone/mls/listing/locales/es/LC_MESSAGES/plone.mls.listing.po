@@ -4,15 +4,15 @@
 # Benjamin Berger <ben@propertyshelf.com>, 2014-2015
 # Juan Salazar <juancarlos@propertyshelf.com>, 2012-2013
 # Thomas Massmann <thomas.massmann@it-spir.it>, 2012-2013
-# Valeria Garcia <valeriassimsou@gmail.com>, 2014
+# Valeria Garcia <valeriassimsou@gmail.com>, 2014-2015
 # Zach Cashero <zcashero@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: MLS Plone Components\n"
 "POT-Creation-Date: 2015-06-15 00:53+0000\n"
-"PO-Revision-Date: 2015-06-15 00:43+0000\n"
-"Last-Translator: Zach Cashero <zcashero@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/projects/p/MLS_Plone/language/es/)\n"
+"PO-Revision-Date: 2015-08-21 17:32+0000\n"
+"Last-Translator: Valeria Garcia <valeriassimsou@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/propertyshelf/MLS_Plone/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -579,7 +579,7 @@ msgstr "URLs no son permitidos"
 
 #: plone/mls/listing/browser/templates/listing_search_viewlet.pt:22
 msgid "No matching results found - please expand your search."
-msgstr "No hay resultados.  Ampliar tu búsqueda."
+msgstr "No hay resultados.  Ampliar su búsqueda."
 
 #: plone/mls/listing/browser/listing_collection.py:172
 #: plone/mls/listing/browser/listing_search.py:176
@@ -607,7 +607,7 @@ msgstr "Número de Teléfono"
 
 #: plone/mls/listing/portlets/agent_contact.py:129
 msgid "Please enter a phone number. Some agents will not respond without one."
-msgstr "Ingresa tu numero de teléfono. Algunos agentes no te responderán sin eso."
+msgstr "Ingresa numero de teléfono. Algunos agentes no te responderán sin eso."
 
 #: plone/mls/listing/browser/listing_search.py:224
 msgid "Pool"
