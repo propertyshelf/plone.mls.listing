@@ -4,7 +4,10 @@ Changelog
 1.6 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Inherit TCWidget from SingleCheckBox.
+  This fixes the 'Object is of wrong type.' error.
+- Dynamically add data fields to agent contact email message.
+- I18N updates.
 
 
 1.5 (2016-02-16)
