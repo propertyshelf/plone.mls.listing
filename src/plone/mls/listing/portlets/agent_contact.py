@@ -54,29 +54,7 @@ EMAIL_TEMPLATE = _(
     default=u'Enquiry from: {name} <{sender_from_address}>\n'
     u'Listing URL: {url}\n'
     u'\n'
-    u'Phone Number: {phone}\n'
-    u'Country: {country}\n'
-    u'ZIP Code: {zipcode}\n'
-    u'T&C accepted: {accept_tcs}\n'
-    u'\n'
-    u'Message:\n'
-    u'{message}'
-)
-
-EMAIL_TEMPLATE_RL = _(
-    u'agent_contact_email_rl',
-    default=u'Enquiry from: {name} <{sender_from_address}>\n'
-    u'Listing URL: {url}\n'
-    u'\n'
-    u'Phone Number: {phone}\n'
-    u'Country: {country}\n'
-    u'ZIP Code: {zipcode}\n'
-    u'T&C accepted: {accept_tcs}\n'
-    u'\n'
-    u'Arrival Date: {arrival_date}\n'
-    u'Departure Date: {departure_date}\n'
-    u'Adults: {adults}\n'
-    u'Children: {children}\n'
+    u'{form_data}\n'
     u'\n'
     u'Message:\n'
     u'{message}'
@@ -308,7 +286,77 @@ class EmailForm(form.Form):
             if not self.already_sent and captcha.validate(data['captcha']):
                 self.send_email(data)
                 self._email_sent = True
+        else:
+            if not self.already_sent:
+                self.send_email(data)
+                self._email_sent = True
         return
+
+    def format_data_for_email(self, data):
+        """Add the submitted form data to the mail message."""
+        items = []
+        tpl = u'{0}: {1}\n'
+        if 'country' in data:
+            items.append(
+                tpl.format(
+                    translate(_(u'Country'), context=self.request),
+                    data['country'],
+                )
+            )
+        if 'zipcode' in data:
+            items.append(
+                tpl.format(
+                    translate(_(u'ZIP'), context=self.request),
+                    data['zipcode'],
+                )
+            )
+        if 'phone' in data:
+            items.append(
+                tpl.format(
+                    translate(_(u'Phone Number'), context=self.request),
+                    data['phone'],
+                )
+            )
+
+        if 'arrival_date' in data:
+            items.append(
+                tpl.format(
+                    translate(_(u'Arrival Date'), context=self.request),
+                    data['arrival_date'],
+                )
+            )
+        if 'departure_date' in data:
+            items.append(
+                tpl.format(
+                    translate(_(u'Departure Date'), context=self.request),
+                    data['departure_date'],
+                )
+            )
+        if 'adults' in data:
+            items.append(
+                tpl.format(
+                    translate(_(u'Adults'), context=self.request),
+                    data['adults'],
+                )
+            )
+        if 'children' in data:
+            items.append(
+                tpl.format(
+                    translate(_(u'Children'), context=self.request),
+                    data['children'],
+                )
+            )
+        if 'accept_tcs' in data:
+            items.append(
+                tpl.format(
+                    translate(
+                        _(u'Terms & Conditions accepted'),
+                        context=self.request,
+                    ),
+                    data['accept_tcs']
+                )
+            )
+        return u''.join(items)
 
     def send_email(self, data):
         mailhost = getToolByName(self.context, 'MailHost')
@@ -335,6 +383,7 @@ class EmailForm(form.Form):
         sender = '{0} <{1}>'.format(data['name'], data['sender_from_address'])
         subject = data['subject']
         data['url'] = self.request.getURL()
+
         overridden = self.listing_info.get('overridden', False)
         if overridden is True or review_recipient is not None:
             orig_agent = self.listing_info.get('original_agent')
@@ -347,16 +396,13 @@ class EmailForm(form.Form):
                 profile=orig_agent.get('profile'),
             )
             data['message'] = '\n'.join([data['message'], agent])
-        if self.is_residential_lease:
-            message = translate(
-                EMAIL_TEMPLATE_RL,
-                context=self.request,
-            ).format(**data)
-        else:
-            message = translate(
-                EMAIL_TEMPLATE,
-                context=self.request,
-            ).format(**data)
+        data['form_data'] = self.format_data_for_email(data)
+
+        message = translate(
+            EMAIL_TEMPLATE,
+            context=self.request,
+        ).format(**data)
+
         message = message_from_string(message.encode(email_charset))
         message['To'] = rcp
         message['From'] = from_address
