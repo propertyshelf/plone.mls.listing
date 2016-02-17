@@ -31,6 +31,48 @@ LISTING_TYPE = 'plone.mls.listing.listing'
 PROFILE_ID = 'profile-plone.mls.listing:default'
 
 
+def convert_value_to_token(
+    obj=None, request=None, value=None, vocab=None, loc_type=None,
+):
+    token_values = []
+    log_msg = None
+    value_dec = value.encode('utf-8').decode('unicode_escape')
+    for term in vocab:
+        if value == term.title or value_dec == term.title:
+            token_values.append(term.token)
+
+    if len(token_values) == 0:
+        token_values = [value]
+        log_msg = (
+            u'No ListingCollection entry found for {0}: \'{1}\'. '
+            u'Please check: {2}'.format(
+                loc_type,
+                value,
+                obj.absolute_url(),
+            )
+        )
+    elif len(token_values) > 1:
+        log_msg = (
+            u'Warning: multiple values match the previously '
+            u'selected {0} name of \'{1}\': {2}'.format(
+                loc_type,
+                value,
+                obj.absolute_url(),
+            )
+        )
+    if log_msg:
+        # add message to log
+        logger.warn(log_msg)
+        # add visible status message in Plone
+        api.portal.show_message(
+            message=log_msg,
+            request=request,
+            type='warn',
+        )
+
+    return tuple(token_values)
+
+
 def migrate_to_1001(context):
     """Migrate from 1000 to 1001.
 
@@ -271,17 +313,18 @@ def migrate_to_1013(context):
         'plone.mls.listing.LocationDistricts',
     )
     catalog = getToolByName(context, 'portal_catalog')
-    for lang in languages.getSupportedLanguages():
+
+    for language in languages.getSupportedLanguages():
         logger.info(
-            '######## Searching for Listing Collections in '
-            'language \'{0}\' #######'.format(lang))
-        lc = catalog(
-            Language=lang,
+            'Searching for Listing Collections in '
+            'language \'{0}\''.format(language))
+        search_results = catalog(
+            Language=language,
             object_provides=IListingCollection.__identifier__,
         )
 
-        for c in lc:
-            obj = c.getObject()
+        for brain in search_results:
+            obj = brain.getObject()
             logger.info(
                 'Migrating Listing Collection: {0}'.format(obj.absolute_url()))
             annotations = IAnnotations(obj)
@@ -293,62 +336,37 @@ def migrate_to_1013(context):
             county = content.get('location_county', None)
             state = content.get('location_state', None)
 
-            def convert_value_to_token(value, vocab, loc_type):
-                token_values = []
-                log_msg = None
-                value_dec = value.encode('utf-8').decode('unicode_escape')
-                for term in vocab:
-                    if value == term.title or value_dec == term.title:
-                        token_values.append(term.token)
-
-                if len(token_values) == 0:
-                    token_values = [value]
-                    log_msg = (
-                        u'No ListingCollection entry found for {0}: \'{1}\'. '
-                        u'Please check: {2}'.format(
-                            loc_type,
-                            value,
-                            obj.absolute_url(),
-                        )
-                    )
-                elif len(token_values) > 1:
-                    log_msg = (
-                        u'Warning: multiple values match the previously '
-                        u'selected {0} name of \'{1}\': {2}'.format(
-                            loc_type,
-                            value,
-                            obj.absolute_url(),
-                        )
-                    )
-                if log_msg:
-                    # add message to log
-                    logger.warn(log_msg)
-                    # add visible status message in Plone
-                    api.portal.show_message(
-                        message=log_msg,
-                        request=request,
-                        type='warn',
-                    )
-
-                return tuple(token_values)
-
             if isinstance(district, basestring):
                 vocab = district_vocab_factory(obj)
                 token_values = convert_value_to_token(
-                    district,
-                    vocab,
-                    'district'
+                    obj=obj,
+                    request=request,
+                    value=district,
+                    vocab=vocab,
+                    loc_type='district'
                 )
                 content['location_district'] = token_values
 
             if isinstance(county, basestring):
                 vocab = county_vocab_factory(obj)
-                token_values = convert_value_to_token(county, vocab, 'county')
+                token_values = convert_value_to_token(
+                    obj=obj,
+                    request=request,
+                    value=county,
+                    vocab=vocab,
+                    loc_type='county',
+                )
                 content['location_county'] = token_values
 
             if isinstance(state, basestring):
                 vocab = state_vocab_factory(obj)
-                token_values = convert_value_to_token(state, vocab, 'state')
+                token_values = convert_value_to_token(
+                    obj=obj,
+                    request=request,
+                    value=state,
+                    vocab=vocab,
+                    loc_type='state',
+                )
                 content['location_state'] = token_values
 
             annotations[COLLECTION] = content
