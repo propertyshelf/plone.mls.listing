@@ -2,8 +2,8 @@
 """Terms & Conditions Widget Interface."""
 
 # zope imports
-from z3c.form.interfaces import ICheckBoxWidget
+from z3c.form.interfaces import ISingleCheckBoxWidget
 
 
-class ITCWidget(ICheckBoxWidget):
+class ITCWidget(ISingleCheckBoxWidget):
     """Custom Terms & Conditions widget."""

@@ -1,5 +1,6 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
     xmlns:z3c="http://namespaces.zope.org/z3c">
 
   <class class=".widget.TCWidget">
@@ -33,6 +34,14 @@
       mode="hidden"
       template="tc_hidden.pt"
       widget=".interfaces.ITCWidget"
+      />
+
+  <browser:page
+      name="ploneform-render-widget"
+      for=".interfaces.ITCWidget"
+      layer="z3c.form.interfaces.IFormLayer"
+      class=".widget.RenderTCWidget"
+      permission="zope.Public"
       />
 
 </configure>
