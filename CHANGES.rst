@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.6 (unreleased)
-----------------
+1.5.1 (2016-02-17)
+------------------
 
 - Inherit TCWidget from SingleCheckBox.
   This fixes the 'Object is of wrong type.' error.
