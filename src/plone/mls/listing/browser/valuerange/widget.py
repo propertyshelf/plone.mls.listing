@@ -43,7 +43,7 @@ class ValueRangeWidget(HTMLTextInputWidget, SequenceWidget):
         for count, term in enumerate(self.terms):
             if term.token == '--MINVALUE--':
                 continue
-            id = '%s-%i' % (self.id, count)
+            id = '{0}-{1:d}'.format(self.id, count)
             content = term.title or term.value
             if ITitledTokenizedTerm.providedBy(term):
                 content = translate(
@@ -80,7 +80,7 @@ class ValueRangeWidget(HTMLTextInputWidget, SequenceWidget):
         for count, term in enumerate(self.terms):
             if term.token == '--MAXVALUE--':
                 continue
-            id = '%s-%i' % (self.id, count)
+            id = '{0}-{1:d}'.format(self.id, count)
             content = term.title or term.value
             if ITitledTokenizedTerm.providedBy(term):
                 content = translate(

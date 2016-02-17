@@ -64,13 +64,19 @@ class ListingsViewlet(ViewletBase):
     @property
     def title_pre(self):
         props = getToolByName(self.context, 'portal_properties').raptus_article
-        return props.getProperty('listings_%s_titletop' % self.type, False)
+        return props.getProperty(
+            'listings_{0}_titletop'.format(self.type),
+            False,
+        )
 
     @property
     @memoize
     def show_caption(self):
         props = getToolByName(self.context, 'portal_properties').raptus_article
-        return props.getProperty('listings_%s_caption' % self.type, False)
+        return props.getProperty(
+            'listings_{0}_caption'.format(self.type),
+            False,
+        )
 
     @property
     @memoize

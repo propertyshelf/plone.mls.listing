@@ -118,7 +118,7 @@ class BasePriorityVocabulary(object):
     def sort_data(data_arg, priority_arg):
         def get_key(item):
             if item[0] in priority_arg:
-                return '__%03d' % priority_arg.index(item[0])
+                return '__{0:03d}'.format(priority_arg.index(item[0]))
             return item[1]
 
         data_arg.sort(key=get_key)
@@ -137,8 +137,8 @@ class BasePriorityVocabulary(object):
 
         def get_key(item):
             if item[0] in priority:
-                return '__0%03d' % priority.index(item[0])
-            return '__1%s' % item[1]
+                return '__{0:03d}'.format(priority.index(item[0]))
+            return '__1{0}'.format(item[1])
 
         if len(priority) > 0:
             data.sort(key=get_key)
