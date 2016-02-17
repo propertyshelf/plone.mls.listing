@@ -10,15 +10,7 @@ from zope.publisher.interfaces import NotFound
 class RecentListingsTraverser(DefaultPublishTraverse):
     """Custom Traverser for IRecentListings."""
 
-    def publishTraverse(self, request, name):
-        """See zope.publisher.interfaces.IPublishTraverse"""
-        # Try to deliver the default content views.
-        try:
-            return super(RecentListingsTraverser, self).publishTraverse(
-                request, name)
-        except (NotFound, AttributeError):
-            pass
-
+    def _get_parent_traverser_class(self):
         traverser_class = None
         try:
             from plone.app.imaging.traverse import ImageTraverser
@@ -34,6 +26,19 @@ class RecentListingsTraverser(DefaultPublishTraverse):
         else:
             if not traverser_class:
                 traverser_class = LeadImageTraverse
+
+        return traverser_class
+
+    def publishTraverse(self, request, name):
+        """See zope.publisher.interfaces.IPublishTraverse"""
+        # Try to deliver the default content views.
+        try:
+            return super(RecentListingsTraverser, self).publishTraverse(
+                request, name)
+        except (NotFound, AttributeError):
+            pass
+
+        traverser_class = self._get_parent_traverser_class()
 
         if traverser_class:
             try:
