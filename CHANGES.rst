@@ -4,7 +4,8 @@ Changelog
 1.6 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fix canonical links for listing details pages within a collection to point to itself instead of the collection page.
+- Add a canonical link from the listing print page to the actual listing page.
 
 
 1.5.1 (2016-02-17)
