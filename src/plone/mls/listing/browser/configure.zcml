@@ -72,6 +72,15 @@
       template="templates/listing_collection_viewlet.pt"
       />
 
+  <browser:viewlet
+      class=".views.ListingCanonicalURL"
+      name="plone.links.canonical_url"
+      for=".listing_collection.IListingCollection"
+      layer=".interfaces.IListingSpecific"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+      permission="zope2.View"
+      />
+
   <browser:page
       class=".listing_collection.ListingCollectionConfiguration"
       for=".listing_collection.IListingCollection"
@@ -109,6 +118,15 @@
       template="templates/listing_search_viewlet.pt"
       />
 
+  <browser:viewlet
+      class=".views.ListingCanonicalURL"
+      name="plone.links.canonical_url"
+      for=".listing_search.IListingSearch"
+      layer=".interfaces.IListingSpecific"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+      permission="zope2.View"
+      />
+
   <browser:page
       class=".listing_search.ListingSearchConfiguration"
       for=".listing_search.IListingSearch"
@@ -144,6 +162,15 @@
       name="plone.mls.listing.recent_listings"
       permission="zope2.View"
       template="templates/recent_listings_viewlet.pt"
+      />
+
+  <browser:viewlet
+      class=".views.ListingCanonicalURL"
+      name="plone.links.canonical_url"
+      for=".recent_listings.IRecentListings"
+      layer=".interfaces.IListingSpecific"
+      manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
+      permission="zope2.View"
       />
 
   <browser:page
