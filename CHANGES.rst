@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.6 (unreleased)
+1.6 (2016-02-18)
 ----------------
 
 - Fix canonical links for listing details pages within a collection to point to itself instead of the collection page.
