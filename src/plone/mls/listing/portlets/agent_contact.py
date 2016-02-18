@@ -368,7 +368,7 @@ class EmailForm(form.Form):
         from_address = portal.getProperty('email_from_address')
         from_name = portal.getProperty('email_from_name')
         if from_name is not None:
-            from_address = '{0} <{1}>'.format(from_name, from_address)
+            from_address = u'{0} <{1}>'.format(from_name, from_address)
 
         review_recipient = getattr(self.data, 'recipient', None)
         if review_recipient is not None:
@@ -380,7 +380,7 @@ class EmailForm(form.Form):
             except:
                 rcp = from_address
 
-        sender = '{0} <{1}>'.format(data['name'], data['sender_from_address'])
+        sender = u'{0} <{1}>'.format(data['name'], data['sender_from_address'])
         subject = data['subject']
         data['url'] = self.request.getURL()
 

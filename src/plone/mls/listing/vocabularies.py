@@ -138,7 +138,7 @@ class BasePriorityVocabulary(object):
         def get_key(item):
             if item[0] in priority:
                 return '__{0:03d}'.format(priority.index(item[0]))
-            return '__1{0}'.format(item[1])
+            return u'__1{0}'.format(item[1])
 
         if len(priority) > 0:
             data.sort(key=get_key)
