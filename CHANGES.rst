@@ -4,7 +4,7 @@ Changelog
 1.7 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- [Bugfix] string formatting to accept special characters in unicode strings.
 
 
 1.6 (2016-02-18)
