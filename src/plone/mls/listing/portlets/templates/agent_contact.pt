@@ -21,7 +21,7 @@
     <dd class="portletItem"
         tal:define="already_sent view/already_sent | nothing"
         tal:condition="email_from_address">
-      <p tal:condition="already_sent"
+      <p class="sent" tal:condition="already_sent"
          tal:content="view/mail_sent_msg | nothing"></p>
       <tal:block tal:condition="not: already_sent">
         <p tal:condition="view/description | nothing"
