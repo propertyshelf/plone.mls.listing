@@ -144,7 +144,8 @@ class SearchOptions(object):
             settings = get_settings(context=self.context)
             base_url = settings.get('mls_site', None)
             api_key = settings.get('mls_key', None)
-            resource = ListingResource(base_url, api_key=api_key)
+            debug = api.env.debug_mode
+            resource = ListingResource(base_url, api_key=api_key, debug=debug)
             results = []
             try:
                 results = resource.category(self.category, self.language)
@@ -200,7 +201,8 @@ def listing_details(listing_id, lang=None, context=None):
     settings = get_settings(context=context)
     base_url = settings.get('mls_site', None)
     api_key = settings.get('mls_key', None)
-    resource = ListingResource(base_url, api_key=api_key)
+    debug = api.env.debug_mode
+    resource = ListingResource(base_url, api_key=api_key, debug=debug)
     try:
         listing = resource.get(listing_id, lang=lang)
     except MLSError, e:
@@ -243,7 +245,8 @@ def search(params={}, batching=True, context=None, config=None):
     api_key = settings.get('mls_key', None)
     batch = None
     results = []
-    resource = ListingResource(base_url, api_key=api_key)
+    debug = api.env.debug_mode
+    resource = ListingResource(base_url, api_key=api_key, debug=debug)
 
     try:
         results, batch = resource.search(search_params)
