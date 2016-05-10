@@ -4,7 +4,7 @@ Changelog
 1.7 (unreleased)
 ----------------
 
-- No changes yet.
+- Add CSS classes to listing summary fields.
 
 
 1.6.1 (2016-02-18)
