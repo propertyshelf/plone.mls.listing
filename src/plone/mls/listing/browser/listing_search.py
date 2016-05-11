@@ -394,7 +394,8 @@ class ListingSearchViewlet(ViewletBase):
             'limit': self.limit,
             'offset': self.request.get('b_start', 0),
             'lang': self.portal_state.language(),
-            'agency_listings': self.config.get('agency_listings', False)
+            'agency_listings': self.config.get('agency_listings', False),
+            'agency_priority': self.config.get('agency_priority', False),
         }
         search_params.update(params)
         results, batching = search(
@@ -435,6 +436,17 @@ class IListingSearchConfiguration(model.Schema):
         ),
         required=False,
         title=_(u'Agency Listings'),
+    )
+
+    agency_priority = schema.Bool(
+        description=_(
+            u'If selected, the results will first display the listings from '
+            u'this agency and then display the rest of the applicable '
+            u'listings. This option will supersede the \'Agency Listings\' '
+            u'option if selected.'
+        ),
+        required=False,
+        title=_(u'Agency Priority Ordering'),
     )
 
     limit = schema.Int(
