@@ -7,6 +7,7 @@ Changelog
 - Add CSS classes to listing summary fields.
 - Fix wrong title for agent contact portlet add and edit forms.
 - Update german translations.
+- Show interior area and living area in listing summary, if available.
 
 
 1.6.1 (2016-02-18)
