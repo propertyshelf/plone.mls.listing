@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MLS Plone Components\n"
-"POT-Creation-Date: 2016-02-17 17:43+0000\n"
-"PO-Revision-Date: 2016-02-17 18:31+0000\n"
+"POT-Creation-Date: 2016-05-11 08:48+0000\n"
+"PO-Revision-Date: 2016-05-11 08:51+0000\n"
 "Last-Translator: Thomas Massmann <thomas.massmann@it-spir.it>\n"
 "Language-Team: Spanish (http://www.transifex.com/propertyshelf/MLS_Plone/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -127,6 +127,9 @@ msgid "Activate the local agency information."
 msgstr "Activar Información de Agencia Local."
 
 #: plone/mls/listing/portlets/agent_contact.py:602
+msgid "Add Agent Contact portlet"
+msgstr ""
+
 #: plone/mls/listing/portlets/agent_information.py:88
 msgid "Add Agent Information portlet"
 msgstr "Añadir un portlet de Información del Agente"
@@ -268,7 +271,7 @@ msgid "BCC Recipients"
 msgstr "Destinatarios en CCO"
 
 #: plone/mls/listing/browser/templates/listing_details.pt:30
-#: plone/mls/listing/browser/templates/print_listing_details.pt:24
+#: plone/mls/listing/browser/templates/print_listing_details.pt:25
 msgid "Basic Listing Information"
 msgstr "Información Básica del Listado"
 
@@ -342,7 +345,7 @@ msgstr "Configurar Caja de Búsqueda de Propiedades."
 msgid "Configure the Recent Listings viewlet."
 msgstr "Configurar Caja de Propiedades Recientes."
 
-#: plone/mls/listing/browser/templates/print_listing_details.pt:86
+#: plone/mls/listing/browser/templates/print_listing_details.pt:87
 msgid "Contact Information"
 msgstr "Información de Contacto"
 
@@ -424,6 +427,9 @@ msgid "E-mail addresses which receive a blind carbon copy (comma separated)."
 msgstr "Direcciones de correo electrónico que reciben una copia oculta (separadas por comas)."
 
 #: plone/mls/listing/portlets/agent_contact.py:615
+msgid "Edit Agent Contact portlet"
+msgstr ""
+
 #: plone/mls/listing/portlets/agent_information.py:100
 msgid "Edit Agent Information portlet"
 msgstr "Editar portlet de Información del Agente"
@@ -561,7 +567,7 @@ msgid "Listing"
 msgstr "Anuncio"
 
 #: plone/mls/listing/browser/templates/listing_details.pt:93
-#: plone/mls/listing/browser/templates/print_listing_details.pt:198
+#: plone/mls/listing/browser/templates/print_listing_details.pt:199
 msgid "Listing Images"
 msgstr "Imágenes del Listado"
 
@@ -637,7 +643,7 @@ msgstr "Max"
 msgid "Min"
 msgstr "Min"
 
-#: plone/mls/listing/browser/templates/print_listing_details.pt:193
+#: plone/mls/listing/browser/templates/print_listing_details.pt:194
 msgid "More about this property"
 msgstr "Mas acerca de esta Propiedad"
 

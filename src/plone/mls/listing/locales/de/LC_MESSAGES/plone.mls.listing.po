@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MLS Plone Components\n"
-"POT-Creation-Date: 2016-02-17 17:43+0000\n"
-"PO-Revision-Date: 2016-02-17 18:33+0000\n"
+"POT-Creation-Date: 2016-05-11 08:48+0000\n"
+"PO-Revision-Date: 2016-05-11 08:51+0000\n"
 "Last-Translator: Thomas Massmann <thomas.massmann@it-spir.it>\n"
 "Language-Team: German (http://www.transifex.com/propertyshelf/MLS_Plone/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -127,6 +127,9 @@ msgid "Activate the local agency information."
 msgstr "Die Komponente für lokale Agentur-Informationen aktivieren."
 
 #: plone/mls/listing/portlets/agent_contact.py:602
+msgid "Add Agent Contact portlet"
+msgstr ""
+
 #: plone/mls/listing/portlets/agent_information.py:88
 msgid "Add Agent Information portlet"
 msgstr "Portlet für Makler-Informationen hinzufügen"
@@ -268,7 +271,7 @@ msgid "BCC Recipients"
 msgstr "BCC Empfänger"
 
 #: plone/mls/listing/browser/templates/listing_details.pt:30
-#: plone/mls/listing/browser/templates/print_listing_details.pt:24
+#: plone/mls/listing/browser/templates/print_listing_details.pt:25
 msgid "Basic Listing Information"
 msgstr "Basis-Informationen der Immobilie"
 
@@ -342,7 +345,7 @@ msgstr "Konfigurieren Sie die Komponente für Immobilien-Suchen."
 msgid "Configure the Recent Listings viewlet."
 msgstr "Konfigurieren Sie die Komponente für neueste Immobilien."
 
-#: plone/mls/listing/browser/templates/print_listing_details.pt:86
+#: plone/mls/listing/browser/templates/print_listing_details.pt:87
 msgid "Contact Information"
 msgstr "Kontaktinformationen"
 
@@ -424,6 +427,9 @@ msgid "E-mail addresses which receive a blind carbon copy (comma separated)."
 msgstr "Liste von E-Mail-Adressen (Komma-separiert), die eine Blindkopie erhalten sollen."
 
 #: plone/mls/listing/portlets/agent_contact.py:615
+msgid "Edit Agent Contact portlet"
+msgstr ""
+
 #: plone/mls/listing/portlets/agent_information.py:100
 msgid "Edit Agent Information portlet"
 msgstr "Portlet für Makler-Informationen bearbeiten"
@@ -561,7 +567,7 @@ msgid "Listing"
 msgstr "Immobilie"
 
 #: plone/mls/listing/browser/templates/listing_details.pt:93
-#: plone/mls/listing/browser/templates/print_listing_details.pt:198
+#: plone/mls/listing/browser/templates/print_listing_details.pt:199
 msgid "Listing Images"
 msgstr "Immobilien-Bilder"
 
@@ -637,7 +643,7 @@ msgstr "Max"
 msgid "Min"
 msgstr "Min"
 
-#: plone/mls/listing/browser/templates/print_listing_details.pt:193
+#: plone/mls/listing/browser/templates/print_listing_details.pt:194
 msgid "More about this property"
 msgstr "Weitere Informationen über diese Immobilie"
 
