@@ -82,6 +82,16 @@
                 <dt><span tal:replace="item/label">Label</span>:</dt>
                 <dd><span tal:replace="structure item/value">Value</span></dd>
               </div>
+
+              <div class="listing__living_area" tal:define="item info/living_area | nothing" tal:condition="item">
+                <dt class="row"><span tal:replace="item/label">Label</span>:</dt>
+                <dd class="full"><span tal:replace="structure item/value">Value</span></dd>
+              </div>
+
+              <div class="listing__interior_area" tal:define="item info/interior_area | nothing" tal:condition="item">
+                <dt class="row"><span tal:replace="item/label">Label</span>:</dt>
+                <dd class="full"><span tal:replace="structure item/value">Value</span></dd>
+              </div>
             </dl>
           </div>
 
