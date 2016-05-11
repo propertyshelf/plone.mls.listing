@@ -105,6 +105,17 @@ class IRecentListingsConfiguration(Interface):
         title=_(u'Agency Listings'),
     )
 
+    agency_priority = schema.Bool(
+        description=_(
+            u'If selected, the results will first display the listings from '
+            u'this agency and then display the rest of the applicable '
+            u'listings. This option will supersede the \'Agency Listings\' '
+            u'option if selected.'
+        ),
+        required=False,
+        title=_(u'Agency Priority Ordering'),
+    )
+
     listing_type = schema.List(
         required=False,
         title=_(u'Listing Type'),

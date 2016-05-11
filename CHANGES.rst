@@ -8,6 +8,7 @@ Changelog
 - Fix wrong title for agent contact portlet add and edit forms.
 - Update german translations.
 - Show interior area and living area in listing summary, if available.
+- Add agency priority ordering to recent listings and listing search.
 
 
 1.6.1 (2016-02-18)
