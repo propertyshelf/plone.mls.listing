@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MLS Plone Components\n"
-"POT-Creation-Date: 2016-05-11 08:48+0000\n"
-"PO-Revision-Date: 2016-05-11 09:23+0000\n"
+"POT-Creation-Date: 2016-05-11 09:34+0000\n"
+"PO-Revision-Date: 2016-05-11 09:34+0000\n"
 "Last-Translator: Thomas Massmann <thomas.massmann@it-spir.it>\n"
 "Language-Team: German (http://www.transifex.com/propertyshelf/MLS_Plone/language/de/)\n"
 "MIME-Version: 1.0\n"
@@ -800,6 +800,10 @@ msgstr "Feld zur Bestätigung Geschäftsbedingung in dem E-Mail Formular anzeige
 #: plone/mls/listing/interfaces.py:132
 msgid "Show Availability Calendar only for my agency listings"
 msgstr "Verfügbarkeits-Kalender nur für Immobilien meiner eigenen Agentur anzeigen"
+
+#: plone/mls/listing/portlets/agent_contact.py:464
+msgid "Show Captcha field in email form?"
+msgstr ""
 
 #: plone/mls/listing/portlets/agent_contact.py:442
 msgid "Show Country field in email form?"

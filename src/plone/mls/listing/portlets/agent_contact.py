@@ -461,7 +461,7 @@ class IAgentContactPortlet(IPortletDataProvider):
     captcha_visible = schema.Bool(
         default=True,
         required=False,
-        title=(u'Show Captcha field in email form?'),
+        title=_(u'Show Captcha field in email form?'),
     )
 
     mail_sent_msg = schema.Text(

@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: MLS Plone Components\n"
-"POT-Creation-Date: 2016-05-11 08:48+0000\n"
-"PO-Revision-Date: 2016-05-11 08:51+0000\n"
+"POT-Creation-Date: 2016-05-11 09:34+0000\n"
+"PO-Revision-Date: 2016-05-11 09:34+0000\n"
 "Last-Translator: Thomas Massmann <thomas.massmann@it-spir.it>\n"
 "Language-Team: Vietnamese (http://www.transifex.com/propertyshelf/MLS_Plone/language/vi/)\n"
 "MIME-Version: 1.0\n"
@@ -793,6 +793,10 @@ msgstr ""
 
 #: plone/mls/listing/interfaces.py:132
 msgid "Show Availability Calendar only for my agency listings"
+msgstr ""
+
+#: plone/mls/listing/portlets/agent_contact.py:464
+msgid "Show Captcha field in email form?"
 msgstr ""
 
 #: plone/mls/listing/portlets/agent_contact.py:442
