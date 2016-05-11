@@ -550,7 +550,7 @@ class Assignment(base.Assignment):
 
 
 class Renderer(base.Renderer):
-    """Agent Information Portlet Renderer."""
+    """Agent Contact Portlet Renderer."""
 
     render = ViewPageTemplateFile('templates/agent_contact.pt')
 
@@ -599,7 +599,7 @@ class AddForm(base.AddForm):
     """Add form for the Agent Contact portlet."""
     form_fields = formlib.form.Fields(IAgentContactPortlet)
     form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
-    label = _(u'Add Agent Information portlet')
+    label = _(u'Add Agent Contact portlet')
     description = MSG_PORTLET_DESCRIPTION
 
     def create(self, data):
@@ -612,5 +612,5 @@ class EditForm(base.EditForm):
     """Edit form for the Agent Contact portlet"""
     form_fields = formlib.form.Fields(IAgentContactPortlet)
     form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
-    label = _(u'Edit Agent Information portlet')
+    label = _(u'Edit Agent Contact portlet')
     description = MSG_PORTLET_DESCRIPTION
