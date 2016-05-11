@@ -4,7 +4,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2016-02-17 17:43+0000\n"
+"POT-Creation-Date: 2016-05-11 08:48+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,6 +118,9 @@ msgid "Activate the local agency information."
 msgstr ""
 
 #: plone/mls/listing/portlets/agent_contact.py:602
+msgid "Add Agent Contact portlet"
+msgstr ""
+
 #: plone/mls/listing/portlets/agent_information.py:88
 msgid "Add Agent Information portlet"
 msgstr ""
@@ -259,7 +262,7 @@ msgid "BCC Recipients"
 msgstr ""
 
 #: plone/mls/listing/browser/templates/listing_details.pt:30
-#: plone/mls/listing/browser/templates/print_listing_details.pt:24
+#: plone/mls/listing/browser/templates/print_listing_details.pt:25
 msgid "Basic Listing Information"
 msgstr ""
 
@@ -333,7 +336,7 @@ msgstr ""
 msgid "Configure the Recent Listings viewlet."
 msgstr ""
 
-#: plone/mls/listing/browser/templates/print_listing_details.pt:86
+#: plone/mls/listing/browser/templates/print_listing_details.pt:87
 msgid "Contact Information"
 msgstr ""
 
@@ -409,6 +412,9 @@ msgid "E-mail addresses which receive a blind carbon copy (comma separated)."
 msgstr ""
 
 #: plone/mls/listing/portlets/agent_contact.py:615
+msgid "Edit Agent Contact portlet"
+msgstr ""
+
 #: plone/mls/listing/portlets/agent_information.py:100
 msgid "Edit Agent Information portlet"
 msgstr ""
@@ -531,7 +537,7 @@ msgid "Listing"
 msgstr ""
 
 #: plone/mls/listing/browser/templates/listing_details.pt:93
-#: plone/mls/listing/browser/templates/print_listing_details.pt:198
+#: plone/mls/listing/browser/templates/print_listing_details.pt:199
 msgid "Listing Images"
 msgstr ""
 
@@ -607,7 +613,7 @@ msgstr ""
 msgid "Min"
 msgstr ""
 
-#: plone/mls/listing/browser/templates/print_listing_details.pt:193
+#: plone/mls/listing/browser/templates/print_listing_details.pt:194
 msgid "More about this property"
 msgstr ""
 
