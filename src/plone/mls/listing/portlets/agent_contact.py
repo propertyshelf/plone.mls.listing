@@ -4,6 +4,7 @@
 # python imports
 from email import message_from_string
 import copy
+import formencode
 import re
 
 # zope imports
@@ -89,6 +90,17 @@ def validate_email(value):
     return True
 
 
+def validate_international_phone(value):
+    """Check for valid international phone numbers."""
+    if value:
+        c = formencode.national.InternationalPhoneNumber()
+        try:
+            c.to_python(value)
+        except (formencode.api.Invalid), error:
+            raise Invalid(error)
+    return True
+
+
 def contains_nuts(value):
     """Check for traces of nuts, like urls or other spammer fun things"""
     if value:
@@ -137,6 +149,7 @@ class IEmailForm(Interface):
     )
 
     phone = schema.TextLine(
+        constraint=validate_international_phone,
         description=_(
             u'Please enter a phone number. Some agents will not respond '
             u'without one.'
