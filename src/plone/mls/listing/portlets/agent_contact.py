@@ -142,7 +142,7 @@ class IEmailForm(Interface):
             u'without one.'
         ),
         missing_value=u'-',
-        required=False,
+        required=True,
         title=_(u'Phone Number'),
     )
 
