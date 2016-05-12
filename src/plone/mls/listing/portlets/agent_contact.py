@@ -132,7 +132,7 @@ class IEmailForm(Interface):
 
     zipcode = schema.TextLine(
         description=_(u'Please enter your ZIP code.'),
-        required=True,
+        required=False,
         title=_(u'ZIP'),
     )
 
@@ -142,7 +142,7 @@ class IEmailForm(Interface):
             u'without one.'
         ),
         missing_value=u'-',
-        required=False,
+        required=True,
         title=_(u'Phone Number'),
     )
 

@@ -9,6 +9,8 @@ Changelog
 - Update german translations.
 - Show interior area and living area in listing summary, if available.
 - Add agency priority ordering to recent listings and listing search.
+- Agent contact form field 'phone' is now required.
+- Agent contact form field 'zipcode' is now not required anymore.
 
 
 1.6.1 (2016-02-18)
