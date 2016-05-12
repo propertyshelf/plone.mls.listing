@@ -4,6 +4,8 @@
 # python imports
 from email import message_from_string
 import copy
+import formencode
+import logging
 import re
 
 # zope imports
@@ -11,6 +13,7 @@ from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone import api as ploneapi
 from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets.portlets import base
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
@@ -43,6 +46,9 @@ except ImportError:
 
 from plone.formwidget.captcha.widget import CaptchaFieldWidget
 from plone.formwidget.captcha.validator import CaptchaValidator
+
+from plone.mls.listing import PRODUCT_NAME
+logger = logging.getLogger(PRODUCT_NAME)
 
 MSG_PORTLET_DESCRIPTION = _(
     u'This portlet shows a form to contact the corresponding agent for a '
@@ -86,6 +92,33 @@ def validate_email(value):
     if value:
         if not check_email(value):
             raise Invalid(_(u'Invalid email address'))
+    return True
+
+
+def update_formencode_i18n():
+    try:
+        language = ploneapi.portal.get_current_language()
+    except AttributeError:
+        logger.warning('plone.api version is too old.')
+        return
+    try:
+        formencode.api.set_stdtranslation(
+            domain='FormEncode',
+            languages=[language],
+        )
+    except Exception, e:
+        logger.warning(e)
+
+
+def validate_international_phone(value):
+    """Check for valid international phone numbers."""
+    if value:
+        update_formencode_i18n()
+        c = formencode.national.InternationalPhoneNumber()
+        try:
+            c.to_python(value)
+        except (formencode.api.Invalid), error:
+            raise Invalid(error)
     return True
 
 
@@ -137,6 +170,7 @@ class IEmailForm(Interface):
     )
 
     phone = schema.TextLine(
+        constraint=validate_international_phone,
         description=_(
             u'Please enter a phone number. Some agents will not respond '
             u'without one.'
