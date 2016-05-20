@@ -12,6 +12,7 @@ Changelog
 - Agent contact form field 'phone' is now required.
 - Agent contact form field 'zipcode' is now not required anymore.
 - Use formencode's international phone validator for agent contact phone field.
+- I18N updates.
 
 
 1.6.1 (2016-02-18)
