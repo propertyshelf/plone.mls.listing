@@ -16,7 +16,7 @@ Changelog
 
 
 1.6.1 (2016-02-18)
-----------------
+------------------
 
 - [Bugfix] string formatting to accept special characters in unicode strings.
 
