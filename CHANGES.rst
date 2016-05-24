@@ -4,7 +4,8 @@ Changelog
 1.8 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Remove wrong class names from listing detail template.
+- Add living and interior area for print listing template.
 
 
 1.7 (2016-05-20)
