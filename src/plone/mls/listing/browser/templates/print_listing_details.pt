@@ -77,6 +77,16 @@
             <dt><span tal:replace="item/label">Label</span>:</dt>
             <dd><span tal:replace="structure item/value">Value</span></dd>
           </tal:item>
+
+          <tal:item tal:define="item info/living_area | nothing" tal:condition="item">
+            <dt><span tal:replace="item/label">Label</span>:</dt>
+            <dd><span tal:replace="structure item/value">Value</span></dd>
+          </tal:item>
+
+          <tal:item tal:define="item info/interior_area | nothing" tal:condition="item">
+            <dt><span tal:replace="item/label">Label</span>:</dt>
+            <dd><span tal:replace="structure item/value">Value</span></dd>
+          </tal:item>
         </dl>
       </div>
 
