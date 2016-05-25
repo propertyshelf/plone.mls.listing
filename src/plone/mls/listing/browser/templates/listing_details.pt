@@ -224,7 +224,6 @@
       </div>
       <script type="text/javascript">
         jQuery(function(jq) {
-          jq('title').text(jq('h1.documentFirstHeading').text() + ' - ' + jq('title').text())
           jq('#sec-agent-quote').hide();
           jq('#agentquote').click(function(event){
             event.preventDefault();
