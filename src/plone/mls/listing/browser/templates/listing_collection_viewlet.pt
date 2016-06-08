@@ -27,7 +27,7 @@
             tal:attributes="href string:${page_url}${listing/id/value}"><span
             tal:replace="listing/title/value">[Listing Title]</span></a></h2>
 
-        <figure tal:define="image listing/lead_image | nothing">
+        <figure tal:define="image listing/lead_image_high_res | listing/lead_image | nothing">
           <a href="" tal:attributes="href string:${page_url}${listing/id/value};
                                      title listing/title/value"><img src="" alt=""
                      tal:condition="image"
