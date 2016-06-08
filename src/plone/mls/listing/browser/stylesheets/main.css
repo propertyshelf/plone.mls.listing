@@ -14,7 +14,8 @@
 }
 
 
-.listing-summary dl dt:after {
+.listing-summary dl dt:after,
+.listing dl dt:after {
   content: ":";
 }
 

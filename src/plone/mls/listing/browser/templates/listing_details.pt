@@ -30,76 +30,76 @@
             <h2 i18n:translate="">Basic Listing Information</h2>
             <dl class="price">
               <div class="listing__price" tal:define="item info/price | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dt><span tal:replace="item/label">[Label]</span></dt>
                 <dd><span tal:replace="item/value">[Value]</span></dd>
               </div>
             </dl>
 
             <dl class="workflow">
               <div class="listing__id" tal:define="item info/id | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dt><span tal:replace="item/label">[Label]</span></dt>
                 <dd><span tal:replace="item/value">[Value]</span></dd>
               </div>
 
               <div class="listing__object_type" tal:define="item info/object_type | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dt><span tal:replace="item/label">[Label]</span></dt>
                 <dd><span tal:replace="item/value">[Value]</span></dd>
               </div>
 
               <div class="listing__listing_type" tal:define="item info/listing_type | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dt><span tal:replace="item/label">[Label]</span></dt>
                 <dd><span tal:replace="item/value">[Value]</span></dd>
               </div>
 
               <div class="listing__workflow_status" tal:define="item info/workflow_status | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dt><span tal:replace="item/label">[Label]</span></dt>
                 <dd tal:attributes="class item/value"><span tal:replace="item/value">[Value]</span></dd>
               </div>
 
               <div class="listing__image_count" tal:define="item info/image_count | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dt><span tal:replace="item/label">[Label]</span></dt>
                 <dd><span tal:replace="item/value">[Value]</span></dd>
               </div>
             </dl>
 
             <dl>
               <div class="listing__beds_baths" tal:define="item info/beds_baths | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dt><span tal:replace="item/label">[Label]</span></dt>
                 <dd><span tal:replace="item/value">[Value]</span></dd>
               </div>
 
               <div class="listing__beds" tal:define="item info/rooms_beds | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dt><span tal:replace="item/label">[Label]</span></dt>
                 <dd><span tal:replace="item/value">[Value]</span></dd>
               </div>
 
               <div class="listing__baths" tal:define="item info/rooms_baths | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dt><span tal:replace="item/label">[Label]</span></dt>
                 <dd><span tal:replace="item/value">[Value]</span></dd>
               </div>
 
               <div class="listing__location_type" tal:define="item info/location_type | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dt><span tal:replace="item/label">[Label]</span></dt>
                 <dd><span tal:replace="item/value">[Value]</span></dd>
               </div>
 
               <div class="listing__view_type" tal:define="item info/view_type | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dt><span tal:replace="item/label">[Label]</span></dt>
                 <dd><span tal:replace="item/value">[Value]</span></dd>
               </div>
 
               <div class="listing__lot_size" tal:define="item info/lot_size | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">Label</span>:</dt>
+                <dt><span tal:replace="item/label">Label</span></dt>
                 <dd><span tal:replace="structure item/value">Value</span></dd>
               </div>
 
               <div class="listing__living_area" tal:define="item info/living_area | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">Label</span>:</dt>
+                <dt><span tal:replace="item/label">Label</span></dt>
                 <dd><span tal:replace="structure item/value">Value</span></dd>
               </div>
 
               <div class="listing__interior_area" tal:define="item info/interior_area | nothing" tal:condition="item">
-                <dt><span tal:replace="item/label">Label</span>:</dt>
+                <dt><span tal:replace="item/label">Label</span></dt>
                 <dd><span tal:replace="structure item/value">Value</span></dd>
               </div>
             </dl>
@@ -196,7 +196,7 @@
                     <tbody>
                       <tal:field tal:repeat="field fields">
                         <tr tal:condition="field/value" tal:attributes="class field/id">
-                          <th style="width: 200px;"><span tal:replace="field/label | nothing">[Label]</span>:</th>
+                          <th style="width: 200px;"><span tal:replace="field/label | nothing">[Label]</span></th>
                           <td><span tal:replace="structure field/value | nothing">[Value]</span></td>
                         </tr>
                       </tal:field>
