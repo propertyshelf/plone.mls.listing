@@ -26,6 +26,12 @@ img {
   max-width: 275px;
 }
 
+.contact-information dl dt:after,
+.listing__details dl dt:after,
+.listing__summary dl dt:after {
+  content: ":";
+}
+
 #listing-info img {
   float: right;
   max-width: 25%;
