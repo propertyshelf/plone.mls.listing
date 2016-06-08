@@ -5,6 +5,7 @@ Changelog
 ----------------
 
 - Add single beds and baths for listings (hidden with CSS by default).
+- Use high resolution lead image for listing collections, if available.
 
 
 1.7.1 (2016-05-24)
