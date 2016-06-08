@@ -68,6 +68,16 @@
                 <dd><span tal:replace="item/value">[Value]</span></dd>
               </div>
 
+              <div class="listing__beds" tal:define="item info/rooms_beds | nothing" tal:condition="item">
+                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dd><span tal:replace="item/value">[Value]</span></dd>
+              </div>
+
+              <div class="listing__baths" tal:define="item info/rooms_baths | nothing" tal:condition="item">
+                <dt><span tal:replace="item/label">[Label]</span>:</dt>
+                <dd><span tal:replace="item/value">[Value]</span></dd>
+              </div>
+
               <div class="listing__location_type" tal:define="item info/location_type | nothing" tal:condition="item">
                 <dt><span tal:replace="item/label">[Label]</span>:</dt>
                 <dd><span tal:replace="item/value">[Value]</span></dd>
