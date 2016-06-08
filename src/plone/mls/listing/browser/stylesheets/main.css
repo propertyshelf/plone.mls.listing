@@ -9,6 +9,11 @@
 }
 
 
+.listing__price_calculated {
+  display: none;
+}
+
+
 /* HTML5 Elements
    ==============
 */
