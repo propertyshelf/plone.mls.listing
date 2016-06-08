@@ -10,6 +10,7 @@ Changelog
 - Add calculated price for listings (hidden with CSS by default).
 - Remove colons after labels from listing templates (now added via CSS).
 - Clean up listing templates.
+- Fix base_url for print listing links.
 
 
 1.7.1 (2016-05-24)

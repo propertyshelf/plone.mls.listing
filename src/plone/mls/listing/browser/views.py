@@ -342,10 +342,12 @@ class ListingDetails(BrowserView):
         return contact_data
 
     def base_url(self):
-        if getattr(self.request, 'listing_id', None) is not None:
-            return '/'.join([self.context.absolute_url(), self.listing_id])
-        else:
-            return self.context.absolute_url()
+        items = [
+            self.context.absolute_url(),
+            getattr(self.request, 'development_id', None),
+            getattr(self.request, 'listing_id', None)
+        ]
+        return '/'.join([item for item in items if item is not None])
 
     def use_fotorama(self):
         if self.registry is not None:
