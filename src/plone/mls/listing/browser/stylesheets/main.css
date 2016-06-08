@@ -1,3 +1,9 @@
+.listing__baths,
+.listing__beds {
+  display: none;
+}
+
+
 /* HTML5 Elements
    ==============
 */
