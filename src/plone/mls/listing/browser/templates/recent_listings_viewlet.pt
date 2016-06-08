@@ -38,6 +38,11 @@
 
         <section>
           <dl>
+            <div class="listing__price_calculated" tal:define="item listing/calculated_price | nothing" tal:condition="item">
+              <dt class="row"><span tal:replace="item/label">[Label]</span>:</dt>
+              <dd><span tal:replace="item/value">[Value]</span></dd>
+            </div>
+
             <div class="listing__price" tal:define="item listing/price | nothing" tal:condition="item">
               <dt class="row"><span tal:replace="item/label">[Label]</span>:</dt>
               <dd><span tal:replace="item/value">[Value]</span></dd>
