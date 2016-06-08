@@ -9,6 +9,7 @@ Changelog
 - Add listing description for listing collections (hidden with CSS by default).
 - Add calculated price for listings (hidden with CSS by default).
 - Remove colons after labels from listing templates (now added via CSS).
+- Clean up listing templates.
 
 
 1.7.1 (2016-05-24)
