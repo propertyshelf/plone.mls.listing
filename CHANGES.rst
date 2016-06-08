@@ -7,6 +7,7 @@ Changelog
 - Add single beds and baths for listings (hidden with CSS by default).
 - Use high resolution lead image for listing collections, if available.
 - Add listing description for listing collections (hidden with CSS by default).
+- Add calculated price for listings (hidden with CSS by default).
 
 
 1.7.1 (2016-05-24)
