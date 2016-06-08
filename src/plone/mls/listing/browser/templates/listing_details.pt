@@ -26,7 +26,7 @@
 
         <tal:listing tal:condition="view/data | nothing">
 
-          <div id="listing-info" tal:condition="info">
+          <div class="listing__summary" id="listing-info" tal:condition="info">
             <h2 i18n:translate="">Basic Listing Information</h2>
             <dl class="price">
               <div class="listing__price" tal:define="item info/price | nothing" tal:condition="item">
