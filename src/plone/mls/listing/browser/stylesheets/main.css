@@ -4,6 +4,11 @@
 }
 
 
+.listing__description {
+  display: none;
+}
+
+
 /* HTML5 Elements
    ==============
 */

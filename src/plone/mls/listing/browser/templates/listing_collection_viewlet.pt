@@ -113,6 +113,12 @@
           </dl>
         </section>
 
+        <p class="listing__description"
+            tal:condition="listing/description/value | nothing"
+            tal:content="listing/description/value">
+            [Description]
+        </p>
+
         <div class="visualClear"></div>
       </div>
 
