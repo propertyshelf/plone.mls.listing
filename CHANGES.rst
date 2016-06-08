@@ -4,7 +4,7 @@ Changelog
 1.8 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Add single beds and baths for listings (hidden with CSS by default).
 
 
 1.7.1 (2016-05-24)
