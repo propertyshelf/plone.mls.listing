@@ -146,7 +146,7 @@ class IEmailForm(Interface):
             u'without one.'
         ),
         missing_value=u'-',
-        required=True,
+        required=False,
         title=_(u'Phone Number'),
     )
 
@@ -274,6 +274,12 @@ class EmailForm(form.Form):
             schema_field = copy.copy(self.widgets['message'].field)
             schema_field.constraint = lambda x: True
             self.widgets['message'].field = schema_field
+
+        if self.data.phone_required:
+            phone_field = copy.copy(self.widgets['phone'].field)
+            phone_field.required = True
+            self.widgets['phone'].field = phone_field
+            self.widgets['phone'].required = True
 
     @button.buttonAndHandler(PMF(u'label_send', default='Send'), name='send')
     def handle_send(self, action):
@@ -451,6 +457,11 @@ class IAgentContactPortlet(IPortletDataProvider):
         title=_(u'Show ZIP field in email form?')
     )
 
+    phone_required = schema.Bool(
+        required=False,
+        title=_(u'Make phone field in email form required?'),
+    )
+
     accept_tcs_visible = schema.Bool(
         required=False,
         title=_(u'Show Accept Terms & Conditions field in email form?')
@@ -514,6 +525,7 @@ class Assignment(base.Assignment):
     description = FieldProperty(IAgentContactPortlet['description'])
     country_visible = FieldProperty(IAgentContactPortlet['country_visible'])
     zipcode_visible = FieldProperty(IAgentContactPortlet['zipcode_visible'])
+    phone_required = FieldProperty(IAgentContactPortlet['phone_required'])
     accept_tcs_visible = FieldProperty(
         IAgentContactPortlet['accept_tcs_visible']
     )
@@ -532,6 +544,7 @@ class Assignment(base.Assignment):
         description=None,
         country_visible=None,
         zipcode_visible=None,
+        phone_required=None,
         accept_tcs_visible=None,
         accept_tcs_target=None,
         captcha_visible=None,
@@ -544,6 +557,7 @@ class Assignment(base.Assignment):
         self.description = description
         self.country_visible = country_visible
         self.zipcode_visible = zipcode_visible
+        self.phone_required = phone_required
         self.accept_tcs_visible = accept_tcs_visible
         self.accept_tcs_target = accept_tcs_target
         self.captcha_visible = captcha_visible
