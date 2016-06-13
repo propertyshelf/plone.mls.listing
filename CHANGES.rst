@@ -12,7 +12,8 @@ Changelog
 - Clean up listing templates.
 - Fix base_url for print listing links.
 - Remove international phone validator from agent contact form again.
-- Add setting for required status of agent contact form phone field.
+- Added setting for required status of agent contact form phone field.
+- Added backport of custom title and dublin core viewlets from ps.plone.mls.
 
 
 1.7.1 (2016-05-24)
