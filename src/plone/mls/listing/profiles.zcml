@@ -166,4 +166,14 @@
       profile="plone.mls.listing:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Upgrade plone.mls.listing"
+      description="Update viewlet settings"
+      source="1013"
+      destination="1014"
+      handler=".migration.migrate_to_1014"
+      sortkey="1"
+      profile="plone.mls.listing:default"
+      />
+
 </configure>

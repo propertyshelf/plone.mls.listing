@@ -370,3 +370,14 @@ def migrate_to_1013(context):
                 content['location_state'] = token_values
 
             annotations[COLLECTION] = content
+
+
+def migrate_to_1014(context):
+    """"Migrate from 1013 to 1014
+
+    * Update viewlets
+    """
+
+    site = getUtility(IPloneSiteRoot)
+    setup = getToolByName(site, 'portal_setup')
+    setup.runImportStepFromProfile(PROFILE_ID, 'viewlets')
