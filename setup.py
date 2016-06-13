@@ -13,7 +13,6 @@ long_description = ('\n'.join([
 install_requires = [
     'setuptools',
     # -*- Extra requirements: -*-
-    'FormEncode',
     'Pillow',
     'collective.autopermission',
     'collective.prettyphoto',
