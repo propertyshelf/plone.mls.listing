@@ -28,6 +28,7 @@ install:
   - buildout -c travis.cfg annotate
   - buildout -c travis.cfg -N -q
 script:
+  - bin/code-analysis
   - bin/test
 notifications:
   irc: irc.freenode.org#propertyshelf
