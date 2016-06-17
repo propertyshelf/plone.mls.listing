@@ -1,3 +1,4 @@
+.cache
 *.egg-info
 *.mo
 *.pyc
@@ -9,6 +10,7 @@ checkouts/
 coverage/
 develop-eggs/
 dist/
+docs/build/
 downloads/
 eggs/
 parts/
