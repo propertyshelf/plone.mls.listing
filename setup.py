@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
 """Setup for plone.mls.listing package."""
 
-from setuptools import setup, find_packages
+from setuptools import (
+    find_packages,
+    setup,
+)
 
 version = '1.8.dev0'
 description = 'Plone support for MLS Listings.'
 long_description = ('\n'.join([
     open('README.rst').read(),
+    'Contributors',
+    '------------\n',
+    open('CONTRIBUTORS.rst').read(),
     open('CHANGES.rst').read(),
 ]))
 
