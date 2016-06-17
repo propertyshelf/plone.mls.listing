@@ -381,13 +381,17 @@ class EmailForm(form.Form):
             from_address = u'{0} <{1}>'.format(from_name, from_address)
 
         review_recipient = getattr(self.data, 'recipient', None)
+        rcp = None
         if review_recipient is not None:
             rcp = review_recipient
         else:
+            agent = self.listing_info.get('agent')
             try:
-                agent = self.listing_info['agent']
                 rcp = agent.get('agent_email').get('value')
-            except:
+            except AttributeError:
+                rcp = None
+
+            if rcp is None:
                 rcp = from_address
 
         sender = u'{0} <{1}>'.format(data['name'], data['sender_from_address'])

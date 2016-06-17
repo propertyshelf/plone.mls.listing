@@ -291,10 +291,10 @@ def get_agency_info(context=None):
     registry = getUtility(IRegistry)
     if registry is not None:
         try:
-            registry_settings = registry.forInterface(
+            registry_settings = registry.forInterface(  # noqa
                 IMLSAgencyContactInformation
             )
-        except:
+        except Exception:
             logger.warning('Global agency information not available.')
         else:
             settings = dict([

@@ -23,7 +23,7 @@ class SelfHealingRegistryEditForm(controlpanel.RegistryEditForm):
     def getContent(self):
         registry = getUtility(IRegistry)
         try:
-            return registry.forInterface(
+            return registry.forInterface(  # noqa
                 self.schema,
                 prefix=self.schema_prefix,
             )

@@ -157,7 +157,7 @@ class BasePriorityVocabulary(object):
         )
         registry = getUtility(IRegistry)
         try:
-            settings = registry.forInterface(
+            settings = registry.forInterface(  # noqa
                 IMLSVocabularySettings,
                 check=False,
             )
@@ -177,7 +177,7 @@ class BasePriorityVocabulary(object):
 
         try:
             language = portal_state.language()
-        except:
+        except Exception:
             language = None
 
         types = search_options(
@@ -187,15 +187,12 @@ class BasePriorityVocabulary(object):
         )
 
         if self.local_settings_key is not None:
-            try:
-                annotations = IAnnotations(context)
-            except:
-                pass
-            else:
-                local_settings = annotations.get(self.local_settings_key, {})
-                filtered = local_settings.get(self.filter_key, ())
-                if len(filtered) > 0:
-                    types = [(k, v) for k, v in types if k in filtered]
+            annotations = IAnnotations(context)
+
+            local_settings = annotations.get(self.local_settings_key, {})
+            filtered = local_settings.get(self.filter_key, ())
+            if len(filtered) > 0:
+                types = [(k, v) for k, v in types if k in filtered]
 
         terms = []
         if types is not None:

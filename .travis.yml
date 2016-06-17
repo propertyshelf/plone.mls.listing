@@ -2,6 +2,10 @@ language: python
 python:
   - 2.6
   - 2.7
+sudo: false
+cache:
+  directories:
+    - eggs
 env:
   - PLONE_VERSION=4.1
   - PLONE_VERSION=4.2
@@ -14,12 +18,18 @@ matrix:
       env: PLONE_VERSION=4.2
     - python: 2.6
       env: PLONE_VERSION=4.3
+  fast_finish: true
 install:
+  - pip install pep8
+  - sed -ie "s#travis-4.x.cfg#travis-$PLONE_VERSION.x.cfg#" travis.cfg
+  - sed -ie "s#versions-$PLONE_VERSION.x#versions#" travis.cfg
   - mkdir -p buildout-cache/eggs
   - mkdir -p buildout-cache/downloads
-  - python bootstrap.py -c travis-$PLONE_VERSION.x.cfg
-  - bin/buildout -N -t 5 -c travis-$PLONE_VERSION.x.cfg
+  - pip install zc.buildout
+  - buildout -c travis.cfg annotate
+  - buildout -c travis.cfg -N -q
 script:
+  - bin/code-analysis
   - bin/test
 notifications:
   irc: irc.freenode.org#propertyshelf
