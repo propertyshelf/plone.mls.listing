@@ -181,8 +181,8 @@ class ListingDetails(BrowserView):
         """Check if the availability calendar can be shown."""
         if self.registry is not None:
             try:
-                settings = self.registry.forInterface(IMLSUISettings)
-            except:
+                settings = self.registry.forInterface(IMLSUISettings)  # noqa
+            except Exception:
                 logger.warning('MLS UI settings not available.')
                 return False
         else:
@@ -308,8 +308,6 @@ class ListingDetails(BrowserView):
         else:
             agent['avatar'] = None
 
-        # TODO: Adjust agent languages.
-
     @property
     def contact(self):
         if self.data is None:
@@ -352,8 +350,8 @@ class ListingDetails(BrowserView):
     def use_fotorama(self):
         if self.registry is not None:
             try:
-                settings = self.registry.forInterface(IMLSUISettings)
-            except:
+                settings = self.registry.forInterface(IMLSUISettings)  # noqa
+            except Exception:
                 logger.warning('MLS UI settings not available.')
             else:
                 return getattr(settings, 'slideshow') == u'fotorama'
@@ -362,8 +360,8 @@ class ListingDetails(BrowserView):
     def use_galleria(self):
         if self.registry is not None:
             try:
-                settings = self.registry.forInterface(IMLSUISettings)
-            except:
+                settings = self.registry.forInterface(IMLSUISettings)  # noqa
+            except Exception:
                 logger.warning('MLS UI settings not available.')
             else:
                 return getattr(settings, 'slideshow') == u'galleria'
@@ -376,7 +374,7 @@ class ListingDetails(BrowserView):
         info = self.data.get('info', None)
         try:
             item_id = info['id']['value']
-        except:
+        except KeyError:
             item_id = 'unknown'
 
         return u'map__{0}'.format(item_id)
@@ -421,7 +419,7 @@ class ListingDetails(BrowserView):
         try:
             # try to get geo coordinates
             lat, lng = geo.split(',')
-        except:
+        except ValueError:
             # on error no map
             return
 

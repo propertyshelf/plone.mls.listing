@@ -4,18 +4,18 @@
 # zope imports
 from Products.CMFCore.utils import getToolByName
 from raptus.article.core.interfaces import IArticle
-from zope.component import adapts
-from zope.interface import implements
+from zope.component import adapter
+from zope.interface import implementer
 
 
 # local imports
 from plone.mls.listing.article.interfaces import IListingLists
 
 
+@implementer(IListingLists)
+@adapter(IArticle)
 class ListingLists(object):
     """Provider for listings contained in an article."""
-    implements(IListingLists)
-    adapts(IArticle)
 
     def __init__(self, context):
         self.context = context

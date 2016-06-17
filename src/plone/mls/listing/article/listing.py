@@ -26,10 +26,10 @@ class IListings(interface.Interface):
     """Marker interface for the listings viewlet."""
 
 
+@component.adapter(interfaces.IArticle)
+@interface.implementer(interfaces.IComponent)
 class ListingsComponent(object):
     """Component which lists the MLS Listings."""
-    interface.implements(interfaces.IComponent)
-    component.adapts(interfaces.IArticle)
 
     title = _(u'MLS Listings')
     description = _(u'List of the contained MLS Listings.')

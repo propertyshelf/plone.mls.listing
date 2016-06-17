@@ -9,7 +9,6 @@ from plone.app.testing import (
     applyProfile,
     quickInstallProduct,
 )
-from zope.configuration import xmlconfig
 
 
 class PloneMLSListing(PloneSandboxLayer):
@@ -20,11 +19,7 @@ class PloneMLSListing(PloneSandboxLayer):
         """Set up Zope for testing."""
         # Load ZCML
         import plone.mls.listing
-        xmlconfig.file(
-            'configure.zcml',
-            plone.mls.listing,
-            context=configurationContext,
-        )
+        self.loadZCML(package=plone.mls.listing)
 
     def setUpPloneSite(self, portal):
         """Set up a Plone site for testing."""
