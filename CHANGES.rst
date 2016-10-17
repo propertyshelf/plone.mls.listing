@@ -4,7 +4,7 @@ Changelog
 1.8.1 (unreleased)
 ------------------
 
-- Nothing changed yet.
+- Fix manifest.
 
 
 1.8 (2016-10-17)
