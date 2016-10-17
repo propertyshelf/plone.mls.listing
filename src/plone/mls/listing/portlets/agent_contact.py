@@ -12,7 +12,7 @@ from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
+# from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets.portlets import base
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.directives import form
@@ -620,7 +620,7 @@ class Renderer(base.Renderer):
 class AddForm(base.AddForm):
     """Add form for the Agent Contact portlet."""
     form_fields = formlib.form.Fields(IAgentContactPortlet)
-    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
+#    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Add Agent Contact portlet')
     description = MSG_PORTLET_DESCRIPTION
 
@@ -633,6 +633,6 @@ class AddForm(base.AddForm):
 class EditForm(base.EditForm):
     """Edit form for the Agent Contact portlet"""
     form_fields = formlib.form.Fields(IAgentContactPortlet)
-    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
+#    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Edit Agent Contact portlet')
     description = MSG_PORTLET_DESCRIPTION
