@@ -16,7 +16,7 @@ jQuery(function($) {
 
   if($('.listing-map').length > 0) {
     $('.listing-map > div').addClass('map__canvas');
-    try { map = initializeMap(); } catch(err) {}
+    loadGoogleMaps(initializeMap);
   }
 
   if ($('#listing-images .thumbnails').length > 0) {

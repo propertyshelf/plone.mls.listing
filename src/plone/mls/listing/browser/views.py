@@ -47,6 +47,26 @@ window.addEventListener('touchmove', function MoveDetector() {
     map = initializeMap();
 });
 
+function loadScript(src, callback) {
+  var script = document.createElement("script");
+  script.type = "text/javascript";
+  if (callback) {
+    script.onload = callback;
+  }
+  document.getElementsByTagName("head")[0].appendChild(script);
+  script.src = src;
+}
+
+
+function loadGoogleMaps(callback) {
+    if (typeof google === 'object' && typeof google.maps === 'object') {
+        callback();
+    } else {
+        loadScript('https://maps.googleapis.com/maps/api/js?key=%(apikey)s', callback);
+    }
+}
+
+
 function initializeMap() {
     var center = new google.maps.LatLng(%(lat)s, %(lng)s);
     var myOptions = {
@@ -428,7 +448,19 @@ class ListingDetails(BrowserView):
             'lng': unicode(lng),
             'map_id': self.map_id,
             'zoom': self.zoomlevel,
+            'apikey': self.googleapi,
         }
+
+    @property
+    def googleapi(self):
+        if self.registry is not None:
+            try:
+                settings = self.registry.forInterface(IMLSUISettings)  # noqa
+            except Exception:
+                logger.warning('MLS UI settings not available.')
+            else:
+                return getattr(settings, 'googleapi', '')
+        return ''
 
 
 class ListingCanonicalURL(ViewletBase):
