@@ -381,3 +381,18 @@ def migrate_to_1014(context):
     site = getUtility(IPloneSiteRoot)
     setup = getToolByName(site, 'portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'viewlets')
+
+
+def migrate_to_1015(context):
+    """"Migrate from 1014 to 1015
+
+    * Update JS registry.
+    """
+    site = getUtility(IPloneSiteRoot)
+    try:
+        js = getToolByName(site, 'portal_javascripts')
+    except AttributeError:
+        pass
+    else:
+        js.unregisterResource('http://maps.google.com/maps/api/js?sensor=false')
+        js.unregisterResource('https://maps-api-ssl.google.com/maps/api/js?sensor=false')

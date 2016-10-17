@@ -16,6 +16,7 @@ Changelog
 - Added backport of custom title and dublin core viewlets from ps.plone.mls.
 - Update buildout environment.
 - Fix code-analysis errors.
+- Remove Google Maps API from portal_javascripts.
 
 
 1.7.1 (2016-05-24)

@@ -176,4 +176,14 @@
       profile="plone.mls.listing:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Upgrade plone.mls.listing"
+      description="Update JS settings"
+      source="1014"
+      destination="1015"
+      handler=".migration.migrate_to_1015"
+      sortkey="1"
+      profile="plone.mls.listing:default"
+      />
+
 </configure>
