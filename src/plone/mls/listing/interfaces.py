@@ -132,6 +132,14 @@ class IMLSUISettings(Interface):
         title=_(u'Show Availability Calendar only for my agency listings'),
     )
 
+    googleapi = schema.TextLine(
+        description=_(
+            u'Provide the Google API key if you want to use Google Maps.'
+        ),
+        required=False,
+        title=_(u'Google Maps API Key'),
+    )
+
 
 FIELDS_AGENCY = (
     'agency_name',
