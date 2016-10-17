@@ -315,6 +315,7 @@ class Renderer(base.Renderer):
 
 class AddForm(base.AddForm):
     """Add form for the Listing Quick Search portlet."""
+    schema = IQuickSearchPortlet
     form_fields = formlib.form.Fields(IQuickSearchPortlet)
 #    form_fields['target_search'].custom_widget = UberSelectionWidget
 
@@ -329,6 +330,7 @@ class AddForm(base.AddForm):
 
 class EditForm(base.EditForm):
     """Edit form for the Listing Quick Search portlet."""
+    schema = IQuickSearchPortlet
     form_fields = formlib.form.Fields(IQuickSearchPortlet)
 #    form_fields['target_search'].custom_widget = UberSelectionWidget
 

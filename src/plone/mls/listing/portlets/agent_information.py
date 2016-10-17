@@ -84,6 +84,7 @@ class Renderer(base.Renderer):
 
 class AddForm(base.AddForm):
     """Add form for the Agent Information portlet."""
+    schema = IAgentInformationPortlet
     form_fields = form.Fields(IAgentInformationPortlet)
     label = _(u'Add Agent Information portlet')
     description = MSG_PORTLET_DESCRIPTION
@@ -96,6 +97,7 @@ class AddForm(base.AddForm):
 
 class EditForm(base.EditForm):
     """Edit form for the Agent Information portlet."""
+    schema = IAgentInformationPortlet
     form_fields = form.Fields(IAgentInformationPortlet)
     label = _(u'Edit Agent Information portlet')
     description = MSG_PORTLET_DESCRIPTION

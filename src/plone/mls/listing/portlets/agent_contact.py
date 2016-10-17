@@ -619,6 +619,7 @@ class Renderer(base.Renderer):
 
 class AddForm(base.AddForm):
     """Add form for the Agent Contact portlet."""
+    schema = IAgentContactPortlet
     form_fields = formlib.form.Fields(IAgentContactPortlet)
 #    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Add Agent Contact portlet')
@@ -632,6 +633,7 @@ class AddForm(base.AddForm):
 
 class EditForm(base.EditForm):
     """Edit form for the Agent Contact portlet"""
+    schema = IAgentContactPortlet
     form_fields = formlib.form.Fields(IAgentContactPortlet)
 #    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Edit Agent Contact portlet')
