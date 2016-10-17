@@ -9,6 +9,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 # from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets.portlets import base
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+from plone.app.vocabularies.catalog import CatalogSource
 from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
@@ -225,10 +226,11 @@ class IQuickSearchPortlet(IPortletDataProvider):
             u'Find the search page which will be used to show the results.'
         ),
         required=True,
-        source=SearchableTextSourceBinder({
-            'object_provides': 'plone.mls.listing.browser.listing_search.'
-                               'IListingSearch',
-        }, default_query='path:'),
+        source=CatalogSource(),
+        # source=SearchableTextSourceBinder({
+        #     'object_provides': 'plone.mls.listing.browser.listing_search.'
+        #                        'IListingSearch',
+        # }, default_query='path:'),
         title=_(u'Search Page'),
     )
 

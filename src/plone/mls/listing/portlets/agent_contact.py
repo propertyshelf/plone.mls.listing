@@ -15,6 +15,7 @@ from plone import api
 # from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets.portlets import base
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+from plone.app.vocabularies.catalog import CatalogSource
 from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
@@ -473,7 +474,8 @@ class IAgentContactPortlet(IPortletDataProvider):
 
     accept_tcs_target = schema.Choice(
         required=False,
-        source=SearchableTextSourceBinder({}, default_query='path:'),
+        # source=SearchableTextSourceBinder({}, default_query='path:'),
+        source=CatalogSource(),
         title=_(u'Terms & Conditions page'),
     )
 
