@@ -430,6 +430,17 @@ class ListingDetails(BrowserView):
             'zoom': self.zoomlevel,
         }
 
+    @property
+    def googleapi(self):
+        if self.registry is not None:
+            try:
+                settings = self.registry.forInterface(IMLSUISettings)  # noqa
+            except Exception:
+                logger.warning('MLS UI settings not available.')
+            else:
+                return getattr(settings, 'googleapi', '')
+        return ''
+
 
 class ListingCanonicalURL(ViewletBase):
     """Defines a canonical link relation viewlet to be displayed across the
