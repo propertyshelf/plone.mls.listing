@@ -4,7 +4,7 @@ Changelog
 1.9 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fix CSS.
 
 
 1.8.1 (2016-10-17)

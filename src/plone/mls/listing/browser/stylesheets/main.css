@@ -17,6 +17,7 @@
 .listing-summary dl dt:after,
 .listing__summary dl dt:after {
   content: ":";
+  display: inline;
 }
 
 

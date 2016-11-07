@@ -30,6 +30,7 @@ img {
 .listing__details dl dt:after,
 .listing__summary dl dt:after {
   content: ":";
+  display: inline;
 }
 
 #listing-info img {
