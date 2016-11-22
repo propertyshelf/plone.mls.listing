@@ -35,7 +35,7 @@ class RecentListingsTraverser(DefaultPublishTraverse):
         try:
             return super(RecentListingsTraverser, self).publishTraverse(
                 request, name)
-        except (NotFound, AttributeError):
+        except (NotFound, AttributeError, KeyError):
             pass
 
         traverser_class = self._get_parent_traverser_class()
