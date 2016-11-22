@@ -59,11 +59,11 @@ function loadScript(src, callback) {
 
 
 function loadGoogleMaps(callback) {
-    if (typeof google === 'object' && typeof google.maps === 'object') {
-        callback();
-    } else {
-        loadScript('https://maps.googleapis.com/maps/api/js?key=%(apikey)s', callback);
-    }
+  if (typeof google === 'object' && typeof google.maps === 'object') {
+    callback();
+  } else {
+    loadScript('https://maps.googleapis.com/maps/api/js?key=%(ak)s', callback);
+  }
 }
 
 
@@ -448,7 +448,7 @@ class ListingDetails(BrowserView):
             'lng': unicode(lng),
             'map_id': self.map_id,
             'zoom': self.zoomlevel,
-            'apikey': self.googleapi,
+            'ak': self.googleapi,
         }
 
     @property
