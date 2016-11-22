@@ -7,11 +7,12 @@
   <!-- GenericSetup Profiles. -->
   <!-- ====================== -->
   <genericsetup:registerProfile
-      name="default"
-      title="plone.mls.listing"
-      directory="profiles/default"
+      zcml:condition="not-have plone-5"
       description="Plone support for MLS Listings."
+      directory="profiles/plone4"
+      name="default"
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="plone.mls.listing"
       />
 
   <!-- GenericSetup Import Steps. -->
