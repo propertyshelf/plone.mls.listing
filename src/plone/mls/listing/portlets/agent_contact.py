@@ -12,9 +12,7 @@ from Acquisition import aq_inner
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
-# from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets.portlets import base
-from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.app.vocabularies.catalog import CatalogSource
 from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
@@ -32,6 +30,10 @@ from zope.interface import (
 from zope.schema.fieldproperty import FieldProperty
 
 # local imports
+from plone.mls.listing import (
+    PLONE_4,
+    PLONE_5,
+)
 from plone.mls.listing.browser.interfaces import IListingDetails
 from plone.mls.listing.browser.tcwidget.widget import TCFieldWidget
 from plone.mls.listing.i18n import _
@@ -48,6 +50,11 @@ from plone.formwidget.captcha.validator import CaptchaValidator
 
 from plone.mls.listing import PRODUCT_NAME
 logger = logging.getLogger(PRODUCT_NAME)
+
+
+if PLONE_4:
+    from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
+    from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 
 MSG_PORTLET_DESCRIPTION = _(
     u'This portlet shows a form to contact the corresponding agent for a '
@@ -621,22 +628,27 @@ class Renderer(base.Renderer):
 
 class AddForm(base.AddForm):
     """Add form for the Agent Contact portlet."""
-    schema = IAgentContactPortlet
-    form_fields = formlib.form.Fields(IAgentContactPortlet)
-#    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
+    if PLONE_5:
+        schema = IAgentContactPortlet
+    if PLONE_4:
+        form_fields = formlib.form.Fields(IAgentContactPortlet)
+        form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Add Agent Contact portlet')
     description = MSG_PORTLET_DESCRIPTION
 
     def create(self, data):
         assignment = Assignment()
-        formlib.form.applyChanges(assignment, self.form_fields, data)
+        if PLONE_4:
+            formlib.form.applyChanges(assignment, self.form_fields, data)
         return assignment
 
 
 class EditForm(base.EditForm):
     """Edit form for the Agent Contact portlet"""
-    schema = IAgentContactPortlet
-    form_fields = formlib.form.Fields(IAgentContactPortlet)
-#    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
+    if PLONE_5:
+        schema = IAgentContactPortlet
+    if PLONE_4:
+        form_fields = formlib.form.Fields(IAgentContactPortlet)
+        form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Edit Agent Contact portlet')
     description = MSG_PORTLET_DESCRIPTION
