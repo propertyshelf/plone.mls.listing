@@ -5,7 +5,9 @@
 import logging
 
 # zope imports
+from Products.CMFPlone.resources import add_resource_on_request
 from Products.Five import BrowserView
+from plone import api as ploneapi
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.memoize.view import memoize
 from plone.registry.interfaces import IRegistry
@@ -36,6 +38,8 @@ from plone.mls.listing.interfaces import IMLSUISettings
 
 
 logger = logging.getLogger(PRODUCT_NAME)
+PLONE_5 = '5' <= ploneapi.env.plone_version() < '6'
+
 
 MAP_JS = """
 var isTouch = false;
@@ -116,6 +120,9 @@ class ListingDetails(BrowserView):
         )
         self.registry = getUtility(IRegistry)
         self._get_data()
+        if PLONE_5:
+            if self.use_fotorama():
+                add_resource_on_request(self.request, 'psplonefotorama')
 
     @memoize
     def _get_data(self):
