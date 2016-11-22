@@ -15,6 +15,15 @@
       title="plone.mls.listing"
       />
 
+  <genericsetup:registerProfile
+      zcml:condition="have plone-5"
+      description="Plone support for MLS Listings."
+      directory="profiles/plone5"
+      name="default"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="plone.mls.listing"
+      />
+
   <!-- GenericSetup Import Steps. -->
   <!-- ========================== -->
   <genericsetup:importStep
