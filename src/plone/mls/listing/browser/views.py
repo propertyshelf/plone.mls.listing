@@ -106,11 +106,11 @@ class ListingDetails(BrowserView):
     _data = None
     listing_id = None
 
-    def __init__(self, context, request):
-        super(ListingDetails, self).__init__(context, request)
-        self.update()
+    def __call__(self):
+        self.setup()
+        return super(ListingDetails, self).__call__()
 
-    def update(self):
+    def setup(self):
         self.portal_state = queryMultiAdapter(
             (self.context, self.request), name='plone_portal_state',
         )
