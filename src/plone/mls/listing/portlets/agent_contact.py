@@ -9,9 +9,9 @@ import re
 
 # zope imports
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone import api
 # from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets.portlets import base
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
@@ -258,7 +258,7 @@ class EmailForm(form.Form):
 
     def updateWidgets(self):
         super(EmailForm, self).updateWidgets()
-        urltool = getToolByName(self.context, 'portal_url')
+        urltool = api.portal.get_tool(name='portal_url')
         portal = urltool.getPortalObject()
         subject = u'{portal_title}: {title} ({lid})'.format(
             lid=self.listing_info['listing_id'],
@@ -369,8 +369,8 @@ class EmailForm(form.Form):
         return u''.join(items)
 
     def send_email(self, data):
-        mailhost = getToolByName(self.context, 'MailHost')
-        urltool = getToolByName(self.context, 'portal_url')
+        mailhost = api.portal.get_tool(name='MailHost')
+        urltool = api.portal.get_tool(name='portal_url')
         portal = urltool.getPortalObject()
         email_charset = portal.getProperty('email_charset')
 

@@ -2,7 +2,7 @@
 """Article Provider."""
 
 # zope imports
-from Products.CMFCore.utils import getToolByName
+from plone import api
 from raptus.article.core.interfaces import IArticle
 from zope.component import adapter
 from zope.interface import implementer
@@ -22,7 +22,7 @@ class ListingLists(object):
 
     def getListingLists(self, **kwargs):
         """Returns a list of listings (catalog brains)."""
-        catalog = getToolByName(self.context, 'portal_catalog')
+        catalog = api.portal.get_tool(name='portal_catalog')
         return catalog(
             portal_type='plone.mls.listing.listing',
             path={

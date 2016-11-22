@@ -5,9 +5,7 @@
 import pkg_resources
 
 # zope imports
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
-from zope.component import getUtility
+from plone import api
 
 LISTING_TYPE = 'plone.mls.listing.listing'
 ADD_ONS = [
@@ -20,9 +18,8 @@ def setup_article(context):
     if not context.readDataFile('plone.mls.listing_various.txt'):
         return
 
-    site = getUtility(IPloneSiteRoot)
-    quickinstaller = getToolByName(site, 'portal_quickinstaller')
-    portal_types = getToolByName(site, 'portal_types')
+    quickinstaller = api.portal.get_tool(name='portal_quickinstaller')
+    portal_types = api.portal.get_tool(name='portal_types')
     if quickinstaller.isProductInstalled('raptus.article.core'):
         article = portal_types.get('Article', None)
         if article is None:
@@ -36,8 +33,7 @@ def install_add_ons(context):
     if not context.readDataFile('plone.mls.listing_various.txt'):
         return
 
-    site = getUtility(IPloneSiteRoot)
-    quickinstaller = getToolByName(site, 'portal_quickinstaller')
+    quickinstaller = api.portal.get_tool(name='portal_quickinstaller')
 
     for item in ADD_ONS:
         try:

@@ -2,8 +2,8 @@
 """Article integration for MLS Listings."""
 
 # zope imports
-from Products.CMFCore.utils import getToolByName
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone import api
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.memoize.instance import memoize
 from zope import interface, component
@@ -63,7 +63,7 @@ class ListingsViewlet(ViewletBase):
 
     @property
     def title_pre(self):
-        props = getToolByName(self.context, 'portal_properties').raptus_article
+        props = api.portal.get_tool(name='portal_properties').raptus_article
         return props.getProperty(
             'listings_{0}_titletop'.format(self.type),
             False,
@@ -72,7 +72,7 @@ class ListingsViewlet(ViewletBase):
     @property
     @memoize
     def show_caption(self):
-        props = getToolByName(self.context, 'portal_properties').raptus_article
+        props = api.portal.get_tool(name='portal_properties').raptus_article
         return props.getProperty(
             'listings_{0}_caption'.format(self.type),
             False,
