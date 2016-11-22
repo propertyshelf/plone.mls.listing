@@ -24,25 +24,6 @@
       title="plone.mls.listing"
       />
 
-  <!-- GenericSetup Import Steps. -->
-  <!-- ========================== -->
-  <genericsetup:importStep
-      name="plone.mls.listing.article"
-      title="raptus.article configuration for plone.mls.listing"
-      description="Additional setup steps for plone.mls.listing"
-      handler=".setuphandlers.setup_article"
-      zcml:condition="installed raptus.article.core">
-    <depends name="toolset" />
-  </genericsetup:importStep>
-
-  <genericsetup:importStep
-      name="plone.mls.listing.addons"
-      title="plone.mls.listing add-on installation"
-      description="Install additional available add-ons."
-      handler=".setuphandlers.install_add_ons">
-    <depends name="toolset" />
-  </genericsetup:importStep>
-
   <genericsetup:registerProfile
       description="plone.mls.listing uninstall profile."
       directory="profiles/uninstall"
