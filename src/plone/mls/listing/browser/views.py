@@ -7,7 +7,6 @@ import logging
 # zope imports
 from Products.CMFPlone.resources import add_resource_on_request
 from Products.Five import BrowserView
-from plone import api as ploneapi
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.memoize.view import memoize
 from plone.registry.interfaces import IRegistry
@@ -18,7 +17,10 @@ from zope.publisher.interfaces import NotFound
 
 # local imports
 from plone.mls.core import api
-from plone.mls.listing import PRODUCT_NAME
+from plone.mls.listing import (
+    PLONE_5,
+    PRODUCT_NAME,
+)
 from plone.mls.listing.api import get_agency_info, listing_details
 from plone.mls.listing.browser.interfaces import IListingDetails
 from plone.mls.listing.browser.listing_collection import (
@@ -38,7 +40,6 @@ from plone.mls.listing.interfaces import IMLSUISettings
 
 
 logger = logging.getLogger(PRODUCT_NAME)
-PLONE_5 = '5' <= ploneapi.env.plone_version() < '6'
 
 
 MAP_JS = """
