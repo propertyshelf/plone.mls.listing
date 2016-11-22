@@ -15,12 +15,6 @@ class TestSetup(unittest.TestCase):
     """Setup Test Case for plone.mls.listing."""
     layer = PLONE_MLS_LISTING_INTEGRATION_TESTING
 
-    def test_collective_prettyphoto_installed(self):
-        """Validate that collective.prettyphoto is installed."""
-        portal = self.layer['portal']
-        qi = portal.portal_quickinstaller
-        self.assertTrue(qi.isProductInstalled('collective.prettyphoto'))
-
     def test_plone_app_dexterity_installed(self):
         """Validate that plone.app.dexterity is installed."""
         portal = self.layer['portal']
@@ -38,13 +32,3 @@ class TestSetup(unittest.TestCase):
         portal = self.layer['portal']
         qi = portal.portal_quickinstaller
         self.assertTrue(qi.isProductInstalled('ps.plone.fotorama'))
-
-    # def test_raptus_article_core_installed(self):
-    #     """Test that raptus.article.core is installed.
-
-    #     Note that raptus.article.core is only installed automatically in
-    #     tests so that we can test the article integration.
-    #     """
-    #     portal = self.layer['portal']
-    #     qi = portal.portal_quickinstaller
-    #     self.assertTrue(qi.isProductInstalled('raptus.article.core'))

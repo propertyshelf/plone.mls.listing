@@ -2,7 +2,6 @@
 <metadata>
   <version>1015</version>
   <dependencies>
-    <dependency>profile-collective.prettyphoto:default</dependency>
     <dependency>profile-plone.app.dexterity:default</dependency>
     <dependency>profile-plone.mls.core:default</dependency>
   </dependencies>
