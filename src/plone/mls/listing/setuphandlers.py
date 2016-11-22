@@ -48,4 +48,7 @@ def install_add_ons(context):
         # Only install add-ons which are not installed yet.
         if not quickinstaller.isProductInstalled(item):
             if quickinstaller.isProductInstallable(item):
-                quickinstaller.installProduct(item)
+                try:
+                    quickinstaller.installProduct(item)
+                except AttributeError:
+                    pass
