@@ -416,9 +416,12 @@ class ListingSearchViewlet(ViewletBase):
     def view_url(self):
         """Generate view url."""
         if not self.context_state.is_view_template():
-            return self.context_state.current_base_url()
+            url = self.context_state.current_base_url()
         else:
-            return absoluteURL(self.context, self.request) + '/'
+            url = absoluteURL(self.context, self.request)
+        if not url.endswith('/'):
+            url = url + '/'
+        return url
 
     @property
     def batching(self):
