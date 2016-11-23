@@ -3,6 +3,10 @@
 
 # python imports
 from email import message_from_string
+from email.utils import (
+    formataddr,
+    parseaddr,
+)
 import copy
 import logging
 import re
@@ -110,6 +114,14 @@ def contains_nuts(value):
         if check_for_url(value):
             raise Invalid(_(u'No Urls allowed'))
     return True
+
+
+def format_email_address(name, address):
+    sender = formataddr((name, address))
+    if parseaddr(sender)[1] != address:
+        # formataddr probably got confused by special characters.
+        sender = address
+    return sender
 
 
 class IEmailForm(Interface):
@@ -380,16 +392,23 @@ class EmailForm(form.Form):
         return u''.join(items)
 
     def send_email(self, data):
-        mailhost = api.portal.get_tool(name='MailHost')
-        urltool = api.portal.get_tool(name='portal_url')
-        portal = urltool.getPortalObject()
-        email_charset = portal.getProperty('email_charset')
+        portal = api.portal.get()
+        try:
+            encoding = api.portal.get_registry_record('plone.email_charset')
+        except api.exc.InvalidParameterError:
+            encoding = portal.getProperty('email_charset', 'utf-8')
 
         # Construct and send a message.
-        from_address = portal.getProperty('email_from_address')
-        from_name = portal.getProperty('email_from_name')
-        if from_name is not None:
-            from_address = u'{0} <{1}>'.format(from_name, from_address)
+        try:
+            from_address = api.portal.get_registry_record(
+                'plone.email_from_address'
+            )
+            from_name = api.portal.get_registry_record('plone.email_from_name')
+        except api.exc.InvalidParameterError:
+            # Before Plone 5.0b2 these were stored in portal_properties
+            from_address = portal.getProperty('email_from_address', '')
+            from_name = portal.getProperty('email_from_name', '')
+        sender = format_email_address(from_name, from_address)
 
         review_recipient = getattr(self.data, 'recipient', None)
         rcp = None
@@ -403,9 +422,12 @@ class EmailForm(form.Form):
                 rcp = None
 
             if rcp is None:
-                rcp = from_address
+                rcp = sender
 
-        sender = u'{0} <{1}>'.format(data['name'], data['sender_from_address'])
+        replyto = format_email_address(
+            data['name'],
+            data['sender_from_address'],
+        )
         subject = data['subject']
         data['url'] = self.request.getURL()
 
@@ -428,15 +450,17 @@ class EmailForm(form.Form):
             context=self.request,
         ).format(**data)
 
-        message = message_from_string(message.encode(email_charset))
-        message['To'] = rcp
-        message['From'] = from_address
+        message = message_from_string(message.encode(encoding))
+
         if getattr(self.data, 'bcc', None) is not None:
             message['Bcc'] = self.data.bcc
-        message['Reply-to'] = sender
-        message['Subject'] = subject
+        message['Reply-to'] = replyto
 
-        mailhost.send(message, immediate=True, charset=email_charset)
+        api.portal.send_email(
+            recipient=rcp,
+            subject=subject,
+            body=message,
+        )
         return
 
 # Register Captcha validator for the captcha field in the ICaptchaForm
@@ -615,6 +639,19 @@ class Renderer(base.Renderer):
     @property
     def title(self):
         return self.data.heading or self.data.title
+
+    @property
+    def can_send_email(self):
+        portal = api.portal.get()
+
+        ctrlOverview = api.content.get_view(
+            context=portal,
+            request=portal.REQUEST,
+            name='overview-controlpanel',
+        )
+        if ctrlOverview.mailhost_warning():
+            return False
+        return True
 
     def update(self):
         if self.view.info is None:
