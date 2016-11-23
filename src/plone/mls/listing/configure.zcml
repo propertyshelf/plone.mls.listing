@@ -20,7 +20,10 @@
   <include file="profiles.zcml" />
 
 
+  <!-- Add local MLS settings marker interface. -->
+  <!-- ======================================== -->
   <configure zcml:condition="installed Products.Archetypes">
+    <!-- Add marker interface to all Archetype content types. -->
     <class class="Products.Archetypes.BaseObject.BaseObject">
       <implements interface="plone.mls.listing.browser.listing_collection.IPossibleListingCollection" />
       <implements interface="plone.mls.listing.browser.listing_search.IPossibleListingSearch" />
