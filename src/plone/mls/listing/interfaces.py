@@ -12,7 +12,7 @@ from plone.mls.listing.i18n import _
 
 MSG_PRIORITY_DESCRIPTION = _(
     u'Items in this vocabulary are sorted by priority key (if available) '
-    u'and value otherwise. Enter one item per line. Possible values are: %s'
+    u'and value otherwise. Enter one item per line. Possible values are: {0}'
 )
 
 POSSIBLE_GEOGRAPHIC_TYPES = ', '.join([
@@ -61,37 +61,37 @@ class IMLSVocabularySettings(Interface):
     """
 
     geographic_types_priority = schema.Text(
-        description=MSG_PRIORITY_DESCRIPTION % POSSIBLE_GEOGRAPHIC_TYPES,
+        description=MSG_PRIORITY_DESCRIPTION.format(POSSIBLE_GEOGRAPHIC_TYPES),
         required=False,
         title=_(u"'Geographic Types' priority list"),
     )
 
     listing_types_priority = schema.Text(
-        description=MSG_PRIORITY_DESCRIPTION % POSSIBLE_LISTING_TYPES,
+        description=MSG_PRIORITY_DESCRIPTION.format(POSSIBLE_LISTING_TYPES),
         required=False,
         title=_(u"'Listing Types' priority list"),
     )
 
     location_types_priority = schema.Text(
-        description=MSG_PRIORITY_DESCRIPTION % POSSIBLE_LOCATION_TYPES,
+        description=MSG_PRIORITY_DESCRIPTION.format(POSSIBLE_LOCATION_TYPES),
         required=False,
         title=_(u"'Location Types' priority list"),
     )
 
     object_types_priority = schema.Text(
-        description=MSG_PRIORITY_DESCRIPTION % POSSIBLE_OBJECT_TYPES,
+        description=MSG_PRIORITY_DESCRIPTION.format(POSSIBLE_OBJECT_TYPES),
         required=False,
         title=_(u"'Object Types' priority list"),
     )
 
     ownership_types_priority = schema.Text(
-        description=MSG_PRIORITY_DESCRIPTION % POSSIBLE_OWNERSHIP_TYPES,
+        description=MSG_PRIORITY_DESCRIPTION.format(POSSIBLE_OWNERSHIP_TYPES),
         required=False,
         title=_(u"'Ownership Types' priority list"),
     )
 
     view_types_priority = schema.Text(
-        description=MSG_PRIORITY_DESCRIPTION % POSSIBLE_VIEW_TYPES,
+        description=MSG_PRIORITY_DESCRIPTION.format(POSSIBLE_VIEW_TYPES),
         required=False,
         title=_(u"'View Types' priority list"),
     )

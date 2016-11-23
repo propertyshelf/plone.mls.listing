@@ -66,15 +66,15 @@ function loadGoogleMaps(callback) {
   if (typeof google === 'object' && typeof google.maps === 'object') {
     callback();
   } else {
-    loadScript('https://maps.googleapis.com/maps/api/js?key=%(ak)s', callback);
+    loadScript('https://maps.googleapis.com/maps/api/js?key={ak}', callback);
   }
 }
 
 
 function initializeMap() {
-    var center = new google.maps.LatLng(%(lat)s, %(lng)s);
+    var center = new google.maps.LatLng({lat}, {lng});
     var myOptions = {
-        zoom: %(zoom)s,
+        zoom: {zoom},
         center: center,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         mapTypeControl: true,
@@ -86,13 +86,13 @@ function initializeMap() {
     };
 
     var map = new google.maps.Map(
-        document.getElementById('%(map_id)s'),
+        document.getElementById('{map_id}'),
         myOptions
     );
 
     var has_marker = true;
     if(has_marker) {
-        var myLatlng = new google.maps.LatLng(%(lat)s, %(lng)s);
+        var myLatlng = new google.maps.LatLng({lat}, {lng});
         var marker = new google.maps.Marker({
             position: myLatlng,
             map: map
@@ -451,13 +451,13 @@ class ListingDetails(BrowserView):
             # on error no map
             return
 
-        return MAP_JS % {
-            'lat': unicode(lat),
-            'lng': unicode(lng),
-            'map_id': self.map_id,
-            'zoom': self.zoomlevel,
-            'ak': self.googleapi,
-        }
+        return MAP_JS.format(
+            lat=unicode(lat),
+            lng=unicode(lng),
+            map_id=self.map_id,
+            zoom=self.zoomlevel,
+            ak=self.googleapi,
+        )
 
     @property
     def googleapi(self):
