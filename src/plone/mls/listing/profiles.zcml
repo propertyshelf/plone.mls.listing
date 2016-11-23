@@ -184,4 +184,12 @@
       profile="plone.mls.listing:default"
       />
 
+
+  <!-- GenericSetup utilities. -->
+  <!-- ======================= -->
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="plone.mls.listing-hiddenprofiles"
+      />
+
 </configure>

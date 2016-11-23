@@ -5,7 +5,9 @@
 import pkg_resources
 
 # zope imports
+from Products.CMFPlone.interfaces import INonInstallable
 from plone import api
+from zope.interface import implementer
 
 LISTING_TYPE = 'plone.mls.listing.listing'
 ADD_ONS = [
@@ -48,3 +50,13 @@ def install_add_ons(context):
                     quickinstaller.installProduct(item)
                 except AttributeError:
                     pass
+
+
+@implementer(INonInstallable)
+class HiddenProfiles(object):
+
+    def getNonInstallableProfiles(self):
+        """Hide uninstall profile from site-creation and quickinstaller."""
+        return [
+            'plone.mls.listing:uninstall',
+        ]
