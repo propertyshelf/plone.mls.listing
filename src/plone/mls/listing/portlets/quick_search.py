@@ -6,6 +6,7 @@ from AccessControl import Unauthorized
 from Acquisition import aq_inner
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone import api
 from plone.app.portlets.portlets import base
 from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
@@ -119,6 +120,10 @@ class QuickSearchForm(form.Form):
         if search_path is None:
             return self.context
 
+        if PLONE_5:
+            obj = api.content.get(UID=search_path)
+            search_path = '/'.join(obj.getPhysicalPath())
+
         if search_path.startswith('/'):
             search_path = search_path[1:]
 
@@ -151,6 +156,9 @@ class QuickSearchForm(form.Form):
         """See interfaces.IInputForm."""
         p_state = self.context.unrestrictedTraverse('@@plone_portal_state')
         search_path = self.data.target_search
+        if PLONE_5:
+            obj = api.content.get(UID=search_path)
+            search_path = '/'.join(obj.getPhysicalPath())
         if search_path.startswith('/'):
             search_path = search_path[1:]
         return '/'.join([p_state.portal_url(), search_path])
@@ -284,6 +292,10 @@ class Renderer(base.Renderer):
 
         if search_path is None:
             return False
+
+        if PLONE_5:
+            obj = api.content.get(UID=search_path)
+            search_path = '/'.join(obj.getPhysicalPath())
 
         if search_path.startswith('/'):
             search_path = search_path[1:]
