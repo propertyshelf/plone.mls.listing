@@ -8,7 +8,7 @@
   <!-- ====================== -->
   <genericsetup:registerProfile
       zcml:condition="not-have plone-5"
-      description="Plone support for MLS Listings."
+      description="Plone 4 support for MLS Listings."
       directory="profiles/plone4"
       name="default"
       provides="Products.GenericSetup.interfaces.EXTENSION"
@@ -17,7 +17,7 @@
 
   <genericsetup:registerProfile
       zcml:condition="have plone-5"
-      description="Plone support for MLS Listings."
+      description="Plone 5 support for MLS Listings."
       directory="profiles/plone5"
       name="default"
       provides="Products.GenericSetup.interfaces.EXTENSION"
