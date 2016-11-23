@@ -5,7 +5,6 @@
 import logging
 
 # zope imports
-from Products.CMFPlone.resources import add_resource_on_request
 from Products.Five import BrowserView
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.memoize.view import memoize
@@ -122,6 +121,7 @@ class ListingDetails(BrowserView):
         self.registry = getUtility(IRegistry)
         self._get_data()
         if PLONE_5:
+            from Products.CMFPlone.resources import add_resource_on_request
             if self.use_fotorama():
                 add_resource_on_request(self.request, 'psplonefotorama')
 
