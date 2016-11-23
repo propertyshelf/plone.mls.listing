@@ -13,7 +13,6 @@ from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
 from plone.app.portlets.portlets import base
-from plone.app.vocabularies.catalog import CatalogSource
 from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
@@ -55,6 +54,10 @@ logger = logging.getLogger(PRODUCT_NAME)
 if PLONE_4:
     from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
     from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+
+if PLONE_5:
+    from plone.app.vocabularies.catalog import CatalogSource
+
 
 MSG_PORTLET_DESCRIPTION = _(
     u'This portlet shows a form to contact the corresponding agent for a '
@@ -479,12 +482,19 @@ class IAgentContactPortlet(IPortletDataProvider):
         title=_(u'Show Accept Terms & Conditions field in email form?')
     )
 
-    accept_tcs_target = schema.Choice(
-        required=False,
-        # source=SearchableTextSourceBinder({}, default_query='path:'),
-        source=CatalogSource(),
-        title=_(u'Terms & Conditions page'),
-    )
+    if PLONE_4:
+        accept_tcs_target = schema.Choice(
+            required=False,
+            source=SearchableTextSourceBinder({}, default_query='path:'),
+            title=_(u'Terms & Conditions page'),
+        )
+
+    if PLONE_5:
+        accept_tcs_target = schema.Choice(
+            required=False,
+            source=CatalogSource(),
+            title=_(u'Terms & Conditions page'),
+        )
 
     captcha_visible = schema.Bool(
         default=True,

@@ -16,6 +16,10 @@ from zope.interface import implementer
 from zope.schema.fieldproperty import FieldProperty
 
 # local imports
+from plone.mls.listing import (
+    PLONE_4,
+    PLONE_5,
+)
 from plone.mls.listing.browser.interfaces import IListingDetails
 from plone.mls.listing.i18n import _
 from plone.mls.listing.portlets.agent_contact import IAgentContactPortlet
@@ -84,20 +88,25 @@ class Renderer(base.Renderer):
 
 class AddForm(base.AddForm):
     """Add form for the Agent Information portlet."""
-    schema = IAgentInformationPortlet
-    form_fields = form.Fields(IAgentInformationPortlet)
+    if PLONE_5:
+        schema = IAgentInformationPortlet
+    if PLONE_4:
+        form_fields = form.Fields(IAgentInformationPortlet)
     label = _(u'Add Agent Information portlet')
     description = MSG_PORTLET_DESCRIPTION
 
     def create(self, data):
         assignment = Assignment()
-        form.applyChanges(assignment, self.form_fields, data)
+        if PLONE_4:
+            form.applyChanges(assignment, self.form_fields, data)
         return assignment
 
 
 class EditForm(base.EditForm):
     """Edit form for the Agent Information portlet."""
-    schema = IAgentInformationPortlet
-    form_fields = form.Fields(IAgentInformationPortlet)
+    if PLONE_5:
+        schema = IAgentInformationPortlet
+    if PLONE_4:
+        form_fields = form.Fields(IAgentInformationPortlet)
     label = _(u'Edit Agent Information portlet')
     description = MSG_PORTLET_DESCRIPTION

@@ -6,10 +6,7 @@ from AccessControl import Unauthorized
 from Acquisition import aq_inner
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-# from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets.portlets import base
-from plone.app.vocabularies.catalog import SearchableTextSourceBinder
-from plone.app.vocabularies.catalog import CatalogSource
 from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
@@ -21,6 +18,10 @@ from zope.interface import alsoProvides, implementer
 from zope.schema.fieldproperty import FieldProperty
 
 # local imports
+from plone.mls.listing import (
+    PLONE_4,
+    PLONE_5,
+)
 from plone.mls.listing.browser import listing_search
 from plone.mls.listing.browser.valuerange.widget import ValueRangeFieldWidget
 from plone.mls.listing.i18n import _
@@ -31,6 +32,14 @@ try:
     HAS_WRAPPED_FORM = True
 except ImportError:
     HAS_WRAPPED_FORM = False
+
+
+if PLONE_4:
+    from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
+    from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+
+if PLONE_5:
+    from plone.app.vocabularies.catalog import CatalogSource
 
 
 MSG_PORTLET_DESCRIPTION = _(u'This portlet shows a listing quick search form.')
@@ -221,18 +230,28 @@ class IQuickSearchPortlet(IPortletDataProvider):
         title=_(u'Portlet Title (Filter)'),
     )
 
-    target_search = schema.Choice(
-        description=_(
-            u'Find the search page which will be used to show the results.'
-        ),
-        required=True,
-        source=CatalogSource(),
-        # source=SearchableTextSourceBinder({
-        #     'object_provides': 'plone.mls.listing.browser.listing_search.'
-        #                        'IListingSearch',
-        # }, default_query='path:'),
-        title=_(u'Search Page'),
-    )
+    if PLONE_4:
+        target_search = schema.Choice(
+            description=_(
+                u'Find the search page which will be used to show the results.'
+            ),
+            required=True,
+            source=SearchableTextSourceBinder({
+                'object_provides': 'plone.mls.listing.browser.listing_search.'
+                                   'IListingSearch',
+            }, default_query='path:'),
+            title=_(u'Search Page'),
+        )
+
+    if PLONE_5:
+        target_search = schema.Choice(
+            description=_(
+                u'Find the search page which will be used to show the results.'
+            ),
+            required=True,
+            source=CatalogSource(),
+            title=_(u'Search Page'),
+        )
 
 
 @implementer(IQuickSearchPortlet)
@@ -317,24 +336,29 @@ class Renderer(base.Renderer):
 
 class AddForm(base.AddForm):
     """Add form for the Listing Quick Search portlet."""
-    schema = IQuickSearchPortlet
-    form_fields = formlib.form.Fields(IQuickSearchPortlet)
-#    form_fields['target_search'].custom_widget = UberSelectionWidget
+    if PLONE_5:
+        schema = IQuickSearchPortlet
+    if PLONE_4:
+        form_fields = formlib.form.Fields(IQuickSearchPortlet)
+        form_fields['target_search'].custom_widget = UberSelectionWidget
 
     label = _(u'Add Listing Quick Search portlet')
     description = MSG_PORTLET_DESCRIPTION
 
     def create(self, data):
         assignment = Assignment()
-        formlib.form.applyChanges(assignment, self.form_fields, data)
+        if PLONE_4:
+            formlib.form.applyChanges(assignment, self.form_fields, data)
         return assignment
 
 
 class EditForm(base.EditForm):
     """Edit form for the Listing Quick Search portlet."""
-    schema = IQuickSearchPortlet
-    form_fields = formlib.form.Fields(IQuickSearchPortlet)
-#    form_fields['target_search'].custom_widget = UberSelectionWidget
+    if PLONE_5:
+        schema = IQuickSearchPortlet
+    if PLONE_4:
+        form_fields = formlib.form.Fields(IQuickSearchPortlet)
+        form_fields['target_search'].custom_widget = UberSelectionWidget
 
     label = _(u'Edit Listing Quick Search portlet')
     description = MSG_PORTLET_DESCRIPTION
