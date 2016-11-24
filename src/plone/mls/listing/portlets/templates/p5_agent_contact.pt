@@ -9,9 +9,7 @@
   <section class="portlet portletAgentContact"
       tal:define="email_enabled view/can_send_email | nothing;">
     <header class="portletHeader">
-      <span class="portletTopLeft"></span>
-      <span tal:omit-tag="" tal:content="view/title | nothing"></span>
-      <span class="portletTopRight"></span>
+      <span tal:omit-tag="" tal:replace="view/title | nothing"></span>
     </header>
     <section class="portletContent"
         tal:condition="not: email_enabled"
