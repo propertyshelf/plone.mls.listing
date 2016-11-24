@@ -63,7 +63,10 @@ class Assignment(base.Assignment):
 class Renderer(base.Renderer):
     """Agent Information Portlet Renderer."""
 
-    render = ViewPageTemplateFile('templates/agent_information.pt')
+    if PLONE_5:
+        render = ViewPageTemplateFile('templates/p5_agent_information.pt')
+    elif PLONE_4:
+        render = ViewPageTemplateFile('templates/agent_information.pt')
 
     @property
     def available(self):
