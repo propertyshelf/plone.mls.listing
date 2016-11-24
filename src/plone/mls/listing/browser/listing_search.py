@@ -351,7 +351,7 @@ class ListingSearchViewlet(ViewletBase):
 
     @property
     def hide_form(self):
-        if self.config.get('hide_form', False) is False:
+        if self.config.get('hide_form', True) is False:
             return False
 
         from plone.mls.listing.portlets.quick_search import IQuickSearchPortlet
