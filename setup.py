@@ -21,6 +21,7 @@ install_requires = [
     # -*- Extra requirements: -*-
     'Pillow',
     'collective.autopermission',
+    'collective.prettyphoto',
     'mls.apiclient',
     'plone.api',
     'plone.app.dexterity [grok]',
