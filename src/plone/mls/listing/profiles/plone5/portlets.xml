@@ -2,20 +2,20 @@
 <portlets>
   <portlet
       addview="portlets.AgentContact"
-      title="Agent Contact"
-      description="A portlet for contacting the listing agent via email."
+      title="MLS: Agent Contact"
+      description="A portlet for contacting the responsible agent via email."
   />
 
   <portlet
       addview="portlets.AgentInformation"
-      title="Agent Information"
-      description="A portlet displaying agent information for a listing."
+      title="MLS: Agent Information"
+      description="A portlet displaying information about the responsible agent."
   />
 
   <portlet
       addview="portlets.QuickSearch"
-      title="Listing Quick Search"
-      description="A portlet displaying a search form for listings."
+      title="MLS: Listing Quick Search"
+      description="A portlet displaying a quick search form for listings."
   />
 
 </portlets>

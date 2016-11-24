@@ -276,7 +276,7 @@ class Assignment(base.Assignment):
     heading_filter = FieldProperty(IQuickSearchPortlet['heading_filter'])
     target_search = None
 
-    title = _(u'Search Listings')
+    title = _(u'MLS: Listing Quick Search')
     title_filter = _(u'Filter Results')
     mode = 'SEARCH'
 

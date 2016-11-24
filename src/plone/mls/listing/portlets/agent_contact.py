@@ -587,7 +587,7 @@ class Assignment(base.Assignment):
     bcc = FieldProperty(IAgentContactPortlet['bcc'])
     reject_links = FieldProperty(IAgentContactPortlet['reject_links'])
 
-    title = _(u'Agent Contact')
+    title = _(u'MLS: Agent Contact')
 
     def __init__(
         self,

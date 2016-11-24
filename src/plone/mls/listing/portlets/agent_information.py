@@ -54,7 +54,7 @@ class Assignment(base.Assignment):
     """Agent Information Portlet Assignment."""
 
     heading = FieldProperty(IAgentInformationPortlet['heading'])
-    title = _(u'Agent Information')
+    title = _(u'MLS: Agent Information')
 
     def __init__(self, heading=None):
         self.heading = heading
