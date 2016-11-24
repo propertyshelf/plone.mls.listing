@@ -18,11 +18,20 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
 from plone.app.portlets.portlets import base
 from plone.directives import form
+from plone.formwidget.captcha.widget import CaptchaFieldWidget
+from plone.formwidget.captcha.validator import CaptchaValidator
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
-from z3c.form import button, field, validator
-from z3c.form.interfaces import HIDDEN_MODE, IFormLayer
-from zope import formlib, schema
+from z3c.form import (
+    button,
+    field,
+    validator,
+)
+from z3c.form.interfaces import (
+    HIDDEN_MODE,
+    IFormLayer,
+)
+from zope import schema
 from zope.i18n import translate
 from zope.interface import (
     Interface,
@@ -36,6 +45,7 @@ from zope.schema.fieldproperty import FieldProperty
 from plone.mls.listing import (
     PLONE_4,
     PLONE_5,
+    PRODUCT_NAME,
 )
 from plone.mls.listing.browser.interfaces import IListingDetails
 from plone.mls.listing.browser.tcwidget.widget import TCFieldWidget
@@ -48,18 +58,12 @@ try:
 except ImportError:
     HAS_WRAPPED_FORM = False
 
-from plone.formwidget.captcha.widget import CaptchaFieldWidget
-from plone.formwidget.captcha.validator import CaptchaValidator
-
-from plone.mls.listing import PRODUCT_NAME
-logger = logging.getLogger(PRODUCT_NAME)
-
-
 if PLONE_5:
     from plone.app.vocabularies.catalog import CatalogSource
 elif PLONE_4:
     from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
     from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+    from zope import formlib
 
 
 MSG_PORTLET_DESCRIPTION = _(
@@ -92,6 +96,8 @@ check_email = re.compile(
 
 check_for_url = re.compile(
     r'http[s]?://').search
+
+logger = logging.getLogger(PRODUCT_NAME)
 
 
 def validate_accept(value):

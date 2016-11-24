@@ -12,10 +12,19 @@ from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
 from z3c.form import button, field
-from z3c.form.browser import checkbox, radio
-from z3c.form.interfaces import HIDDEN_MODE, IFormLayer
-from zope import formlib, schema
-from zope.interface import alsoProvides, implementer
+from z3c.form.browser import (
+    checkbox,
+    radio,
+)
+from z3c.form.interfaces import (
+    HIDDEN_MODE,
+    IFormLayer,
+)
+from zope import schema
+from zope.interface import (
+    alsoProvides,
+    implementer,
+)
 from zope.schema.fieldproperty import FieldProperty
 
 # local imports

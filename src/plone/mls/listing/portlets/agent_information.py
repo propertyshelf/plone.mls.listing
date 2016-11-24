@@ -10,8 +10,10 @@ from plone.portlets.interfaces import (
     IPortletRetriever,
 )
 from zope import schema
-from zope.component import getMultiAdapter, getUtility
-from zope.formlib import form
+from zope.component import (
+    getMultiAdapter,
+    getUtility,
+)
 from zope.interface import implementer
 from zope.schema.fieldproperty import FieldProperty
 
@@ -23,6 +25,9 @@ from plone.mls.listing import (
 from plone.mls.listing.browser.interfaces import IListingDetails
 from plone.mls.listing.i18n import _
 from plone.mls.listing.portlets.agent_contact import IAgentContactPortlet
+
+if PLONE_4:
+    from zope.formlib import form
 
 
 MSG_PORTLET_DESCRIPTION = _(
