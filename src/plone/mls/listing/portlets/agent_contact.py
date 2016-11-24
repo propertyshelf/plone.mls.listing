@@ -621,7 +621,10 @@ class Assignment(base.Assignment):
 class Renderer(base.Renderer):
     """Agent Contact Portlet Renderer."""
 
-    render = ViewPageTemplateFile('templates/agent_contact.pt')
+    if PLONE_5:
+        render = ViewPageTemplateFile('templates/p5_agent_contact.pt')
+    elif PLONE_4:
+        render = ViewPageTemplateFile('templates/agent_contact.pt')
 
     @property
     def already_sent(self):
