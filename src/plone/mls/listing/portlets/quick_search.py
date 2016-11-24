@@ -251,7 +251,10 @@ class IQuickSearchPortlet(IPortletDataProvider):
                 u'Find the search page which will be used to show the results.'
             ),
             required=True,
-            source=CatalogSource(),
+            source=CatalogSource(
+                object_provides='plone.mls.listing.browser.listing_search.'
+                                'IListingSearch',
+            ),
             title=_(u'Search Page'),
         )
     elif PLONE_4:
