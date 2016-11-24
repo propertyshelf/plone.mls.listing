@@ -34,14 +34,12 @@ try:
 except ImportError:
     HAS_WRAPPED_FORM = False
 
-
-if PLONE_4:
-    from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
-    from plone.app.vocabularies.catalog import SearchableTextSourceBinder
-
 if PLONE_5:
     from plone.app.vocabularies.catalog import CatalogSource
-
+elif PLONE_4:
+    from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
+    from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+    from zope import formlib
 
 MSG_PORTLET_DESCRIPTION = _(u'This portlet shows a listing quick search form.')
 
@@ -238,7 +236,16 @@ class IQuickSearchPortlet(IPortletDataProvider):
         title=_(u'Portlet Title (Filter)'),
     )
 
-    if PLONE_4:
+    if PLONE_5:
+        target_search = schema.Choice(
+            description=_(
+                u'Find the search page which will be used to show the results.'
+            ),
+            required=True,
+            source=CatalogSource(),
+            title=_(u'Search Page'),
+        )
+    elif PLONE_4:
         target_search = schema.Choice(
             description=_(
                 u'Find the search page which will be used to show the results.'
@@ -248,16 +255,6 @@ class IQuickSearchPortlet(IPortletDataProvider):
                 'object_provides': 'plone.mls.listing.browser.listing_search.'
                                    'IListingSearch',
             }, default_query='path:'),
-            title=_(u'Search Page'),
-        )
-
-    if PLONE_5:
-        target_search = schema.Choice(
-            description=_(
-                u'Find the search page which will be used to show the results.'
-            ),
-            required=True,
-            source=CatalogSource(),
             title=_(u'Search Page'),
         )
 
@@ -350,7 +347,7 @@ class AddForm(base.AddForm):
     """Add form for the Listing Quick Search portlet."""
     if PLONE_5:
         schema = IQuickSearchPortlet
-    if PLONE_4:
+    elif PLONE_4:
         form_fields = formlib.form.Fields(IQuickSearchPortlet)
         form_fields['target_search'].custom_widget = UberSelectionWidget
 
@@ -368,7 +365,7 @@ class EditForm(base.EditForm):
     """Edit form for the Listing Quick Search portlet."""
     if PLONE_5:
         schema = IQuickSearchPortlet
-    if PLONE_4:
+    elif PLONE_4:
         form_fields = formlib.form.Fields(IQuickSearchPortlet)
         form_fields['target_search'].custom_widget = UberSelectionWidget
 

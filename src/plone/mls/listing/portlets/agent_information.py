@@ -90,7 +90,7 @@ class AddForm(base.AddForm):
     """Add form for the Agent Information portlet."""
     if PLONE_5:
         schema = IAgentInformationPortlet
-    if PLONE_4:
+    elif PLONE_4:
         form_fields = form.Fields(IAgentInformationPortlet)
     label = _(u'Add Agent Information portlet')
     description = MSG_PORTLET_DESCRIPTION
@@ -106,7 +106,7 @@ class EditForm(base.EditForm):
     """Edit form for the Agent Information portlet."""
     if PLONE_5:
         schema = IAgentInformationPortlet
-    if PLONE_4:
+    elif PLONE_4:
         form_fields = form.Fields(IAgentInformationPortlet)
     label = _(u'Edit Agent Information portlet')
     description = MSG_PORTLET_DESCRIPTION

@@ -55,12 +55,11 @@ from plone.mls.listing import PRODUCT_NAME
 logger = logging.getLogger(PRODUCT_NAME)
 
 
-if PLONE_4:
-    from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
-    from plone.app.vocabularies.catalog import SearchableTextSourceBinder
-
 if PLONE_5:
     from plone.app.vocabularies.catalog import CatalogSource
+elif PLONE_4:
+    from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
+    from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 
 
 MSG_PORTLET_DESCRIPTION = _(
@@ -506,17 +505,16 @@ class IAgentContactPortlet(IPortletDataProvider):
         title=_(u'Show Accept Terms & Conditions field in email form?')
     )
 
-    if PLONE_4:
-        accept_tcs_target = schema.Choice(
-            required=False,
-            source=SearchableTextSourceBinder({}, default_query='path:'),
-            title=_(u'Terms & Conditions page'),
-        )
-
     if PLONE_5:
         accept_tcs_target = schema.Choice(
             required=False,
             source=CatalogSource(),
+            title=_(u'Terms & Conditions page'),
+        )
+    elif PLONE_4:
+        accept_tcs_target = schema.Choice(
+            required=False,
+            source=SearchableTextSourceBinder({}, default_query='path:'),
             title=_(u'Terms & Conditions page'),
         )
 
@@ -677,7 +675,7 @@ class AddForm(base.AddForm):
     """Add form for the Agent Contact portlet."""
     if PLONE_5:
         schema = IAgentContactPortlet
-    if PLONE_4:
+    elif PLONE_4:
         form_fields = formlib.form.Fields(IAgentContactPortlet)
         form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Add Agent Contact portlet')
@@ -694,7 +692,7 @@ class EditForm(base.EditForm):
     """Edit form for the Agent Contact portlet"""
     if PLONE_5:
         schema = IAgentContactPortlet
-    if PLONE_4:
+    elif PLONE_4:
         form_fields = formlib.form.Fields(IAgentContactPortlet)
         form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Edit Agent Contact portlet')
