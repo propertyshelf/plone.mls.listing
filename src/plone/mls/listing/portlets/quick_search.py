@@ -289,7 +289,10 @@ class Assignment(base.Assignment):
 class Renderer(base.Renderer):
     """Listing Quick Search Portlet Renderer."""
 
-    render = ViewPageTemplateFile('templates/quick_search.pt')
+    if PLONE_5:
+        render = ViewPageTemplateFile('templates/p5_quick_search.pt')
+    elif PLONE_4:
+        render = ViewPageTemplateFile('templates/quick_search.pt')
 
     @property
     def available(self):
