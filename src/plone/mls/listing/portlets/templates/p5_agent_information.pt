@@ -23,7 +23,7 @@
         <figcaption><span tal:replace="agent_name">[Agent Name]</span></figcaption>
       </figure>
 
-      <h3 tal:condition="agent_name" class="agent_name" 
+      <h3 tal:condition="agent_name" class="agent_name"
           tal:content="agent_name">[Agent Name]</h3>
 
       <p class="agent_title_name"><small
