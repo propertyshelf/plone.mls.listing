@@ -6,6 +6,7 @@ import logging
 
 # zope imports
 from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.memoize.view import memoize
 from plone.registry.interfaces import IRegistry
@@ -17,6 +18,7 @@ from zope.publisher.interfaces import NotFound
 # local imports
 from plone.mls.core import api
 from plone.mls.listing import (
+    PLONE_4,
     PLONE_5,
     PRODUCT_NAME,
 )
@@ -110,9 +112,17 @@ class ListingDetails(BrowserView):
     _data = None
     listing_id = None
 
+    if PLONE_5:
+        index = ViewPageTemplateFile('templates/p5_listing_details.pt')
+    elif PLONE_4:
+        index = ViewPageTemplateFile('templates/listing_details.pt')
+
+    def render(self):
+        return self.index()
+
     def __call__(self):
         self.setup()
-        return super(ListingDetails, self).__call__()
+        return self.render()
 
     def setup(self):
         self.portal_state = queryMultiAdapter(
