@@ -645,7 +645,7 @@ class Renderer(base.Renderer):
 
     @property
     def title(self):
-        return self.data.heading or self.data.title
+        return self.data.heading or _(u'Agent Contact')
 
     @property
     def can_send_email(self):

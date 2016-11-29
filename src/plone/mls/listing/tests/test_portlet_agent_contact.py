@@ -113,7 +113,7 @@ class TestRenderer(unittest.TestCase):
         r = self.renderer(
             context=self.portal, assignment=agent_contact.Assignment()
         )
-        self.assertEqual('MLS: Agent Contact', r.title)
+        self.assertEqual('Agent Contact', r.title)
 
     def test_custom_title(self):
         r = self.renderer(

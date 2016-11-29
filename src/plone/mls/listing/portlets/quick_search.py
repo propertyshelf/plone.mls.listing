@@ -280,7 +280,6 @@ class Assignment(base.Assignment):
     target_search = None
 
     title = _(u'MLS: Listing Quick Search')
-    title_filter = _(u'Filter Results')
     mode = 'SEARCH'
 
     def __init__(self, heading=None, heading_filter=None, target_search=None):
@@ -324,13 +323,10 @@ class Renderer(base.Renderer):
     def title(self):
         """Return the title dependend on the mode that we are in."""
         if self.mode == 'SEARCH':
-            if self.data.heading is not None:
-                return self.data.heading
+            return self.data.heading or _(u'Listing Search')
             return self.data.title
         if self.mode == 'FILTER':
-            if self.data.heading_filter is not None:
-                return self.data.heading_filter
-            return self.data.title_filter
+            return self.data.heading_filter or _(u'Filter Results')
 
     @property
     def mode(self):

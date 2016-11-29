@@ -75,9 +75,7 @@ class Renderer(base.Renderer):
 
     @property
     def title(self):
-        if self.data.heading is not None:
-            return self.data.heading
-        return self.data.title
+        return self.data.heading or _(u'Agent Information')
 
     @property
     def agent_contact_portlet_available(self):
