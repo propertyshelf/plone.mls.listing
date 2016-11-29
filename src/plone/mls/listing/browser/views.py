@@ -47,35 +47,35 @@ MAP_JS = """
 var isTouch = false;
 var map;
 
-window.addEventListener('touchmove', function MoveDetector() {
+window.addEventListener('touchmove', function MoveDetector() {{
     isTouch = true;
     window.removeEventListener('touchmove', MoveDetector);
     map = initializeMap();
-});
+}});
 
-function loadScript(src, callback) {
+function loadScript(src, callback) {{
   var script = document.createElement("script");
   script.type = "text/javascript";
-  if (callback) {
+  if (callback) {{
     script.onload = callback;
-  }
+  }}
   document.getElementsByTagName("head")[0].appendChild(script);
   script.src = src;
-}
+}}
 
 
-function loadGoogleMaps(callback) {
-  if (typeof google === 'object' && typeof google.maps === 'object') {
+function loadGoogleMaps(callback) {{
+  if (typeof google === 'object' && typeof google.maps === 'object') {{
     callback();
-  } else {
+  }} else {{
     loadScript('https://maps.googleapis.com/maps/api/js?key={ak}', callback);
-  }
-}
+  }}
+}}
 
 
-function initializeMap() {
+function initializeMap() {{
     var center = new google.maps.LatLng({lat}, {lng});
-    var myOptions = {
+    var myOptions = {{
         zoom: {zoom},
         center: center,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
@@ -85,7 +85,7 @@ function initializeMap() {
         streetViewControl: true,
         scrollwheel: false,
         draggable:!isTouch
-    };
+    }};
 
     var map = new google.maps.Map(
         document.getElementById('{map_id}'),
@@ -93,15 +93,15 @@ function initializeMap() {
     );
 
     var has_marker = true;
-    if(has_marker) {
+    if(has_marker) {{
         var myLatlng = new google.maps.LatLng({lat}, {lng});
-        var marker = new google.maps.Marker({
+        var marker = new google.maps.Marker({{
             position: myLatlng,
             map: map
-        });
-    }
+        }});
+    }}
     return map;
-};
+}};
 """
 
 
