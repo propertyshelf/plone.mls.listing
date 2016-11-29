@@ -23,17 +23,15 @@
         <figcaption><span tal:replace="agent_name">[Agent Name]</span></figcaption>
       </figure>
 
-      <h3 tal:condition="agent_name"
+      <h3 tal:condition="agent_name" class="agent_name" 
           tal:content="agent_name">[Agent Name]</h3>
 
-      <p class="agent_title"
+      <p class="agent_title_name"><small
          tal:define="agent_title contact/agent/title/value | nothing"
          tal:condition="agent_title"
-         tal:content="agent_title">[Agent Title]</p>
-
-      <p class="agency_name"
+         tal:content="agent_title">[Agent Title]</small> <small class="agency_name"
          tal:condition="agency_name"
-         tal:content="agency_name">[Agency Name]</p>
+         tal:content="agency_name">[Agency Name]</small></p>
 
       <dl class="contact_details">
         <tal:item tal:define="item contact/agent/languages | nothing"
