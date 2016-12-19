@@ -30,7 +30,11 @@ except ImportError:
 
 # local imports
 from plone.mls.core.navigation import ListingBatch
-from plone.mls.listing import AnnotationStorage
+from plone.mls.listing import (
+    AnnotationStorage,
+    PLONE_4,
+    PLONE_5,
+)
 from plone.mls.listing.api import prepare_search_params, search
 from plone.mls.listing.browser.interfaces import (
     IBaseListingItems,
@@ -337,6 +341,11 @@ class ListingSearchViewlet(ViewletBase):
 
     _listings = None
     _batching = None
+
+    if PLONE_5:
+        index = ViewPageTemplateFile('templates/p5_listing_search_viewlet.pt')
+    elif PLONE_4:
+        index = ViewPageTemplateFile('templates/listing_search_viewlet.pt')
 
     @property
     def available(self):

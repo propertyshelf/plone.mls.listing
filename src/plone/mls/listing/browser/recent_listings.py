@@ -2,6 +2,7 @@
 """Recent MLS Listings."""
 
 # zope imports
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.directives import form
 from plone.memoize.view import memoize
@@ -15,7 +16,11 @@ from zope.traversing.browser.absoluteurl import absoluteURL
 
 # local imports
 from plone.mls.core.navigation import ListingBatch
-from plone.mls.listing import AnnotationStorage
+from plone.mls.listing import (
+    AnnotationStorage,
+    PLONE_4,
+    PLONE_5,
+)
 from plone.mls.listing.api import prepare_search_params, recent_listings
 from plone.mls.listing.browser.interfaces import (
     IBaseListingItems,
@@ -39,6 +44,11 @@ class RecentListingsViewlet(ViewletBase):
 
     _listings = None
     _batching = None
+
+    if PLONE_5:
+        index = ViewPageTemplateFile('templates/p5_listing_results.pt')
+    elif PLONE_4:
+        index = ViewPageTemplateFile('templates/recent_listings_viewlet.pt')
 
     @property
     def available(self):
