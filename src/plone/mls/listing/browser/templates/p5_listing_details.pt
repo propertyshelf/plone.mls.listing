@@ -169,7 +169,7 @@
           </div>
 
           <div id="sec-listing-long-description" class="listing__longdescription" tal:define="description view/long_description | nothing" tal:condition="description">
-            <h3 i18n:translate="" class="hiddenStructure">Long Description</h3>
+            <h3 i18n:translate="">More about this property</h3>
             <p tal:content="description">Long Description</p>
           </div>
 
