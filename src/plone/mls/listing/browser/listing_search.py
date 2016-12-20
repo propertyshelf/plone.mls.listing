@@ -260,7 +260,10 @@ class IListingSearchForm(form.Schema):
 class ListingSearchForm(form.Form):
     """Listing Search Form."""
     fields = field.Fields(IListingSearchForm)
-    template = ViewPageTemplateFile('templates/search_form.pt')
+    if PLONE_5:
+        template = ViewPageTemplateFile('templates/p5_search_form.pt')
+    elif PLONE_4:
+        template = ViewPageTemplateFile('templates/search_form.pt')
     ignoreContext = True
     method = 'get'
 
