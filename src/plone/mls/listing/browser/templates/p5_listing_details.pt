@@ -197,7 +197,7 @@
               </tal:group>
             </tal:groups>
             <tal:calendar tal:define="item view/availability_calendar | nothing" tal:condition="item">
-              <section>
+              <section class="listing__calendar">
                 <header><span i18n:translate="">Calendar</span></header>
                 <div tal:content="structure item">[EMBEDDING_CODE]</div>
               </section>
