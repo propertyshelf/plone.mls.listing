@@ -8,52 +8,52 @@
     <div metal:use-macro="context/@@ploneform-macros/titlelessform">
       <metal:fields-slot fill-slot="fields">
 
-        <div class="form-row-listing-type form-rows"
+        <div class="row"
              tal:define="widgets view/widgets_listing_type | nothing"
              tal:condition="widgets">
-          <tal:block tal:repeat="widget widgets">
+          <div class="col-xs-12" tal:repeat="widget widgets">
             <metal:field use-macro="context/@@ploneform-macros/field" />
-          </tal:block>
+          </div>
         </div>
 
-        <div class="form-row-location form-rows"
+        <div class="row"
              tal:define="widgets view/widgets_location | nothing"
              tal:condition="widgets">
-          <tal:block tal:repeat="widget widgets">
+          <div class="col-xs-12 col-sm-4" tal:repeat="widget widgets">
             <metal:field use-macro="context/@@ploneform-macros/field" />
-          </tal:block>
+          </div>
         </div>
 
-        <div class="form-row-price form-rows"
+        <div class="row"
              tal:define="widgets view/widgets_price | nothing"
              tal:condition="widgets">
-          <tal:block tal:repeat="widget widgets">
+          <div class="col-xs-12 col-sm-4" tal:repeat="widget widgets">
             <metal:field use-macro="context/@@ploneform-macros/field" />
-          </tal:block>
+          </div>
         </div>
 
-        <div class="form-row-beds-baths form-rows"
+        <div class="row"
              tal:define="widgets view/widgets_beds_baths | nothing"
              tal:condition="widgets">
-          <tal:block tal:repeat="widget widgets">
+          <div class="col-xs-12 col-sm-6" tal:repeat="widget widgets">
             <metal:field use-macro="context/@@ploneform-macros/field" />
-          </tal:block>
+          </div>
         </div>
 
-        <div class="form-row-sizes form-rows"
+        <div class="row"
              tal:define="widgets view/widgets_sizes | nothing"
              tal:condition="widgets">
-          <tal:block tal:repeat="widget widgets">
+          <div class="col-xs-12 col-sm-6" tal:repeat="widget widgets">
             <metal:field use-macro="context/@@ploneform-macros/field" />
-          </tal:block>
+          </div>
         </div>
 
-        <div class="form-row-other form-rows"
+        <div class="row"
              tal:define="widgets view/widgets_other | nothing"
              tal:condition="widgets">
-          <tal:block tal:repeat="widget widgets">
+          <div class="col-xs-12 col-sm-4" tal:repeat="widget widgets">
             <metal:field use-macro="context/@@ploneform-macros/field" />
-          </tal:block>
+          </div>
         </div>
 
         <div class="form-row-outstanding form-rows"
@@ -64,23 +64,14 @@
           </tal:block>
         </div>
 
-        <div class="form-row-tabbed form-rows"
+        <div class="row"
              tal:define="widgets view/widgets_tabbed | nothing"
              tal:condition="widgets">
-          <dl class="enableFormTabbing">
-            <tal:tabs tal:repeat="widget widgets">
-              <tal:defs
-                  tal:define="fieldset_name repeat/widget/index">
-                <dt id="fieldsetlegend-default"
-                    tal:attributes="id string:fieldsetlegend-${fieldset_name}"
-                    tal:content="widget/label">Title</dt>
-                <dd id="fieldset-default"
-                    tal:attributes="id string:fieldset-${fieldset_name}">
-                  <metal:field use-macro="context/@@ploneform-macros/field" />
-                </dd>
-              </tal:defs>
-            </tal:tabs>
-          </dl>
+          <div class="col-xs-12 pat-autotoc autotabs" data-pat-autotoc="section:section;levels:section >  div > label;">
+            <section tal:repeat="widget widgets">
+              <metal:field use-macro="context/@@ploneform-macros/field" />
+            </section>
+          </div>
         </div>
 
       </metal:fields-slot>
