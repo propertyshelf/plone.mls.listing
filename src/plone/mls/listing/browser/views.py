@@ -461,6 +461,12 @@ class ListingDetails(BrowserView):
             # on error no map
             return
 
+        try:
+            float(lat)
+            float(lng)
+        except ValueError:
+            return
+
         return MAP_JS.format(
             lat=unicode(lat),
             lng=unicode(lng),
