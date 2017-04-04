@@ -4,7 +4,7 @@ Changelog
 1.9 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- In agent contact form, use sender for email 'from', instead of 'reply-to'.
 
 
 1.8.2 (2016-11-07)
