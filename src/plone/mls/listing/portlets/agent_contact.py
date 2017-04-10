@@ -3,6 +3,10 @@
 
 # python imports
 from email import message_from_string
+from email.utils import (
+    formataddr,
+    getaddresses,
+)
 import copy
 import logging
 import re
@@ -12,6 +16,7 @@ from Acquisition import aq_inner
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone import api
 from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets.portlets import base
 from plone.app.vocabularies.catalog import SearchableTextSourceBinder
@@ -369,37 +374,40 @@ class EmailForm(form.Form):
         return u''.join(items)
 
     def send_email(self, data):
-        mailhost = getToolByName(self.context, 'MailHost')
+        """Construct and send an email message."""
         urltool = getToolByName(self.context, 'portal_url')
         portal = urltool.getPortalObject()
-        email_charset = portal.getProperty('email_charset')
 
-        # Construct and send a message.
-        from_address = portal.getProperty('email_from_address')
-        from_name = portal.getProperty('email_from_name')
-        if from_name is not None:
-            from_address = u'{0} <{1}>'.format(from_name, from_address)
+        try:
+            email_charset = api.portal.get_registry_record('plone.email_charset')
+        except api.exc.InvalidParameterError:
+            email_charset = portal.getProperty('email_charset', 'utf-8')
 
-        review_recipient = getattr(self.data, 'recipient', None)
-        rcp = None
-        if review_recipient is not None:
-            rcp = review_recipient
+        recipient = None
+        portal_address = portal.getProperty('email_from_address')
+        custom_recipient = getattr(self.data, 'recipient', None)
+
+        if custom_recipient is not None:
+            recipient = custom_recipient
         else:
             agent = self.listing_info.get('agent')
             try:
-                rcp = agent.get('agent_email').get('value')
+                recipient = agent.get('agent_email').get('value')
             except AttributeError:
-                rcp = None
+                recipient = None
 
-            if rcp is None:
-                rcp = from_address
+        if recipient is None:
+            recipient = portal_address
 
-        sender = u'{0} <{1}>'.format(data['name'], data['sender_from_address'])
-        subject = data['subject']
-        data['url'] = self.request.getURL()
+        recipients = [recipient]
+        if getattr(self.data, 'bcc', None) is not None:
+            bcc = self.data.bcc
+            recipients += [formataddr(addr) for addr in getaddresses((bcc, ))]
+
+        sender = formataddr((data['name'], data['sender_from_address']))
 
         overridden = self.listing_info.get('overridden', False)
-        if overridden is True or review_recipient is not None:
+        if overridden is True or custom_recipient is not None:
             orig_agent = self.listing_info.get('original_agent')
             agent = translate(
                 EMAIL_TEMPLATE_AGENT,
@@ -411,21 +419,24 @@ class EmailForm(form.Form):
             )
             data['message'] = '\n'.join([data['message'], agent])
         data['form_data'] = self.format_data_for_email(data)
+        data['url'] = self.request.getURL()
 
-        message = translate(
+        subject = data['subject']
+
+        body = translate(
             EMAIL_TEMPLATE,
             context=self.request,
         ).format(**data)
+        email_msg = message_from_string(body.encode(email_charset))
+        email_msg['To'] = formataddr((recipient, recipient))
 
-        message = message_from_string(message.encode(email_charset))
-        message['To'] = rcp
-        message['From'] = sender
-        if getattr(self.data, 'bcc', None) is not None:
-            message['Bcc'] = self.data.bcc
-        message['Subject'] = subject
+        api.portal.send_email(
+            sender=sender,
+            recipient=recipients,
+            subject=subject,
+            body=email_msg,
+        )
 
-        mailhost.send(message, immediate=True, charset=email_charset)
-        return
 
 # Register Captcha validator for the captcha field in the ICaptchaForm
 validator.WidgetValidatorDiscriminators(
