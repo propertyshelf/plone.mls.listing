@@ -32,6 +32,7 @@ PROFILE_ID = 'profile-plone.mls.listing:default'
 def convert_value_to_token(
     obj=None, request=None, value=None, vocab=None, loc_type=None,
 ):
+    """Helper method to convert values into tokens."""
     token_values = []
     log_msg = None
     value_dec = value.encode('utf-8').decode('unicode_escape')
@@ -269,6 +270,7 @@ def migrate_to_1011(context):
 
 def migrate_to_1012(context):
     """"Migrate from 1011 to 1012
+
     * update javascript & css registry
     """
     setup = api.portal.get_tool(name='portal_setup')
@@ -278,6 +280,7 @@ def migrate_to_1012(context):
 
 def migrate_to_1013(context):
     """"Migrate from 1012 to 1013
+
     * update existing ListingCollections
     """
     request = getattr(context, 'REQUEST', None)
@@ -380,3 +383,21 @@ def migrate_to_1015(context):
         js.unregisterResource(
             'https://maps-api-ssl.google.com/maps/api/js?sensor=false'
         )
+
+
+def migrate_to_1016(context):
+    """"Migrate from 1015 to 1016.
+
+    * Update plone.mls.listing settings.
+    """
+    setup = api.portal.get_tool(name='portal_setup')
+
+    try:
+        from plone.portlets.utils import unregisterPortletType
+        unregisterPortletType(context, 'portlets.AgentContact')
+        unregisterPortletType(context, 'portlets.AgentInformation')
+        unregisterPortletType(context, 'portlets.QuickSearch')
+    except ImportError:
+        pass
+    else:
+        setup.runImportStepFromProfile(PROFILE_ID, 'portlets')
