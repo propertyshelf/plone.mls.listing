@@ -7,7 +7,6 @@ from plone.app.testing import (
     PloneSandboxLayer,
     PLONE_FIXTURE,
     applyProfile,
-    quickInstallProduct,
 )
 
 
@@ -24,7 +23,6 @@ class PloneMLSListing(PloneSandboxLayer):
     def setUpPloneSite(self, portal):
         """Set up a Plone site for testing."""
         applyProfile(portal, 'plone.mls.listing:default')
-        quickInstallProduct(portal, 'raptus.article.core')
 
 
 PLONE_MLS_LISTING_FIXTURE = PloneMLSListing()

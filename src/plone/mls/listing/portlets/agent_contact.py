@@ -13,19 +13,25 @@ import re
 
 # zope imports
 from Acquisition import aq_inner
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
-from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
 from plone.app.portlets.portlets import base
-from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.directives import form
+from plone.formwidget.captcha.widget import CaptchaFieldWidget
+from plone.formwidget.captcha.validator import CaptchaValidator
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
-from z3c.form import button, field, validator
-from z3c.form.interfaces import HIDDEN_MODE, IFormLayer
-from zope import formlib, schema
+from z3c.form import (
+    button,
+    field,
+    validator,
+)
+from z3c.form.interfaces import (
+    HIDDEN_MODE,
+    IFormLayer,
+)
+from zope import schema
 from zope.i18n import translate
 from zope.interface import (
     Interface,
@@ -36,6 +42,11 @@ from zope.interface import (
 from zope.schema.fieldproperty import FieldProperty
 
 # local imports
+from plone.mls.listing import (
+    PLONE_4,
+    PLONE_5,
+    PRODUCT_NAME,
+)
 from plone.mls.listing.browser.interfaces import IListingDetails
 from plone.mls.listing.browser.tcwidget.widget import TCFieldWidget
 from plone.mls.listing.i18n import _
@@ -47,11 +58,13 @@ try:
 except ImportError:
     HAS_WRAPPED_FORM = False
 
-from plone.formwidget.captcha.widget import CaptchaFieldWidget
-from plone.formwidget.captcha.validator import CaptchaValidator
+if PLONE_5:
+    from plone.app.vocabularies.catalog import CatalogSource
+elif PLONE_4:
+    from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
+    from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+    from zope import formlib
 
-from plone.mls.listing import PRODUCT_NAME
-logger = logging.getLogger(PRODUCT_NAME)
 
 MSG_PORTLET_DESCRIPTION = _(
     u'This portlet shows a form to contact the corresponding agent for a '
@@ -83,6 +96,8 @@ check_email = re.compile(
 
 check_for_url = re.compile(
     r'http[s]?://').search
+
+logger = logging.getLogger(PRODUCT_NAME)
 
 
 def validate_accept(value):
@@ -263,8 +278,7 @@ class EmailForm(form.Form):
 
     def updateWidgets(self):
         super(EmailForm, self).updateWidgets()
-        urltool = getToolByName(self.context, 'portal_url')
-        portal = urltool.getPortalObject()
+        portal = api.portal.get()
         subject = u'{portal_title}: {title} ({lid})'.format(
             lid=self.listing_info['listing_id'],
             portal_title=portal.getProperty('title').decode('utf-8'),
@@ -375,8 +389,7 @@ class EmailForm(form.Form):
 
     def send_email(self, data):
         """Construct and send an email message."""
-        urltool = getToolByName(self.context, 'portal_url')
-        portal = urltool.getPortalObject()
+        portal = api.portal.get()
 
         try:
             email_charset = api.portal.get_registry_record('plone.email_charset')
@@ -384,7 +397,13 @@ class EmailForm(form.Form):
             email_charset = portal.getProperty('email_charset', 'utf-8')
 
         recipient = None
-        portal_address = portal.getProperty('email_from_address')
+        try:
+            portal_address = api.portal.get_registry_record(
+                'plone.email_from_address'
+            )
+        except api.exc.InvalidParameterError:
+            # Before Plone 5.0b2 these were stored in portal_properties
+            portal_address = portal.getProperty('email_from_address', '')
         custom_recipient = getattr(self.data, 'recipient', None)
 
         if custom_recipient is not None:
@@ -481,11 +500,18 @@ class IAgentContactPortlet(IPortletDataProvider):
         title=_(u'Show Accept Terms & Conditions field in email form?')
     )
 
-    accept_tcs_target = schema.Choice(
-        required=False,
-        source=SearchableTextSourceBinder({}, default_query='path:'),
-        title=_(u'Terms & Conditions page'),
-    )
+    if PLONE_5:
+        accept_tcs_target = schema.Choice(
+            required=False,
+            source=CatalogSource(),
+            title=_(u'Terms & Conditions page'),
+        )
+    elif PLONE_4:
+        accept_tcs_target = schema.Choice(
+            required=False,
+            source=SearchableTextSourceBinder({}, default_query='path:'),
+            title=_(u'Terms & Conditions page'),
+        )
 
     captcha_visible = schema.Bool(
         default=True,
@@ -550,7 +576,7 @@ class Assignment(base.Assignment):
     bcc = FieldProperty(IAgentContactPortlet['bcc'])
     reject_links = FieldProperty(IAgentContactPortlet['reject_links'])
 
-    title = _(u'Agent Contact')
+    title = _(u'MLS: Agent Contact')
 
     def __init__(
         self,
@@ -584,7 +610,10 @@ class Assignment(base.Assignment):
 class Renderer(base.Renderer):
     """Agent Contact Portlet Renderer."""
 
-    render = ViewPageTemplateFile('templates/agent_contact.pt')
+    if PLONE_5:
+        render = ViewPageTemplateFile('templates/p5_agent_contact.pt')
+    elif PLONE_4:
+        render = ViewPageTemplateFile('templates/agent_contact.pt')
 
     @property
     def already_sent(self):
@@ -605,7 +634,20 @@ class Renderer(base.Renderer):
 
     @property
     def title(self):
-        return self.data.heading or self.data.title
+        return self.data.heading or _(u'Agent Contact')
+
+    @property
+    def can_send_email(self):
+        portal = api.portal.get()
+
+        ctrlOverview = api.content.get_view(
+            context=portal,
+            request=portal.REQUEST,
+            name='overview-controlpanel',
+        )
+        if ctrlOverview.mailhost_warning():
+            return False
+        return True
 
     def update(self):
         if self.view.info is None:
@@ -629,20 +671,27 @@ class Renderer(base.Renderer):
 
 class AddForm(base.AddForm):
     """Add form for the Agent Contact portlet."""
-    form_fields = formlib.form.Fields(IAgentContactPortlet)
-    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
+    if PLONE_5:
+        schema = IAgentContactPortlet
+    elif PLONE_4:
+        form_fields = formlib.form.Fields(IAgentContactPortlet)
+        form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Add Agent Contact portlet')
     description = MSG_PORTLET_DESCRIPTION
 
     def create(self, data):
         assignment = Assignment()
-        formlib.form.applyChanges(assignment, self.form_fields, data)
+        if PLONE_4:
+            formlib.form.applyChanges(assignment, self.form_fields, data)
         return assignment
 
 
 class EditForm(base.EditForm):
     """Edit form for the Agent Contact portlet"""
-    form_fields = formlib.form.Fields(IAgentContactPortlet)
-    form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
+    if PLONE_5:
+        schema = IAgentContactPortlet
+    elif PLONE_4:
+        form_fields = formlib.form.Fields(IAgentContactPortlet)
+        form_fields['accept_tcs_target'].custom_widget = UberSelectionWidget
     label = _(u'Edit Agent Contact portlet')
     description = MSG_PORTLET_DESCRIPTION

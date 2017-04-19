@@ -5,8 +5,6 @@
 import pkg_resources
 
 # zope imports
-from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 from plone import api
 from plone.browserlayer import utils as layerutils
 from plone.registry.interfaces import IRegistry
@@ -79,15 +77,13 @@ def migrate_to_1001(context):
     * Update TinyMCE linkable types.
     * Update Kupu linkable types if available.
     """
-    site = getUtility(IPloneSiteRoot)
-
-    tinymce = getToolByName(site, 'portal_tinymce', None)
+    tinymce = api.portal.get_tool(name='portal_tinymce')
     if tinymce is not None:
         if LISTING_TYPE not in tinymce.linkable:
             tinymce.linkable += '\n' + LISTING_TYPE
 
-    portal_types = getToolByName(site, 'portal_types')
-    kupu = getToolByName(site, 'kupu_library_tool', None)
+    portal_types = api.portal.get_tool(name='portal_types')
+    kupu = api.portal.get_tool(name='kupu_library_tool')
     if kupu is not None:
         linkable = list(kupu.getPortalTypesForResourceType('linkable'))
         if LISTING_TYPE not in linkable:
@@ -114,9 +110,8 @@ def migrate_to_1002(context):
     * Add versioning behavior.
     * Enable versioning in portal types.
     """
-    site = getUtility(IPloneSiteRoot)
-    portal_types = getToolByName(site, 'portal_types')
-    quickinstaller = getToolByName(site, 'portal_quickinstaller')
+    portal_types = api.portal.get_tool(name='portal_types')
+    quickinstaller = api.portal.get_tool(name='portal_quickinstaller')
 
     # 1. Add plone.mls.featured.featured to Article's allowd types.
     if quickinstaller.isProductInstalled('raptus.article.core'):
@@ -150,8 +145,7 @@ def migrate_to_1002(context):
         pass
     else:
         # 3. Enable versioning in portal types.
-        site = getUtility(IPloneSiteRoot)
-        portal_repository = getToolByName(site, 'portal_repository')
+        portal_repository = api.portal.get_tool(name='portal_repository')
         versionable = list(portal_repository.getVersionableContentTypes())
         if LISTING_TYPE not in versionable:
             # Use append() to make sure we don't overwrite any content types
@@ -170,12 +164,10 @@ def migrate_to_1003(context):
     * Add plone.mls.listing browser layer.
     * Register custom stylesheet.
     """
-    site = getUtility(IPloneSiteRoot)
-
     if IListingSpecific not in layerutils.registered_layers():
         layerutils.register_layer(IListingSpecific, name='plone.mls.listing')
 
-    portal_css = getToolByName(site, 'portal_css')
+    portal_css = api.portal.get_tool(name='portal_css')
     stylesheet_id = '++resource++plone.mls.listing.stylesheets/main.css'
     portal_css.registerStylesheet(stylesheet_id, media='screen')
 
@@ -185,9 +177,7 @@ def migrate_to_1004(context):
 
     * Set 'Link using UIDs' for TinyMCE to false.
     """
-    site = getUtility(IPloneSiteRoot)
-
-    tinymce = getToolByName(site, 'portal_tinymce', None)
+    tinymce = api.portal.get_tool(name='portal_tinymce')
     if tinymce is not None:
         tinymce.link_using_uids = False
 
@@ -199,8 +189,7 @@ def migrate_to_1005(context):
     * Activate portal actions.
     * Register JS resources.
     """
-    site = getUtility(IPloneSiteRoot)
-    setup = getToolByName(site, 'portal_setup')
+    setup = api.portal.get_tool(name='portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'jsregistry')
     setup.runImportStepFromProfile(PROFILE_ID, 'actions')
     setup.runImportStepFromProfile(PROFILE_ID, 'portlets')
@@ -211,8 +200,7 @@ def migrate_to_1006(context):
 
     * Register 'Agent Contact' portlet.
     """
-    site = getUtility(IPloneSiteRoot)
-    setup = getToolByName(site, 'portal_setup')
+    setup = api.portal.get_tool(name='portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'portlets')
     setup.runImportStepFromProfile(PROFILE_ID, 'plone.app.registry')
     setup.runImportStepFromProfile(PROFILE_ID, 'controlpanel')
@@ -232,8 +220,7 @@ def migrate_to_1008(context):
 
     * Update portal actions.
     """
-    site = getUtility(IPloneSiteRoot)
-    setup = getToolByName(site, 'portal_setup')
+    setup = api.portal.get_tool(name='portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'actions')
     registry = getUtility(IRegistry)
     registry.registerInterface(IMLSAgencyContactInformation)
@@ -245,18 +232,17 @@ def migrate_to_1009(context):
     * Add the IMLSUIInformation registry settings.
     * Install ps.plone.fotorama.
     """
-    site = getUtility(IPloneSiteRoot)
     try:
         item = 'ps.plone.fotorama'
         pkg_resources.get_distribution(item)
     except pkg_resources.DistributionNotFound:
         pass
     else:
-        quickinstaller = getToolByName(site, 'portal_quickinstaller')
+        quickinstaller = api.portal.get_tool(name='portal_quickinstaller')
         if not quickinstaller.isProductInstalled(item):
             if quickinstaller.isProductInstallable(item):
                 quickinstaller.installProduct(item)
-    setup = getToolByName(site, 'portal_setup')
+    setup = api.portal.get_tool(name='portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'plone.app.registry')
     setup.runImportStepFromProfile(PROFILE_ID, 'controlpanel')
 
@@ -267,8 +253,7 @@ def migrate_to_1010(context):
     * update java sscript registry
     * update css registry
     """
-    site = getUtility(IPloneSiteRoot)
-    setup = getToolByName(site, 'portal_setup')
+    setup = api.portal.get_tool(name='portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'jsregistry')
     setup.runImportStepFromProfile(PROFILE_ID, 'cssregistry')
 
@@ -278,8 +263,7 @@ def migrate_to_1011(context):
 
     * update css registry
     """
-    site = getUtility(IPloneSiteRoot)
-    setup = getToolByName(site, 'portal_setup')
+    setup = api.portal.get_tool(name='portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'cssregistry')
 
 
@@ -287,8 +271,7 @@ def migrate_to_1012(context):
     """"Migrate from 1011 to 1012
     * update javascript & css registry
     """
-    site = getUtility(IPloneSiteRoot)
-    setup = getToolByName(site, 'portal_setup')
+    setup = api.portal.get_tool(name='portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'jsregistry')
     setup.runImportStepFromProfile(PROFILE_ID, 'cssregistry')
 
@@ -298,7 +281,7 @@ def migrate_to_1013(context):
     * update existing ListingCollections
     """
     request = getattr(context, 'REQUEST', None)
-    languages = getToolByName(context, 'portal_languages')
+    languages = api.portal.get_tool(name='portal_languages')
 
     state_vocab_factory = getUtility(
         IVocabularyFactory,
@@ -312,7 +295,7 @@ def migrate_to_1013(context):
         IVocabularyFactory,
         'plone.mls.listing.LocationDistricts',
     )
-    catalog = getToolByName(context, 'portal_catalog')
+    catalog = api.portal.get_tool(name='portal_catalog')
 
     for language in languages.getSupportedLanguages():
         logger.info(
@@ -377,9 +360,7 @@ def migrate_to_1014(context):
 
     * Update viewlets
     """
-
-    site = getUtility(IPloneSiteRoot)
-    setup = getToolByName(site, 'portal_setup')
+    setup = api.portal.get_tool(name='portal_setup')
     setup.runImportStepFromProfile(PROFILE_ID, 'viewlets')
 
 
@@ -388,11 +369,14 @@ def migrate_to_1015(context):
 
     * Update JS registry.
     """
-    site = getUtility(IPloneSiteRoot)
     try:
-        js = getToolByName(site, 'portal_javascripts')
+        js = api.portal.get_tool(name='portal_javascripts')
     except AttributeError:
         pass
     else:
-        js.unregisterResource('http://maps.google.com/maps/api/js?sensor=false')
-        js.unregisterResource('https://maps-api-ssl.google.com/maps/api/js?sensor=false')
+        js.unregisterResource(
+            'http://maps.google.com/maps/api/js?sensor=false'
+        )
+        js.unregisterResource(
+            'https://maps-api-ssl.google.com/maps/api/js?sensor=false'
+        )

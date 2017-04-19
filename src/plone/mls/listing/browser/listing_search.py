@@ -30,7 +30,11 @@ except ImportError:
 
 # local imports
 from plone.mls.core.navigation import ListingBatch
-from plone.mls.listing import AnnotationStorage
+from plone.mls.listing import (
+    AnnotationStorage,
+    PLONE_4,
+    PLONE_5,
+)
 from plone.mls.listing.api import prepare_search_params, search
 from plone.mls.listing.browser.interfaces import (
     IBaseListingItems,
@@ -256,7 +260,10 @@ class IListingSearchForm(form.Schema):
 class ListingSearchForm(form.Form):
     """Listing Search Form."""
     fields = field.Fields(IListingSearchForm)
-    template = ViewPageTemplateFile('templates/search_form.pt')
+    if PLONE_5:
+        template = ViewPageTemplateFile('templates/p5_search_form.pt')
+    elif PLONE_4:
+        template = ViewPageTemplateFile('templates/search_form.pt')
     ignoreContext = True
     method = 'get'
 
@@ -338,6 +345,11 @@ class ListingSearchViewlet(ViewletBase):
     _listings = None
     _batching = None
 
+    if PLONE_5:
+        index = ViewPageTemplateFile('templates/p5_listing_search_viewlet.pt')
+    elif PLONE_4:
+        index = ViewPageTemplateFile('templates/listing_search_viewlet.pt')
+
     @property
     def available(self):
         return IListingSearch.providedBy(self.context) and \
@@ -351,7 +363,7 @@ class ListingSearchViewlet(ViewletBase):
 
     @property
     def hide_form(self):
-        if self.config.get('hide_form', False) is False:
+        if self.config.get('hide_form', True) is False:
             return False
 
         from plone.mls.listing.portlets.quick_search import IQuickSearchPortlet
@@ -416,9 +428,12 @@ class ListingSearchViewlet(ViewletBase):
     def view_url(self):
         """Generate view url."""
         if not self.context_state.is_view_template():
-            return self.context_state.current_base_url()
+            url = self.context_state.current_base_url()
         else:
-            return absoluteURL(self.context, self.request) + '/'
+            url = absoluteURL(self.context, self.request)
+        if not url.endswith('/'):
+            url = url + '/'
+        return url
 
     @property
     def batching(self):

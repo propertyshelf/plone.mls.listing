@@ -8,7 +8,7 @@ except ImportError:
     import unittest
 
 # zope imports
-from Products.CMFCore.utils import getToolByName
+from plone import api
 
 # local imports
 from plone.mls.listing.testing import PLONE_MLS_LISTING_INTEGRATION_TESTING
@@ -23,6 +23,5 @@ class TestSetup(unittest.TestCase):
 
     def test_listing_available(self):
         """Test that the listing content type is available."""
-        portal = self.layer['portal']
-        portal_types = getToolByName(portal, 'portal_types')
+        portal_types = api.portal.get_tool(name='portal_types')
         self.assertTrue(LISTING_TYPE in portal_types)

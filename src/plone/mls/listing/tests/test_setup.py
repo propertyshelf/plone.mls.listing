@@ -8,6 +8,7 @@ except ImportError:
     import unittest
 
 # local imports
+from plone.mls.listing import PLONE_4
 from plone.mls.listing.testing import PLONE_MLS_LISTING_INTEGRATION_TESTING
 
 
@@ -17,6 +18,9 @@ class TestSetup(unittest.TestCase):
 
     def test_collective_prettyphoto_installed(self):
         """Validate that collective.prettyphoto is installed."""
+        if not PLONE_4:
+            return
+
         portal = self.layer['portal']
         qi = portal.portal_quickinstaller
         self.assertTrue(qi.isProductInstalled('collective.prettyphoto'))
@@ -25,26 +29,15 @@ class TestSetup(unittest.TestCase):
         """Validate that plone.app.dexterity is installed."""
         portal = self.layer['portal']
         qi = portal.portal_quickinstaller
-        self.assertTrue(qi.isProductInstalled('plone.app.dexterity'))
+        if qi.isProductAvailable('plone.app.dexterity'):
+            self.assertTrue(qi.isProductInstalled('plone.app.dexterity'))
+        else:
+            self.assertTrue(
+                'plone.app.dexterity' in qi.listInstallableProfiles()
+            )
 
     def test_plone_mls_core_installed(self):
         """Validate that plone.mls.core is installed."""
         portal = self.layer['portal']
         qi = portal.portal_quickinstaller
         self.assertTrue(qi.isProductInstalled('plone.mls.core'))
-
-    def test_ps_plone_fotorama_installed(self):
-        """Validate that ps.plone.fotorama is installed."""
-        portal = self.layer['portal']
-        qi = portal.portal_quickinstaller
-        self.assertTrue(qi.isProductInstalled('ps.plone.fotorama'))
-
-    # def test_raptus_article_core_installed(self):
-    #     """Test that raptus.article.core is installed.
-
-    #     Note that raptus.article.core is only installed automatically in
-    #     tests so that we can test the article integration.
-    #     """
-    #     portal = self.layer['portal']
-    #     qi = portal.portal_quickinstaller
-    #     self.assertTrue(qi.isProductInstalled('raptus.article.core'))

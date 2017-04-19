@@ -6,6 +6,7 @@ import logging
 
 # zope imports
 from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.memoize.view import memoize
 from plone.registry.interfaces import IRegistry
@@ -16,7 +17,11 @@ from zope.publisher.interfaces import NotFound
 
 # local imports
 from plone.mls.core import api
-from plone.mls.listing import PRODUCT_NAME
+from plone.mls.listing import (
+    PLONE_4,
+    PLONE_5,
+    PRODUCT_NAME,
+)
 from plone.mls.listing.api import get_agency_info, listing_details
 from plone.mls.listing.browser.interfaces import IListingDetails
 from plone.mls.listing.browser.listing_collection import (
@@ -37,40 +42,41 @@ from plone.mls.listing.interfaces import IMLSUISettings
 
 logger = logging.getLogger(PRODUCT_NAME)
 
+
 MAP_JS = """
 var isTouch = false;
 var map;
 
-window.addEventListener('touchmove', function MoveDetector() {
+window.addEventListener('touchmove', function MoveDetector() {{
     isTouch = true;
     window.removeEventListener('touchmove', MoveDetector);
     map = initializeMap();
-});
+}});
 
-function loadScript(src, callback) {
+function loadScript(src, callback) {{
   var script = document.createElement("script");
   script.type = "text/javascript";
-  if (callback) {
+  if (callback) {{
     script.onload = callback;
-  }
+  }}
   document.getElementsByTagName("head")[0].appendChild(script);
   script.src = src;
-}
+}}
 
 
-function loadGoogleMaps(callback) {
-    if (typeof google === 'object' && typeof google.maps === 'object') {
-        callback();
-    } else {
-        loadScript('https://maps.googleapis.com/maps/api/js?key=%(apikey)s', callback);
-    }
-}
+function loadGoogleMaps(callback) {{
+  if (typeof google === 'object' && typeof google.maps === 'object') {{
+    callback();
+  }} else {{
+    loadScript('https://maps.googleapis.com/maps/api/js?key={ak}', callback);
+  }}
+}}
 
 
-function initializeMap() {
-    var center = new google.maps.LatLng(%(lat)s, %(lng)s);
-    var myOptions = {
-        zoom: %(zoom)s,
+function initializeMap() {{
+    var center = new google.maps.LatLng({lat}, {lng});
+    var myOptions = {{
+        zoom: {zoom},
         center: center,
         mapTypeId: google.maps.MapTypeId.TERRAIN,
         mapTypeControl: true,
@@ -79,23 +85,23 @@ function initializeMap() {
         streetViewControl: true,
         scrollwheel: false,
         draggable:!isTouch
-    };
+    }};
 
     var map = new google.maps.Map(
-        document.getElementById('%(map_id)s'),
+        document.getElementById('{map_id}'),
         myOptions
     );
 
     var has_marker = true;
-    if(has_marker) {
-        var myLatlng = new google.maps.LatLng(%(lat)s, %(lng)s);
-        var marker = new google.maps.Marker({
+    if(has_marker) {{
+        var myLatlng = new google.maps.LatLng({lat}, {lng});
+        var marker = new google.maps.Marker({{
             position: myLatlng,
             map: map
-        });
-    }
+        }});
+    }}
     return map;
-};
+}};
 """
 
 
@@ -106,16 +112,28 @@ class ListingDetails(BrowserView):
     _data = None
     listing_id = None
 
-    def __init__(self, context, request):
-        super(ListingDetails, self).__init__(context, request)
-        self.update()
+    if PLONE_5:
+        index = ViewPageTemplateFile('templates/p5_listing_details.pt')
+    elif PLONE_4:
+        index = ViewPageTemplateFile('templates/listing_details.pt')
 
-    def update(self):
+    def render(self):
+        return self.index()
+
+    def __call__(self):
+        self.setup()
+        return self.render()
+
+    def setup(self):
         self.portal_state = queryMultiAdapter(
             (self.context, self.request), name='plone_portal_state',
         )
         self.registry = getUtility(IRegistry)
         self._get_data()
+        if PLONE_5:
+            from Products.CMFPlone.resources import add_resource_on_request
+            if self.use_fotorama():
+                add_resource_on_request(self.request, 'psplonefotorama')
 
     @memoize
     def _get_data(self):
@@ -443,13 +461,19 @@ class ListingDetails(BrowserView):
             # on error no map
             return
 
-        return MAP_JS % {
-            'lat': unicode(lat),
-            'lng': unicode(lng),
-            'map_id': self.map_id,
-            'zoom': self.zoomlevel,
-            'apikey': self.googleapi,
-        }
+        try:
+            float(lat)
+            float(lng)
+        except ValueError:
+            return
+
+        return MAP_JS.format(
+            lat=unicode(lat),
+            lng=unicode(lng),
+            map_id=self.map_id,
+            zoom=self.zoomlevel,
+            ak=self.googleapi,
+        )
 
     @property
     def googleapi(self):

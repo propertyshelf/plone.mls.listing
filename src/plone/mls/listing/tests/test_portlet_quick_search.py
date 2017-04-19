@@ -9,9 +9,15 @@ except ImportError:
 
 # zope imports
 from plone.app.portlets.storage import PortletAssignmentMapping
-from plone.app.testing import TEST_USER_ID, setRoles
+from plone.app.testing import (
+    TEST_USER_ID,
+    setRoles,
+)
 from plone.portlets import interfaces
-from zope.component import getMultiAdapter, getUtility
+from zope.component import (
+    getMultiAdapter,
+    getUtility,
+)
 
 # local imports
 from plone.mls.listing.portlets import quick_search
@@ -26,8 +32,9 @@ class TestQuickSearchPortlet(unittest.TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ('Manager', ))
-        self.portlet = getUtility(interfaces.IPortletType,
-                                  name='portlets.QuickSearch')
+        self.portlet = getUtility(
+            interfaces.IPortletType, name='portlets.QuickSearch'
+        )
 
     def test_portlet_type_registered(self):
         self.assertEqual(self.portlet.addview, 'portlets.QuickSearch')
@@ -36,7 +43,8 @@ class TestQuickSearchPortlet(unittest.TestCase):
         portlet = quick_search.Assignment()
         self.assertTrue(interfaces.IPortletAssignment.providedBy(portlet))
         self.assertTrue(
-            interfaces.IPortletDataProvider.providedBy(portlet))
+            interfaces.IPortletDataProvider.providedBy(portlet)
+        )
 
     def test_invoke_add_view(self):
         mapping = self.portal.restrictedTraverse(
@@ -46,8 +54,9 @@ class TestQuickSearchPortlet(unittest.TestCase):
         addview = mapping.restrictedTraverse('+/' + self.portlet.addview)
         addview.createAndAdd(data={})
         self.assertEqual(len(mapping), 1)
-        self.assertTrue(isinstance(mapping.values()[0],
-                                   quick_search.Assignment))
+        self.assertTrue(
+            isinstance(mapping.values()[0], quick_search.Assignment)
+        )
 
     def test_invoke_edit_view(self):
         request = self.layer['request']
@@ -67,7 +76,8 @@ class TestQuickSearchPortlet(unittest.TestCase):
         assignment = quick_search.Assignment()
         renderer = getMultiAdapter(
             (self.portal, request, view, manager, assignment),
-            interfaces.IPortletRenderer)
+            interfaces.IPortletRenderer,
+        )
         self.assertIsInstance(renderer, quick_search.Renderer)
 
 
@@ -85,20 +95,24 @@ class TestRenderer(unittest.TestCase):
         context = context or self.portal
         request = request or self.layer['request']
         view = view or self.portal.restrictedTraverse('@@plone')
-        manager = manager or getUtility(interfaces.IPortletManager,
-                                        name='plone.rightcolumn',
-                                        context=self.portal)
+        manager = manager or getUtility(
+            interfaces.IPortletManager,
+            name='plone.rightcolumn',
+            context=self.portal,
+        )
         assignment = assignment or quick_search.Assignment()
 
-        return getMultiAdapter((context, request, view, manager, assignment),
-                               interfaces.IPortletRenderer)
+        return getMultiAdapter(
+            (context, request, view, manager, assignment),
+            interfaces.IPortletRenderer,
+        )
 
     def test_title(self):
         r = self.renderer(
             context=self.portal,
             assignment=quick_search.Assignment(),
         )
-        self.assertEqual('Search Listings', r.title)
+        self.assertEqual('Listing Search', r.title)
 
     def test_custom_title(self):
         r = self.renderer(
