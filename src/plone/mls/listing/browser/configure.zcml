@@ -69,7 +69,6 @@
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
       name="plone.mls.listing.listing_collection"
       permission="zope2.View"
-      template="templates/listing_collection_viewlet.pt"
       />
 
   <browser:viewlet
@@ -115,7 +114,6 @@
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
       name="plone.mls.listing.listing_search"
       permission="zope2.View"
-      template="templates/listing_search_viewlet.pt"
       />
 
   <browser:viewlet
@@ -161,7 +159,6 @@
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
       name="plone.mls.listing.recent_listings"
       permission="zope2.View"
-      template="templates/recent_listings_viewlet.pt"
       />
 
   <browser:viewlet
@@ -206,7 +203,6 @@
       layer=".interfaces.IListingSpecific"
       name="view"
       permission="zope2.View"
-      template="templates/listing_details.pt"
       />
 
   <browser:page
@@ -215,7 +211,6 @@
       layer=".interfaces.IListingSpecific"
       name="listing-detail"
       permission="zope2.View"
-      template="templates/listing_details.pt"
       />
 
   <browser:page

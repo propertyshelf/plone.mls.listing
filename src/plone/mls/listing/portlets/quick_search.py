@@ -6,20 +6,32 @@ from AccessControl import Unauthorized
 from Acquisition import aq_inner
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
+from plone import api
 from plone.app.portlets.portlets import base
-from plone.app.vocabularies.catalog import SearchableTextSourceBinder
 from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
 from z3c.form import button, field
-from z3c.form.browser import checkbox, radio
-from z3c.form.interfaces import HIDDEN_MODE, IFormLayer
-from zope import formlib, schema
-from zope.interface import alsoProvides, implementer
+from z3c.form.browser import (
+    checkbox,
+    radio,
+)
+from z3c.form.interfaces import (
+    HIDDEN_MODE,
+    IFormLayer,
+)
+from zope import schema
+from zope.interface import (
+    alsoProvides,
+    implementer,
+)
 from zope.schema.fieldproperty import FieldProperty
 
 # local imports
+from plone.mls.listing import (
+    PLONE_4,
+    PLONE_5,
+)
 from plone.mls.listing.browser import listing_search
 from plone.mls.listing.browser.valuerange.widget import ValueRangeFieldWidget
 from plone.mls.listing.i18n import _
@@ -31,6 +43,12 @@ try:
 except ImportError:
     HAS_WRAPPED_FORM = False
 
+if PLONE_5:
+    from plone.app.vocabularies.catalog import CatalogSource
+elif PLONE_4:
+    from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
+    from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+    from zope import formlib
 
 MSG_PORTLET_DESCRIPTION = _(u'This portlet shows a listing quick search form.')
 
@@ -109,6 +127,10 @@ class QuickSearchForm(form.Form):
         if search_path is None:
             return self.context
 
+        if PLONE_5:
+            obj = api.content.get(UID=search_path)
+            search_path = '/'.join(obj.getPhysicalPath())
+
         if search_path.startswith('/'):
             search_path = search_path[1:]
 
@@ -141,6 +163,9 @@ class QuickSearchForm(form.Form):
         """See interfaces.IInputForm."""
         p_state = self.context.unrestrictedTraverse('@@plone_portal_state')
         search_path = self.data.target_search
+        if PLONE_5:
+            obj = api.content.get(UID=search_path)
+            search_path = '/'.join(obj.getPhysicalPath())
         if search_path.startswith('/'):
             search_path = search_path[1:]
         return '/'.join([p_state.portal_url(), search_path])
@@ -220,17 +245,30 @@ class IQuickSearchPortlet(IPortletDataProvider):
         title=_(u'Portlet Title (Filter)'),
     )
 
-    target_search = schema.Choice(
-        description=_(
-            u'Find the search page which will be used to show the results.'
-        ),
-        required=True,
-        source=SearchableTextSourceBinder({
-            'object_provides': 'plone.mls.listing.browser.listing_search.'
-                               'IListingSearch',
-        }, default_query='path:'),
-        title=_(u'Search Page'),
-    )
+    if PLONE_5:
+        target_search = schema.Choice(
+            description=_(
+                u'Find the search page which will be used to show the results.'
+            ),
+            required=True,
+            source=CatalogSource(
+                object_provides='plone.mls.listing.browser.listing_search.'
+                                'IListingSearch',
+            ),
+            title=_(u'Search Page'),
+        )
+    elif PLONE_4:
+        target_search = schema.Choice(
+            description=_(
+                u'Find the search page which will be used to show the results.'
+            ),
+            required=True,
+            source=SearchableTextSourceBinder({
+                'object_provides': 'plone.mls.listing.browser.listing_search.'
+                                   'IListingSearch',
+            }, default_query='path:'),
+            title=_(u'Search Page'),
+        )
 
 
 @implementer(IQuickSearchPortlet)
@@ -241,8 +279,7 @@ class Assignment(base.Assignment):
     heading_filter = FieldProperty(IQuickSearchPortlet['heading_filter'])
     target_search = None
 
-    title = _(u'Search Listings')
-    title_filter = _(u'Filter Results')
+    title = _(u'MLS: Listing Quick Search')
     mode = 'SEARCH'
 
     def __init__(self, heading=None, heading_filter=None, target_search=None):
@@ -254,7 +291,10 @@ class Assignment(base.Assignment):
 class Renderer(base.Renderer):
     """Listing Quick Search Portlet Renderer."""
 
-    render = ViewPageTemplateFile('templates/quick_search.pt')
+    if PLONE_5:
+        render = ViewPageTemplateFile('templates/p5_quick_search.pt')
+    elif PLONE_4:
+        render = ViewPageTemplateFile('templates/quick_search.pt')
 
     @property
     def available(self):
@@ -263,6 +303,10 @@ class Renderer(base.Renderer):
 
         if search_path is None:
             return False
+
+        if PLONE_5:
+            obj = api.content.get(UID=search_path)
+            search_path = '/'.join(obj.getPhysicalPath())
 
         if search_path.startswith('/'):
             search_path = search_path[1:]
@@ -279,13 +323,10 @@ class Renderer(base.Renderer):
     def title(self):
         """Return the title dependend on the mode that we are in."""
         if self.mode == 'SEARCH':
-            if self.data.heading is not None:
-                return self.data.heading
+            return self.data.heading or _(u'Listing Search')
             return self.data.title
         if self.mode == 'FILTER':
-            if self.data.heading_filter is not None:
-                return self.data.heading_filter
-            return self.data.title_filter
+            return self.data.heading_filter or _(u'Filter Results')
 
     @property
     def mode(self):
@@ -315,22 +356,29 @@ class Renderer(base.Renderer):
 
 class AddForm(base.AddForm):
     """Add form for the Listing Quick Search portlet."""
-    form_fields = formlib.form.Fields(IQuickSearchPortlet)
-    form_fields['target_search'].custom_widget = UberSelectionWidget
+    if PLONE_5:
+        schema = IQuickSearchPortlet
+    elif PLONE_4:
+        form_fields = formlib.form.Fields(IQuickSearchPortlet)
+        form_fields['target_search'].custom_widget = UberSelectionWidget
 
     label = _(u'Add Listing Quick Search portlet')
     description = MSG_PORTLET_DESCRIPTION
 
     def create(self, data):
         assignment = Assignment()
-        formlib.form.applyChanges(assignment, self.form_fields, data)
+        if PLONE_4:
+            formlib.form.applyChanges(assignment, self.form_fields, data)
         return assignment
 
 
 class EditForm(base.EditForm):
     """Edit form for the Listing Quick Search portlet."""
-    form_fields = formlib.form.Fields(IQuickSearchPortlet)
-    form_fields['target_search'].custom_widget = UberSelectionWidget
+    if PLONE_5:
+        schema = IQuickSearchPortlet
+    elif PLONE_4:
+        form_fields = formlib.form.Fields(IQuickSearchPortlet)
+        form_fields['target_search'].custom_widget = UberSelectionWidget
 
     label = _(u'Edit Listing Quick Search portlet')
     description = MSG_PORTLET_DESCRIPTION

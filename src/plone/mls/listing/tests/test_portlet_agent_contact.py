@@ -9,9 +9,15 @@ except ImportError:
 
 # zope imports
 from plone.app.portlets.storage import PortletAssignmentMapping
-from plone.app.testing import TEST_USER_ID, setRoles
+from plone.app.testing import (
+    TEST_USER_ID,
+    setRoles,
+)
 from plone.portlets import interfaces
-from zope.component import getMultiAdapter, getUtility
+from zope.component import (
+    getMultiAdapter,
+    getUtility,
+)
 from zope.interface import Invalid
 
 # local imports
@@ -27,8 +33,9 @@ class TestAgentContactPortlet(unittest.TestCase):
     def setUp(self):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ('Manager', ))
-        self.portlet = getUtility(interfaces.IPortletType,
-                                  name='portlets.AgentContact')
+        self.portlet = getUtility(
+            interfaces.IPortletType, name='portlets.AgentContact',
+        )
 
     def test_portlet_type_registered(self):
         self.assertEqual(self.portlet.addview, 'portlets.AgentContact')
@@ -37,18 +44,21 @@ class TestAgentContactPortlet(unittest.TestCase):
         portlet = agent_contact.Assignment()
         self.assertTrue(interfaces.IPortletAssignment.providedBy(portlet))
         self.assertTrue(
-            interfaces.IPortletDataProvider.providedBy(portlet))
+            interfaces.IPortletDataProvider.providedBy(portlet)
+        )
 
     def test_invoke_add_view(self):
         mapping = self.portal.restrictedTraverse(
-            '++contextportlets++plone.leftcolumn')
+            '++contextportlets++plone.leftcolumn'
+        )
         for item in mapping.keys():
             del mapping[item]
         addview = mapping.restrictedTraverse('+/' + self.portlet.addview)
         addview.createAndAdd(data={})
         self.assertEqual(len(mapping), 1)
-        self.assertTrue(isinstance(mapping.values()[0],
-                                   agent_contact.Assignment))
+        self.assertTrue(
+            isinstance(mapping.values()[0], agent_contact.Assignment)
+        )
 
     def test_invoke_edit_view(self):
         request = self.layer['request']
@@ -68,7 +78,8 @@ class TestAgentContactPortlet(unittest.TestCase):
         assignment = agent_contact.Assignment()
         renderer = getMultiAdapter(
             (self.portal, request, view, manager, assignment),
-            interfaces.IPortletRenderer)
+            interfaces.IPortletRenderer,
+        )
         self.assertIsInstance(renderer, agent_contact.Renderer)
 
 
@@ -86,23 +97,29 @@ class TestRenderer(unittest.TestCase):
         context = context or self.portal
         request = request or self.layer['request']
         view = view or self.portal.restrictedTraverse('@@plone')
-        manager = manager or getUtility(interfaces.IPortletManager,
-                                        name='plone.rightcolumn',
-                                        context=self.portal)
+        manager = manager or getUtility(
+            interfaces.IPortletManager,
+            name='plone.rightcolumn',
+            context=self.portal,
+        )
         assignment = assignment or agent_contact.Assignment()
 
-        return getMultiAdapter((context, request, view, manager, assignment),
-                               interfaces.IPortletRenderer)
+        return getMultiAdapter(
+            (context, request, view, manager, assignment),
+            interfaces.IPortletRenderer,
+        )
 
     def test_title(self):
         r = self.renderer(
-            context=self.portal, assignment=agent_contact.Assignment())
+            context=self.portal, assignment=agent_contact.Assignment()
+        )
         self.assertEqual('Agent Contact', r.title)
 
     def test_custom_title(self):
         r = self.renderer(
-            context=self.portal, assignment=agent_contact.Assignment(
-                heading=u'My Title'))
+            context=self.portal,
+            assignment=agent_contact.Assignment(heading=u'My Title')
+        )
         self.assertEqual('My Title', r.title)
 
     def test_spam_setting(self):

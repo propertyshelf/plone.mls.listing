@@ -10,15 +10,24 @@ from plone.portlets.interfaces import (
     IPortletRetriever,
 )
 from zope import schema
-from zope.component import getMultiAdapter, getUtility
-from zope.formlib import form
+from zope.component import (
+    getMultiAdapter,
+    getUtility,
+)
 from zope.interface import implementer
 from zope.schema.fieldproperty import FieldProperty
 
 # local imports
+from plone.mls.listing import (
+    PLONE_4,
+    PLONE_5,
+)
 from plone.mls.listing.browser.interfaces import IListingDetails
 from plone.mls.listing.i18n import _
 from plone.mls.listing.portlets.agent_contact import IAgentContactPortlet
+
+if PLONE_4:
+    from zope.formlib import form
 
 
 MSG_PORTLET_DESCRIPTION = _(
@@ -45,7 +54,7 @@ class Assignment(base.Assignment):
     """Agent Information Portlet Assignment."""
 
     heading = FieldProperty(IAgentInformationPortlet['heading'])
-    title = _(u'Agent Information')
+    title = _(u'MLS: Agent Information')
 
     def __init__(self, heading=None):
         self.heading = heading
@@ -54,7 +63,10 @@ class Assignment(base.Assignment):
 class Renderer(base.Renderer):
     """Agent Information Portlet Renderer."""
 
-    render = ViewPageTemplateFile('templates/agent_information.pt')
+    if PLONE_5:
+        render = ViewPageTemplateFile('templates/p5_agent_information.pt')
+    elif PLONE_4:
+        render = ViewPageTemplateFile('templates/agent_information.pt')
 
     @property
     def available(self):
@@ -63,9 +75,7 @@ class Renderer(base.Renderer):
 
     @property
     def title(self):
-        if self.data.heading is not None:
-            return self.data.heading
-        return self.data.title
+        return self.data.heading or _(u'Agent Information')
 
     @property
     def agent_contact_portlet_available(self):
@@ -84,18 +94,25 @@ class Renderer(base.Renderer):
 
 class AddForm(base.AddForm):
     """Add form for the Agent Information portlet."""
-    form_fields = form.Fields(IAgentInformationPortlet)
+    if PLONE_5:
+        schema = IAgentInformationPortlet
+    elif PLONE_4:
+        form_fields = form.Fields(IAgentInformationPortlet)
     label = _(u'Add Agent Information portlet')
     description = MSG_PORTLET_DESCRIPTION
 
     def create(self, data):
         assignment = Assignment()
-        form.applyChanges(assignment, self.form_fields, data)
+        if PLONE_4:
+            form.applyChanges(assignment, self.form_fields, data)
         return assignment
 
 
 class EditForm(base.EditForm):
     """Edit form for the Agent Information portlet."""
-    form_fields = form.Fields(IAgentInformationPortlet)
+    if PLONE_5:
+        schema = IAgentInformationPortlet
+    elif PLONE_4:
+        form_fields = form.Fields(IAgentInformationPortlet)
     label = _(u'Edit Agent Information portlet')
     description = MSG_PORTLET_DESCRIPTION

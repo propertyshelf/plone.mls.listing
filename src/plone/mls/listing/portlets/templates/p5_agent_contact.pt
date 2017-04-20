@@ -6,18 +6,17 @@
       lang="en"
       i18n:domain="plone.mls.listing"
       tal:omit-tag="">
-  <dl class="portlet portletAgentContact"
+  <section class="portlet portletAgentContact"
       tal:define="email_enabled view/can_send_email | nothing;">
-    <dt class="portletHeader">
-      <span class="portletTopLeft"></span>
-      <span tal:omit-tag="" tal:content="view/title | nothing"></span>
-      <span class="portletTopRight"></span>
-    </dt>
-    <dd class="portletItem"
+    <header class="portletHeader">
+      <span tal:omit-tag="" tal:replace="view/title | nothing"></span>
+    </header>
+    <section class="portletContent"
         tal:condition="not: email_enabled"
-        i18n:domain="plone"
-        i18n:translate="text_no_email_setup">This site doesn't have a valid email setup, so you cannot use any contact forms.</dd>
-    <dd class="portletItem"
+        i18n:domain="plone">
+      <p i18n:translate="text_no_email_setup">This site doesn't have a valid email setup, so you cannot use any contact forms.</p>
+    </section>
+    <section class="portletContent"
         tal:define="already_sent view/already_sent | nothing"
         tal:condition="email_enabled">
       <p class="sent" tal:condition="already_sent"
@@ -27,7 +26,7 @@
            tal:content="view/description | nothing"></p>
         <div tal:replace="structure view/form | nothing"></div>
       </tal:block>
-    </dd>
+    </section>
     <div class="visualClear"></div>
-  </dl>
+  </section>
 </html>

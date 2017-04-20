@@ -7,32 +7,30 @@
   <!-- GenericSetup Profiles. -->
   <!-- ====================== -->
   <genericsetup:registerProfile
+      zcml:condition="not-have plone-5"
+      description="Plone 4 support for MLS Listings."
+      directory="profiles/plone4"
       name="default"
-      title="plone.mls.listing"
-      directory="profiles/default"
-      description="Plone support for MLS Listings."
       provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="plone.mls.listing"
       />
 
-  <!-- GenericSetup Import Steps. -->
-  <!-- ========================== -->
-  <genericsetup:importStep
-      name="plone.mls.listing.article"
-      title="raptus.article configuration for plone.mls.listing"
-      description="Additional setup steps for plone.mls.listing"
-      handler=".setuphandlers.setup_article"
-      zcml:condition="installed raptus.article.core">
-    <depends name="toolset" />
-  </genericsetup:importStep>
+  <genericsetup:registerProfile
+      zcml:condition="have plone-5"
+      description="Plone 5 support for MLS Listings."
+      directory="profiles/plone5"
+      name="default"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="plone.mls.listing"
+      />
 
-  <genericsetup:importStep
-      name="plone.mls.listing.addons"
-      title="plone.mls.listing add-on installation"
-      description="Install additional available add-ons."
-      handler=".setuphandlers.install_add_ons">
-    <depends name="toolset" />
-  </genericsetup:importStep>
-
+  <genericsetup:registerProfile
+      description="plone.mls.listing uninstall profile."
+      directory="profiles/uninstall"
+      name="uninstall"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      title="plone.mls.listing uninstall profile"
+      />
 
   <!-- GenericSetup Upgrade Steps. -->
   <!-- =========================== -->
@@ -184,6 +182,24 @@
       handler=".migration.migrate_to_1015"
       sortkey="1"
       profile="plone.mls.listing:default"
+      />
+
+  <genericsetup:upgradeStep
+      title="Upgrade plone.mls.listing"
+      description="Update plone.mls.listing configurations."
+      source="1015"
+      destination="1016"
+      handler=".migration.migrate_to_1016"
+      sortkey="1"
+      profile="plone.mls.listing:default"
+      />
+
+
+  <!-- GenericSetup utilities. -->
+  <!-- ======================= -->
+  <utility
+      factory=".setuphandlers.HiddenProfiles"
+      name="plone.mls.listing-hiddenprofiles"
       />
 
 </configure>
