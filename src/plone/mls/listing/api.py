@@ -186,14 +186,19 @@ def search_options(mls_url, category, lang=None, context=None):
     return options.items
 
 
-def recent_listings(params={}, batching=True, context=None):
+def recent_listings(params={}, batching=True, context=None, config=None):
     """Return a list of recent MLS listings."""
     search_params = {
         'sort_on': 'last_activated_date',
         'reverse': '1',
     }
     search_params.update(params)
-    return search(search_params, batching=batching, context=context)
+    return search(
+        params=search_params,
+        batching=batching,
+        context=context,
+        config=config,
+    )
 
 
 CONFIGURATION_KEYS = [
