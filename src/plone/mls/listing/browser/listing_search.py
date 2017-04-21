@@ -464,6 +464,12 @@ class IListingSearchConfiguration(model.Schema):
         title=_(u'Agency Priority Ordering'),
     )
 
+    show_unverified = schema.Bool(
+        default=False,
+        required=False,
+        title=_(u'Show Unverified Listings')
+    )
+
     limit = schema.Int(
         default=25,
         required=False,
