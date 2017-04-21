@@ -196,6 +196,28 @@ def recent_listings(params={}, batching=True, context=None):
     return search(search_params, batching=batching, context=context)
 
 
+CONFIGURATION_KEYS = [
+    'plone.mls.listing.recentlistings',
+    'plone.mls.listing.listingsearch',
+    'plone.mls.listing.listingcollection',
+]
+
+
+def get_configs(context=None, merged=False):
+    """Return all available configurations."""
+    result = {}
+    if not context:
+        return result
+    annotations = IAnnotations(context)
+    for key in CONFIGURATION_KEYS:
+        config = annotations.get(key, {})
+        if merged:
+            result.update(config)
+        else:
+            result[key] = config
+    return result
+
+
 def listing_details(listing_id, lang=None, context=None):
     """Return detail information for a listing."""
     settings = get_settings(context=context)
