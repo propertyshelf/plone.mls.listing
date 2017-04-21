@@ -79,7 +79,11 @@ class RecentListingsViewlet(ViewletBase):
         }
         params.update(self.config)
         params = prepare_search_params(params)
-        results, batching = recent_listings(params, context=self.context)
+        results, batching = recent_listings(
+            params=params,
+            context=self.context,
+            config=self.config,
+        )
         self._listings = results
         self._batching = batching
 
@@ -127,6 +131,12 @@ class IRecentListingsConfiguration(Interface):
         ),
         required=False,
         title=_(u'Agency Priority Ordering'),
+    )
+
+    show_unverified = schema.Bool(
+        default=False,
+        required=False,
+        title=_(u'Show Unverified Listings')
     )
 
     listing_type = schema.List(
