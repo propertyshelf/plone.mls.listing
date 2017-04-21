@@ -80,7 +80,11 @@ class ListingCollectionViewlet(ViewletBase):
         }
         params.update(self.config)
         params = prepare_search_params(params)
-        results, batching = search(params, context=self.context)
+        results, batching = search(
+            params=params,
+            context=self.context,
+            config=self.config,
+        )
         self._listings = results
         self._batching = batching
 
@@ -152,6 +156,12 @@ class IListingCollectionConfiguration(Interface):
         ),
         required=False,
         title=_(u'Agency Priority Ordering'),
+    )
+
+    show_unverified = schema.Bool(
+        default=False,
+        required=False,
+        title=_(u'Show Unverified Listings')
     )
 
     listing_type = schema.Tuple(

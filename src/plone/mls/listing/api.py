@@ -186,14 +186,41 @@ def search_options(mls_url, category, lang=None, context=None):
     return options.items
 
 
-def recent_listings(params={}, batching=True, context=None):
+def recent_listings(params={}, batching=True, context=None, config=None):
     """Return a list of recent MLS listings."""
     search_params = {
         'sort_on': 'last_activated_date',
         'reverse': '1',
     }
     search_params.update(params)
-    return search(search_params, batching=batching, context=context)
+    return search(
+        params=search_params,
+        batching=batching,
+        context=context,
+        config=config,
+    )
+
+
+CONFIGURATION_KEYS = [
+    'plone.mls.listing.recentlistings',
+    'plone.mls.listing.listingsearch',
+    'plone.mls.listing.listingcollection',
+]
+
+
+def get_configs(context=None, merged=False):
+    """Return all available configurations."""
+    result = {}
+    if not context:
+        return result
+    annotations = IAnnotations(context)
+    for key in CONFIGURATION_KEYS:
+        config = annotations.get(key, {})
+        if merged:
+            result.update(config)
+        else:
+            result[key] = config
+    return result
 
 
 def listing_details(listing_id, lang=None, context=None):
@@ -202,9 +229,14 @@ def listing_details(listing_id, lang=None, context=None):
     base_url = settings.get('mls_site', None)
     api_key = settings.get('mls_key', None)
     debug = api.env.debug_mode
+    config = get_configs(context=context, merged=True)
+    params = {}
+    if config.get('show_unverified', False):
+        params['apiowner'] = settings.get('agency_id')
+        params['show_unverified'] = True
     resource = ListingResource(base_url, api_key=api_key, debug=debug)
     try:
-        listing = resource.get(listing_id, lang=lang)
+        listing = resource.get(listing_id, lang=lang, params=params)
     except MLSError, e:
         logger.warn(e)
         return None
@@ -224,6 +256,8 @@ def search(params={}, batching=True, context=None, config=None):
         'sort_on': 'last_activated_date',
         'reverse': '1',
     }
+    if config.get('show_unverified', False):
+        search_params['apiowner'] = settings.get('agency_id')
     listing_types = set(config.get('listing_type', ()))
     if listing_types:
         # Available Listing Types are restricted.

@@ -408,6 +408,7 @@ class ListingSearchViewlet(ViewletBase):
             'lang': self.portal_state.language(),
             'agency_listings': self.config.get('agency_listings', False),
             'agency_priority': self.config.get('agency_priority', False),
+            'show_unverified': self.config.get('show_unverified', False),
         }
         search_params.update(params)
         results, batching = search(
@@ -462,6 +463,12 @@ class IListingSearchConfiguration(model.Schema):
         ),
         required=False,
         title=_(u'Agency Priority Ordering'),
+    )
+
+    show_unverified = schema.Bool(
+        default=False,
+        required=False,
+        title=_(u'Show Unverified Listings')
     )
 
     limit = schema.Int(
