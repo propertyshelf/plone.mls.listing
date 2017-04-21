@@ -32,6 +32,12 @@ logger = logging.getLogger(PRODUCT_NAME)
 # Store the options here (which means in RAM)
 OPTIONS_CACHE = {}  # language_category: ({date, language, category, itemlist})
 
+CONFIGURATION_KEYS = [
+    'plone.mls.listing.recentlistings',
+    'plone.mls.listing.listingsearch',
+    'plone.mls.listing.listingcollection',
+]
+
 
 def prepare_search_params(data):
     """Prepare search params."""
@@ -199,13 +205,6 @@ def recent_listings(params={}, batching=True, context=None, config=None):
         context=context,
         config=config,
     )
-
-
-CONFIGURATION_KEYS = [
-    'plone.mls.listing.recentlistings',
-    'plone.mls.listing.listingsearch',
-    'plone.mls.listing.listingcollection',
-]
 
 
 def get_configs(context=None, merged=False):
