@@ -224,9 +224,14 @@ def listing_details(listing_id, lang=None, context=None):
     base_url = settings.get('mls_site', None)
     api_key = settings.get('mls_key', None)
     debug = api.env.debug_mode
+    config = get_configs(context=context, merged=True)
+    params = {}
+    if config.get('show_unverified', False):
+        params['apiowner'] = settings.get('agency_id')
+        params['show_unverified'] = True
     resource = ListingResource(base_url, api_key=api_key, debug=debug)
     try:
-        listing = resource.get(listing_id, lang=lang)
+        listing = resource.get(listing_id, lang=lang, params=params)
     except MLSError, e:
         logger.warn(e)
         return None
