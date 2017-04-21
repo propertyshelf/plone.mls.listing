@@ -408,6 +408,7 @@ class ListingSearchViewlet(ViewletBase):
             'lang': self.portal_state.language(),
             'agency_listings': self.config.get('agency_listings', False),
             'agency_priority': self.config.get('agency_priority', False),
+            'show_unverified': self.config.get('show_unverified', False),
         }
         search_params.update(params)
         results, batching = search(
