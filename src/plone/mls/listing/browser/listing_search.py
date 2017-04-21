@@ -409,6 +409,9 @@ class ListingSearchViewlet(ViewletBase):
             'agency_listings': self.config.get('agency_listings', False),
             'agency_priority': self.config.get('agency_priority', False),
             'show_unverified': self.config.get('show_unverified', False),
+            'show_unverified_only': self.config.get(
+                'show_unverified_only', False
+            ),
         }
         search_params.update(params)
         results, batching = search(
@@ -469,6 +472,15 @@ class IListingSearchConfiguration(model.Schema):
         default=False,
         required=False,
         title=_(u'Show Unverified Listings')
+    )
+
+    show_unverified_only = schema.Bool(
+        description=_(
+            u'"Show Unverified Listings" must be activated to take effect.'
+        ),
+        default=False,
+        required=False,
+        title=_(u'Only Show Unverified Listings')
     )
 
     limit = schema.Int(

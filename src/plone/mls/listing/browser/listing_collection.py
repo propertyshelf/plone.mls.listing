@@ -164,6 +164,15 @@ class IListingCollectionConfiguration(Interface):
         title=_(u'Show Unverified Listings')
     )
 
+    show_unverified_only = schema.Bool(
+        description=_(
+            u'"Show Unverified Listings" must be activated to take effect.'
+        ),
+        default=False,
+        required=False,
+        title=_(u'Only Show Unverified Listings')
+    )
+
     listing_type = schema.Tuple(
         default=('cl', 'cs', 'll', 'rl', 'rs', ),
         required=False,

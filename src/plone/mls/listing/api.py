@@ -233,6 +233,8 @@ def listing_details(listing_id, lang=None, context=None):
     if config.get('show_unverified', False):
         params['apiowner'] = settings.get('agency_id')
         params['show_unverified'] = True
+    if config.get('show_unverified_only', False):
+        params['show_unverified_only'] = True
     resource = ListingResource(base_url, api_key=api_key, debug=debug)
     try:
         listing = resource.get(listing_id, lang=lang, params=params)
