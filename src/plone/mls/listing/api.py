@@ -224,6 +224,8 @@ def search(params={}, batching=True, context=None, config=None):
         'sort_on': 'last_activated_date',
         'reverse': '1',
     }
+    if config.get('show_unverified', False):
+        search_params['apiowner'] = settings.get('agency_id')
     listing_types = set(config.get('listing_type', ()))
     if listing_types:
         # Available Listing Types are restricted.
