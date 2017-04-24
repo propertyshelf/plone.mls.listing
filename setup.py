@@ -6,7 +6,7 @@ from setuptools import (
     setup,
 )
 
-version = '1.11.dev0'
+version = '1.11'
 description = 'Plone support for MLS Listings.'
 long_description = ('\n'.join([
     open('README.rst').read(),
