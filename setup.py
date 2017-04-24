@@ -22,7 +22,7 @@ install_requires = [
     'Pillow',
     'collective.autopermission',
     'collective.prettyphoto',
-    'mls.apiclient',
+    'mls.apiclient >= 1.5',
     'plone.api',
     'plone.app.dexterity [grok]',
     'plone.app.referenceablebehavior',
