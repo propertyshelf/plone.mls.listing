@@ -4,7 +4,9 @@ Changelog
 1.11 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Add Plone 5 compatibility.
+- Add option to show unverified MLS listings.
+- Removed JS modal dialogs for MLS configuration views.
 
 
 1.10 (2017-04-12)
