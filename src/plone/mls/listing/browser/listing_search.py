@@ -47,6 +47,7 @@ CONFIGURATION_KEY = 'plone.mls.listing.listingsearch'
 
 FIELD_ORDER = {
     'row_listing_type': [
+        'q',
         'listing_type',
     ],
     'row_location': [
@@ -83,6 +84,7 @@ FIELD_ORDER = {
 
 
 def encode_dict(in_dict):
+    """Encode dict values to utf-8."""
     out_dict = {}
     for k, v in in_dict.iteritems():
         if isinstance(v, unicode):
@@ -104,6 +106,11 @@ class IListingSearch(IBaseListingItems):
 
 class IListingSearchForm(form.Schema):
     """Listing search form schema definition."""
+
+    q = schema.TextLine(
+        required=False,
+        title=_(u'Freetext search (Location, Keywords, Listing ID, ...)'),
+    )
 
     form.widget(listing_type=checkbox.CheckBoxFieldWidget)
     listing_type = schema.Tuple(
@@ -259,6 +266,7 @@ class IListingSearchForm(form.Schema):
 
 class ListingSearchForm(form.Form):
     """Listing Search Form."""
+
     fields = field.Fields(IListingSearchForm)
     if PLONE_5:
         template = ViewPageTemplateFile('templates/p5_search_form.pt')
