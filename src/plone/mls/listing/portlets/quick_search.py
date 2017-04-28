@@ -55,6 +55,7 @@ MSG_PORTLET_DESCRIPTION = _(u'This portlet shows a listing quick search form.')
 #: Definition of available fields in the given ``rows``.
 FIELD_ORDER = {
     'row_listing_type': [
+        'q',
         'listing_type',
     ],
     'row_location': [
@@ -90,6 +91,7 @@ FIELD_ORDER = {
 
 class QuickSearchForm(form.Form):
     """Quick Search Form."""
+
     fields = field.Fields(listing_search.IListingSearchForm)
     template = ViewPageTemplateFile('templates/search_form.pt')
     ignoreContext = True
@@ -178,7 +180,7 @@ class QuickSearchForm(form.Form):
 
     @property
     def show_filter(self):
-        """Decides if the filter should be shown or not."""
+        """Decide if the filter should be shown or not."""
         form = self.request.form
         return listing_search.IListingSearch.providedBy(self.context) and \
             'form.buttons.search' in form.keys()
@@ -356,6 +358,7 @@ class Renderer(base.Renderer):
 
 class AddForm(base.AddForm):
     """Add form for the Listing Quick Search portlet."""
+
     if PLONE_5:
         schema = IQuickSearchPortlet
     elif PLONE_4:
@@ -374,6 +377,7 @@ class AddForm(base.AddForm):
 
 class EditForm(base.EditForm):
     """Edit form for the Listing Quick Search portlet."""
+
     if PLONE_5:
         schema = IQuickSearchPortlet
     elif PLONE_4:
