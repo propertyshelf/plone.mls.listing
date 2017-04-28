@@ -183,16 +183,16 @@
                          tal:condition="fields">
                 <section>
                   <header><span tal:replace="label">[Group]</span></header>
-                    <table class="listing vertical" style="width: 100%;">
-                      <tbody>
-                        <tal:field tal:repeat="field fields">
-                          <tr tal:condition="field/value" tal:attributes="class field/id">
-                            <th style="width: 200px;"><span tal:replace="field/label | nothing">[Label]</span></th>
-                            <td><span tal:replace="structure field/value | nothing">[Value]</span></td>
-                          </tr>
-                        </tal:field>
-                      </tbody>
-                    </table>
+                  <table class="listing vertical" style="width: 100%;">
+                    <tbody>
+                      <tal:field tal:repeat="field fields">
+                        <tr tal:condition="field/value" tal:attributes="class field/id">
+                          <th style="width: 200px;"><span tal:replace="field/label | nothing">[Label]</span></th>
+                          <td><span tal:replace="structure field/value | nothing">[Value]</span></td>
+                        </tr>
+                      </tal:field>
+                    </tbody>
+                  </table>
                 </section>
               </tal:group>
             </tal:groups>
