@@ -301,10 +301,18 @@ class Renderer(base.Renderer):
     @property
     def available(self):
         """Check the portlet availability."""
+        search_view = self._search_context()
+        return (
+            listing_search.IListingSearch.providedBy(search_view) and
+            self.mode != 'HIDDEN'
+            # self.view.context != search_view
+        )
+
+    def _search_context(self):
         search_path = self.data.target_search
 
         if search_path is None:
-            return False
+            return
 
         if PLONE_5:
             obj = api.content.get(UID=search_path)
@@ -314,12 +322,9 @@ class Renderer(base.Renderer):
             search_path = search_path[1:]
 
         try:
-            search_view = self.context.restrictedTraverse(search_path)
+            return self.context.restrictedTraverse(search_path)
         except Unauthorized:
-            return False
-
-        return listing_search.IListingSearch.providedBy(search_view) and \
-            self.mode != 'HIDDEN'
+            return
 
     @property
     def title(self):
@@ -337,6 +342,9 @@ class Renderer(base.Renderer):
         This can be either ``FILTER`` if a search was already performed and we
         are on a search page or ``SEARCH`` otherwise.
         """
+        if self._search_context() != self.context:
+            return 'SEARCH'
+
         form = self.request.form
         if listing_search.IListingSearch.providedBy(self.context) and \
                 'form.buttons.search' in form.keys():
