@@ -71,8 +71,9 @@ article, aside, figure, figcaption, footer, header, hgroup, nav, section {
   width: 90%;
 }
 
-.listing-summary #search-form .form-row-beds-baths .field select,
-.listing-summary #search-form .form-row-sizes .field select {
+.listing-summary #search-form .form-row-beds-baths .field .value,
+.listing-summary #search-form .form-row-sizes .field .value {
+  display: inline-block;
   width: 40%;
 }
 
@@ -310,4 +311,32 @@ article, aside, figure, figcaption, footer, header, hgroup, nav, section {
 .map__canvas {
     height: 340px;
     width: 100%;
+}
+
+
+.portletQuickSearch .field input[type="text"] {
+  width: 100%;
+}
+
+.portletQuickSearch .field .value {
+  display: inline-block;
+  width: 43%;
+}
+
+.portletQuickSearch .field span.option {
+  display: block;
+}
+
+.portletQuickSearch .field span.option label {
+  cursor: pointer;
+}
+
+.portletQuickSearch .field select {
+  width: 100%;
+}
+
+.portletQuickSearch .field .separator {
+  display: inline-block;
+  text-align: center;
+  width: 10%;
 }
