@@ -2,9 +2,11 @@
 """MLS Listing Search."""
 
 # zope imports
+from AccessControl import Unauthorized
 from Acquisition import aq_inner
 from Products.CMFPlone import PloneMessageFactory as PMF  # noqa
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from plone import api
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.autoform import directives
 from plone.directives import form
@@ -373,6 +375,8 @@ class ListingSearchViewlet(ViewletBase):
     def hide_form(self):
         if self.config.get('hide_form', True) is False:
             return False
+        if 'form.buttons.search' not in self.request.form.keys():
+            return False
 
         from plone.mls.listing.portlets.quick_search import IQuickSearchPortlet
         portlets = []
@@ -383,8 +387,29 @@ class ListingSearchViewlet(ViewletBase):
             portlets.extend(retriever.getPortlets())
         return len([
             portlet for portlet in portlets if
-            IQuickSearchPortlet.providedBy(portlet['assignment'])
+            IQuickSearchPortlet.providedBy(portlet['assignment']) and
+            self.is_filter_portlet(portlet['assignment'])
         ]) > 0
+
+    def is_filter_portlet(self, portlet_assignment):
+        search_path = portlet_assignment.target_search
+
+        if search_path is None:
+            return False
+
+        if PLONE_5:
+            obj = api.content.get(UID=search_path)
+            search_path = '/'.join(obj.getPhysicalPath())
+
+        if search_path.startswith('/'):
+            search_path = search_path[1:]
+
+        try:
+            obj = self.context.restrictedTraverse(search_path)
+        except Unauthorized:
+            return False
+        else:
+            return obj == self.context
 
     def update(self):
         """Prepare view related data."""
