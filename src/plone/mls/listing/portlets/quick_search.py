@@ -123,6 +123,9 @@ class QuickSearchForm(form.Form):
         """
         super(QuickSearchForm, self).__init__(context, request)
         self.data = data
+        form_context = self.getContent()
+        if form_context is not None:
+            self.prefix = 'form.{0}'.format(form_context.id)
 
     def getContent(self):
         search_path = self.data.target_search
@@ -182,8 +185,11 @@ class QuickSearchForm(form.Form):
     def show_filter(self):
         """Decide if the filter should be shown or not."""
         form = self.request.form
-        return listing_search.IListingSearch.providedBy(self.context) and \
-            'form.buttons.search' in form.keys()
+        button = '{0}.buttons.search'.format(self.prefix)
+        return (
+            listing_search.IListingSearch.providedBy(self.context) and
+            button in form.keys()
+        )
 
     def widgets_listing_type(self):
         """Return the widgets for the row ``row_listing_type``."""
@@ -342,15 +348,25 @@ class Renderer(base.Renderer):
         This can be either ``FILTER`` if a search was already performed and we
         are on a search page or ``SEARCH`` otherwise.
         """
-        if self._search_context() != self.context:
+        search_context = self._search_context()
+        if search_context != self.context:
             return 'SEARCH'
 
+        if search_context:
+            prefix = 'form.{0}'.format(search_context.id)
+        else:
+            prefix = 'form'
+        button = '{0}.buttons.search'.format(prefix)
         form = self.request.form
-        if listing_search.IListingSearch.providedBy(self.context) and \
-                'form.buttons.search' in form.keys():
+        if (
+            listing_search.IListingSearch.providedBy(self.context) and
+            button in form.keys()
+        ):
             return 'FILTER'
-        elif listing_search.IListingSearch.providedBy(self.context) and \
-                'form.buttons.search' not in form.keys():
+        elif (
+            listing_search.IListingSearch.providedBy(self.context) and
+            button not in form.keys()
+        ):
             return 'HIDDEN'
         else:
             return 'SEARCH'

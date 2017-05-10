@@ -291,6 +291,11 @@ class ListingSearchForm(form.Form):
     fields['pool'].widgetFactory = radio.RadioFieldWidget
     fields['view_type'].widgetFactory = checkbox.CheckBoxFieldWidget
 
+    def __init__(self, context, request):
+        """Customized form constructor."""
+        super(ListingSearchForm, self).__init__(context, request)
+        self.prefix = 'form.{0}'.format(self.context.id)
+
     def update(self):
         return super(ListingSearchForm, self).update()
 
@@ -375,8 +380,11 @@ class ListingSearchViewlet(ViewletBase):
     def hide_form(self):
         if self.config.get('hide_form', True) is False:
             return False
-        if 'form.buttons.search' not in self.request.form.keys():
-            return False
+
+        if self.form:
+            button = '{0}.buttons.search'.format(self.form.prefix)
+            if button not in self.request.form.keys():
+                return False
 
         from plone.mls.listing.portlets.quick_search import IQuickSearchPortlet
         portlets = []
@@ -424,8 +432,9 @@ class ListingSearchViewlet(ViewletBase):
         if HAS_WRAPPED_FORM:
             alsoProvides(self.form, IWrappedForm)
         self.form.update()
+        button = '{0}.buttons.search'.format(self.form.prefix)
 
-        self.search_performed = 'form.buttons.search' in self.request.keys()
+        self.search_performed = button in self.request.keys()
         if self.available and self.search_performed:
             data, errors = self.form.extractData()
             if not errors:
