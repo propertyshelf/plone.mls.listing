@@ -5,6 +5,9 @@ Changelog
 -----------------
 
 - Allow freetext search using the searchable_text index in the MLS.
+- Update translations.
+- Fix listing search portlet and viewlet form availablilty.
+- Use custom prefix for listing search forms to avoid form clashing.
 
 
 1.11 (2017-04-24)
