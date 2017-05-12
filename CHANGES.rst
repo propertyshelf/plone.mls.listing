@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.12 (unreleased)
+1.12 (2017-05-12)
 -----------------
 
 - Allow freetext search using the searchable_text index in the MLS.
