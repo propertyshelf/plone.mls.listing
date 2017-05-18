@@ -84,6 +84,11 @@ FIELD_ORDER = {
     ],
 }
 
+EXCLUDED_SEARCH_FIELDS = [
+    'hide_form',
+    'zoomlevel',
+]
+
 
 def encode_dict(in_dict):
     """Encode dict values to utf-8."""
@@ -438,7 +443,7 @@ class ListingSearchViewlet(ViewletBase):
         if self.available and self.search_performed:
             data, errors = self.form.extractData()
             if not errors:
-                self._get_listings(prepare_search_params(data))
+                self._get_listings(data)
 
             self.request.form = encode_dict(self.request.form)
 
@@ -448,14 +453,13 @@ class ListingSearchViewlet(ViewletBase):
             'limit': self.limit,
             'offset': self.request.get('b_start', 0),
             'lang': self.portal_state.language(),
-            'agency_listings': self.config.get('agency_listings', False),
-            'agency_priority': self.config.get('agency_priority', False),
-            'show_unverified': self.config.get('show_unverified', False),
-            'show_unverified_only': self.config.get(
-                'show_unverified_only', False
-            ),
         }
+        search_params.update(self.config)
         search_params.update(params)
+        search_params = prepare_search_params(
+            search_params,
+            omit=EXCLUDED_SEARCH_FIELDS,
+        )
         results, batching = search(
             params=search_params,
             context=self.context,
