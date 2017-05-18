@@ -11,16 +11,13 @@ from plone.app.portlets.portlets import base
 from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
-from z3c.form import button, field
-from z3c.form.browser import (
-    checkbox,
-    radio,
-)
+from z3c.form import button
 from z3c.form.interfaces import (
     HIDDEN_MODE,
     IFormLayer,
 )
 from zope import schema
+from zope.annotation.interfaces import IAnnotations
 from zope.interface import (
     alsoProvides,
     implementer,
@@ -33,7 +30,6 @@ from plone.mls.listing import (
     PLONE_5,
 )
 from plone.mls.listing.browser import listing_search
-from plone.mls.listing.browser.valuerange.widget import ValueRangeFieldWidget
 from plone.mls.listing.i18n import _
 
 # starting from 0.6.0 version plone.z3cform has IWrappedForm interface
@@ -89,30 +85,13 @@ FIELD_ORDER = {
 }
 
 
-class QuickSearchForm(form.Form):
+class QuickSearchForm(form.SchemaForm):
     """Quick Search Form."""
 
-    fields = field.Fields(listing_search.IListingSearchForm)
+    schema = listing_search.IListingSearchForm
     template = ViewPageTemplateFile('templates/search_form.pt')
     ignoreContext = True
     method = 'get'
-
-    fields['listing_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-    fields['location_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-    fields['object_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-    fields['baths'].widgetFactory = ValueRangeFieldWidget
-    fields['beds'].widgetFactory = ValueRangeFieldWidget
-    fields['lot_size'].widgetFactory = ValueRangeFieldWidget
-    fields['interior_area'].widgetFactory = ValueRangeFieldWidget
-
-    # Additional fields for filtering.
-    fields['geographic_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-    fields['view_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-    fields['ownership_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-
-    fields['air_condition'].widgetFactory = radio.RadioFieldWidget
-    fields['jacuzzi'].widgetFactory = radio.RadioFieldWidget
-    fields['pool'].widgetFactory = radio.RadioFieldWidget
 
     def __init__(self, context, request, data=None):
         """Customized form constructor.
@@ -126,6 +105,13 @@ class QuickSearchForm(form.Form):
         form_context = self.getContent()
         if form_context is not None:
             self.prefix = 'form.{0}'.format(form_context.id)
+        self.omitted = []
+
+    @property
+    def config(self):
+        """Get view configuration data from annotations."""
+        annotations = IAnnotations(self.getContent())
+        return annotations.get(listing_search.CONFIGURATION_KEY, {})
 
     def getContent(self):
         search_path = self.data.target_search
@@ -145,6 +131,30 @@ class QuickSearchForm(form.Form):
             return self.context
 
         return search_view
+
+    def update(self):
+        super(QuickSearchForm, self).update()
+        if self.config.get('location_city', None):
+            self.omitted.extend([
+                'location_state',
+                'location_county',
+                'location_district',
+                'location_city',
+            ])
+
+        if self.config.get('location_district', None):
+            self.omitted.extend([
+                'location_state',
+                'location_county',
+                'location_district',
+            ])
+        elif self.config.get('location_county', None):
+            self.omitted.extend([
+                'location_state',
+                'location_county',
+            ])
+        elif self.config.get('location_state', None):
+            self.omitted.append('location_state')
 
     def updateWidgets(self):
         super(QuickSearchForm, self).updateWidgets()
@@ -179,7 +189,10 @@ class QuickSearchForm(form.Form):
         """Return a list of widgets that should be shown for a given row."""
         widget_data = dict(self.widgets.items())
         available_fields = FIELD_ORDER.get(row, [])
-        return [widget_data.get(field, None) for field in available_fields]
+        return [
+            widget_data.get(key, None) for key in available_fields if
+            key not in self.omitted
+        ]
 
     @property
     def show_filter(self):

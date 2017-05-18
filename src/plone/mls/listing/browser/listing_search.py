@@ -14,7 +14,7 @@ from plone.memoize.view import memoize
 from plone.portlets.interfaces import IPortletManager, IPortletRetriever
 from plone.supermodel import model
 from plone.z3cform import z2
-from z3c.form import field, button
+from z3c.form import button
 from z3c.form.browser import checkbox, radio
 from z3c.form.interfaces import IFormLayer
 from zope import schema
@@ -111,7 +111,7 @@ class IListingSearch(IBaseListingItems):
     """Marker interface for ListingSearch viewlet."""
 
 
-class IListingSearchForm(form.Schema):
+class IListingSearchForm(model.Schema):
     """Listing search form schema definition."""
 
     q = schema.TextLine(
@@ -271,10 +271,11 @@ class IListingSearchForm(form.Schema):
     )
 
 
-class ListingSearchForm(form.Form):
+class ListingSearchForm(form.SchemaForm):
     """Listing Search Form."""
 
-    fields = field.Fields(IListingSearchForm)
+    schema = IListingSearchForm
+
     if PLONE_5:
         template = ViewPageTemplateFile('templates/p5_search_form.pt')
     elif PLONE_4:
@@ -282,27 +283,35 @@ class ListingSearchForm(form.Form):
     ignoreContext = True
     method = 'get'
 
-    fields['air_condition'].widgetFactory = radio.RadioFieldWidget
-    fields['baths'].widgetFactory = ValueRangeFieldWidget
-    fields['lot_size'].widgetFactory = ValueRangeFieldWidget
-    fields['interior_area'].widgetFactory = ValueRangeFieldWidget
-    fields['beds'].widgetFactory = ValueRangeFieldWidget
-    fields['geographic_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-    fields['jacuzzi'].widgetFactory = radio.RadioFieldWidget
-    fields['listing_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-    fields['location_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-    fields['object_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-    fields['ownership_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-    fields['pool'].widgetFactory = radio.RadioFieldWidget
-    fields['view_type'].widgetFactory = checkbox.CheckBoxFieldWidget
-
     def __init__(self, context, request):
         """Customized form constructor."""
         super(ListingSearchForm, self).__init__(context, request)
         self.prefix = 'form.{0}'.format(self.context.id)
+        self.omitted = []
 
     def update(self):
-        return super(ListingSearchForm, self).update()
+        super(ListingSearchForm, self).update()
+        if self.config.get('location_city', None):
+            self.omitted.extend([
+                'location_state',
+                'location_county',
+                'location_district',
+                'location_city',
+            ])
+
+        if self.config.get('location_district', None):
+            self.omitted.extend([
+                'location_state',
+                'location_county',
+                'location_district',
+            ])
+        elif self.config.get('location_county', None):
+            self.omitted.extend([
+                'location_state',
+                'location_county',
+            ])
+        elif self.config.get('location_state', None):
+            self.omitted.append('location_state')
 
     @button.buttonAndHandler(PMF(u'label_search', default=u'Search'),
                              name='search')
@@ -316,7 +325,10 @@ class ListingSearchForm(form.Form):
         """Return a list of widgets that should be shown for a given row."""
         widget_data = dict(self.widgets.items())
         available_fields = FIELD_ORDER.get(row, [])
-        return [widget_data.get(field, None) for field in available_fields]
+        return [
+            widget_data.get(key, None) for key in available_fields if
+            key not in self.omitted
+        ]
 
     def widgets_listing_type(self):
         """Return the widgets for the row ``row_listing_type``."""
@@ -357,6 +369,12 @@ class ListingSearchForm(form.Form):
     def widgets_tabbed(self):
         """Return the widgets for the row ``row_tabbed``."""
         return self._widgets('row_tabbed')
+
+    @property
+    def config(self):
+        """Get view configuration data from annotations."""
+        annotations = IAnnotations(self.context)
+        return annotations.get(CONFIGURATION_KEY, {})
 
 
 class ListingSearchViewlet(ViewletBase):
@@ -443,7 +461,7 @@ class ListingSearchViewlet(ViewletBase):
         if self.available and self.search_performed:
             data, errors = self.form.extractData()
             if not errors:
-                self._get_listings(data)
+                self._get_listings(prepare_search_params(data))
 
             self.request.form = encode_dict(self.request.form)
 
@@ -454,6 +472,7 @@ class ListingSearchViewlet(ViewletBase):
             'offset': self.request.get('b_start', 0),
             'lang': self.portal_state.language(),
         }
+
         search_params.update(self.config)
         search_params.update(params)
         search_params = prepare_search_params(
@@ -570,6 +589,35 @@ class IListingSearchConfiguration(model.Schema):
         value_type=schema.Choice(
             source='plone.mls.listing.WorkflowStates'
         ),
+    )
+
+    location_state = schema.Tuple(
+        required=False,
+        title=_(u'State'),
+        value_type=schema.Choice(
+            source='plone.mls.listing.LocationStates'
+        ),
+    )
+
+    location_county = schema.Tuple(
+        required=False,
+        title=_(u'County'),
+        value_type=schema.Choice(
+            source='plone.mls.listing.LocationCounties',
+        ),
+    )
+
+    location_district = schema.Tuple(
+        required=False,
+        title=_(u'District'),
+        value_type=schema.Choice(
+            source='plone.mls.listing.LocationDistricts',
+        )
+    )
+
+    location_city = schema.TextLine(
+        required=False,
+        title=_(u'City/Town'),
     )
 
 
