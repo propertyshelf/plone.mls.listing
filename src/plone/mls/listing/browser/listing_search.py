@@ -562,6 +562,16 @@ class IListingSearchConfiguration(model.Schema):
         ),
     )
 
+    directives.widget(workflow_state=checkbox.CheckBoxFieldWidget)
+    workflow_state = schema.Tuple(
+        default=('Active', 'PendingSale', 'Sold', ),
+        required=False,
+        title=_(u'Workflow Status'),
+        value_type=schema.Choice(
+            source='plone.mls.listing.WorkflowStates'
+        ),
+    )
+
 
 class ListingSearchConfiguration(form.SchemaForm):
     """Listing Search Configuration Form."""
