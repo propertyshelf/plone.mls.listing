@@ -158,11 +158,12 @@ class QuickSearchForm(form.SchemaForm):
 
     def updateWidgets(self):
         super(QuickSearchForm, self).updateWidgets()
-        # Temporary hide those 2 fields
-        if 'location_county' in self.widgets.keys():
-            self.widgets['location_county'].mode = HIDDEN_MODE
-        if 'location_district' in self.widgets.keys():
-            self.widgets['location_district'].mode = HIDDEN_MODE
+        # Hide those 2 fields from quick search.
+        if not self.show_filter:
+            if 'location_county' in self.widgets.keys():
+                self.widgets['location_county'].mode = HIDDEN_MODE
+            if 'location_district' in self.widgets.keys():
+                self.widgets['location_district'].mode = HIDDEN_MODE
 
     @button.buttonAndHandler(PMF(u'label_search', default=u'Search'),
                              name='search')
