@@ -215,6 +215,11 @@ class IListingCollectionConfiguration(Interface):
         )
     )
 
+    location_city = schema.TextLine(
+        required=False,
+        title=_(u'City/Town'),
+    )
+
     price_min = schema.Int(
         required=False,
         title=_(u'Price (Min)'),
