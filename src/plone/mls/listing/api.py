@@ -39,9 +39,21 @@ CONFIGURATION_KEYS = [
 ]
 
 
-def prepare_search_params(data):
+def _remove_omitted(params, omit):
+    """Removed omitted keys from the params dict."""
+    if omit is not None and isinstance(omit, (list, tuple)):
+        for item in omit:
+            try:
+                del params[item]
+            except KeyError:
+                continue
+
+
+def prepare_search_params(data, omit=None):
     """Prepare search params."""
     params = {}
+
+    _remove_omitted(data, omit)
 
     for item in data:
         if item == 'interior_area':
