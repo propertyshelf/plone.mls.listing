@@ -309,9 +309,14 @@ class ListingSearchForm(form.SchemaForm):
             self.omitted.extend([
                 'location_state',
                 'location_county',
+                'location_district',
             ])
         elif self.config.get('location_state', None):
-            self.omitted.append('location_state')
+            self.omitted.extend([
+                'location_state',
+                'location_county',
+                'location_district',
+            ])
 
     @button.buttonAndHandler(PMF(u'label_search', default=u'Search'),
                              name='search')
