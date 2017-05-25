@@ -207,7 +207,7 @@ class QuickSearchForm(form.SchemaForm):
         button = '{0}.buttons.search'.format(self.prefix)
         return (
             listing_search.IListingSearch.providedBy(self.context) and
-            button in form.keys()
+            (button in form.keys() or self.config.get('auto_search', False))
         )
 
     def widgets_listing_type(self):
@@ -333,6 +333,12 @@ class Renderer(base.Renderer):
             # self.view.context != search_view
         )
 
+    @property
+    def config(self):
+        """Get view configuration data from annotations."""
+        annotations = IAnnotations(self._search_context())
+        return annotations.get(listing_search.CONFIGURATION_KEY, {})
+
     def _search_context(self):
         search_path = self.data.target_search
 
@@ -379,7 +385,7 @@ class Renderer(base.Renderer):
         form = self.request.form
         if (
             listing_search.IListingSearch.providedBy(self.context) and
-            button in form.keys()
+            (button in form.keys() or self.config.get('auto_search', False))
         ):
             return 'FILTER'
         elif (

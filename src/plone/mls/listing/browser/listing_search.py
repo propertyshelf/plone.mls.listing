@@ -85,6 +85,7 @@ FIELD_ORDER = {
 }
 
 EXCLUDED_SEARCH_FIELDS = [
+    'auto_search',
     'hide_form',
     'zoomlevel',
 ]
@@ -409,10 +410,8 @@ class ListingSearchViewlet(ViewletBase):
         if self.config.get('hide_form', True) is False:
             return False
 
-        if self.form:
-            button = '{0}.buttons.search'.format(self.form.prefix)
-            if button not in self.request.form.keys():
-                return False
+        if self.form and not self.search_performed:
+            return False
 
         from plone.mls.listing.portlets.quick_search import IQuickSearchPortlet
         portlets = []
@@ -462,7 +461,10 @@ class ListingSearchViewlet(ViewletBase):
         self.form.update()
         button = '{0}.buttons.search'.format(self.form.prefix)
 
-        self.search_performed = button in self.request.keys()
+        self.search_performed = (
+            button in self.request.keys() or
+            self.config.get('auto_search', False)
+        )
         if self.available and self.search_performed:
             data, errors = self.form.extractData()
             if not errors:
@@ -570,6 +572,15 @@ class IListingSearchConfiguration(model.Schema):
         required=False,
         title=_(
             u'Hide the search form when Quick Search Portlet is available?'
+        ),
+    )
+
+    auto_search = schema.Bool(
+        default=False,
+        required=False,
+        title=_(
+            u'Start the search immediately, without showing the search '
+            u'form first?'
         ),
     )
 
