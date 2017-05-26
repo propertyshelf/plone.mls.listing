@@ -2,6 +2,7 @@
 """Vocabulary definitions."""
 
 # zope imports
+from plone import api as plone_api
 from plone.registry.interfaces import IRegistry
 
 from zope.annotation.interfaces import IAnnotations
@@ -94,6 +95,24 @@ WORKFLOW_STATE_VALUES = [
 
 
 @implementer(IVocabularyFactory)
+class AvailableListingSearches(object):
+    """Vocabulary which returns all available listing searches."""
+
+    def __call__(self, context):
+        brains = plone_api.content.find(
+            object_provides=listing_search.IListingSearch,
+            sort_on='sortable_title',
+        )
+        items = []
+        for brain in brains:
+            title = '{0} ({1})'.format(brain.Title, brain.getPath())
+            items.append(SimpleTerm(brain.UID, brain.UID, title))
+        return SimpleVocabulary(items)
+
+AvailableListingSearchesFactory = AvailableListingSearches()
+
+
+@implementer(IVocabularyFactory)
 class BasePriorityVocabulary(object):
     """Vocabulary factory with optional priority list.
 
@@ -127,6 +146,7 @@ class BasePriorityVocabulary(object):
 
     sort_data(data, priority)
     """
+
     priority = ''
     vocabulary_name = None
     local_settings_key = None
@@ -134,7 +154,6 @@ class BasePriorityVocabulary(object):
 
     def _sort(self, data, priority):
         """Sort list of tuple by keys in priority list or value otherwise."""
-
         def get_key(item):
             if item[0] in priority:
                 return '__{0:03d}'.format(priority.index(item[0]))

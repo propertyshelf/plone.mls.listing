@@ -2,7 +2,6 @@
 """MLS Listing Search."""
 
 # zope imports
-from AccessControl import Unauthorized
 from Acquisition import aq_inner
 from Products.CMFPlone import PloneMessageFactory as PMF  # noqa
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -432,19 +431,13 @@ class ListingSearchViewlet(ViewletBase):
         if search_path is None:
             return False
 
-        if PLONE_5:
-            obj = api.content.get(UID=search_path)
-            search_path = '/'.join(obj.getPhysicalPath())
-
         if search_path.startswith('/'):
-            search_path = search_path[1:]
-
-        try:
-            obj = self.context.restrictedTraverse(search_path)
-        except Unauthorized:
-            return False
+            obj = api.content.get(path=search_path)
         else:
+            obj = api.content.get(UID=search_path)
+        if obj:
             return obj == self.context
+        return False
 
     def update(self):
         """Prepare view related data."""

@@ -2,7 +2,6 @@
 """Listing Quick Search Portlet."""
 
 # zope imports
-from AccessControl import Unauthorized
 from Acquisition import aq_inner
 from Products.CMFPlone import PloneMessageFactory as PMF
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -39,11 +38,7 @@ try:
 except ImportError:
     HAS_WRAPPED_FORM = False
 
-if PLONE_5:
-    from plone.app.vocabularies.catalog import CatalogSource
-elif PLONE_4:
-    from plone.app.form.widgets.uberselectionwidget import UberSelectionWidget
-    from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+if PLONE_4:
     from zope import formlib
 
 MSG_PORTLET_DESCRIPTION = _(u'This portlet shows a listing quick search form.')
@@ -118,19 +113,12 @@ class QuickSearchForm(form.SchemaForm):
         if search_path is None:
             return self.context
 
-        if PLONE_5:
-            obj = api.content.get(UID=search_path)
-            search_path = '/'.join(obj.getPhysicalPath())
-
         if search_path.startswith('/'):
-            search_path = search_path[1:]
+            obj = api.content.get(path=search_path)
+        else:
+            obj = api.content.get(UID=search_path)
 
-        try:
-            search_view = self.context.restrictedTraverse(search_path)
-        except Unauthorized:
-            return self.context
-
-        return search_view
+        return obj
 
     def update(self):
         super(QuickSearchForm, self).update()
@@ -182,14 +170,18 @@ class QuickSearchForm(form.SchemaForm):
     @property
     def action(self):
         """See interfaces.IInputForm."""
-        p_state = self.context.unrestrictedTraverse('@@plone_portal_state')
         search_path = self.data.target_search
-        if PLONE_5:
-            obj = api.content.get(UID=search_path)
-            search_path = '/'.join(obj.getPhysicalPath())
+
+        if search_path is None:
+            return
+
         if search_path.startswith('/'):
-            search_path = search_path[1:]
-        return '/'.join([p_state.portal_url(), search_path])
+            obj = api.content.get(path=search_path)
+        else:
+            obj = api.content.get(UID=search_path)
+
+        if obj:
+            return obj.absolute_url()
 
     def _widgets(self, row):
         """Return a list of widgets that should be shown for a given row."""
@@ -272,30 +264,14 @@ class IQuickSearchPortlet(IPortletDataProvider):
         title=_(u'Portlet Title (Filter)'),
     )
 
-    if PLONE_5:
-        target_search = schema.Choice(
-            description=_(
-                u'Find the search page which will be used to show the results.'
-            ),
-            required=True,
-            source=CatalogSource(
-                object_provides='plone.mls.listing.browser.listing_search.'
-                                'IListingSearch',
-            ),
-            title=_(u'Search Page'),
-        )
-    elif PLONE_4:
-        target_search = schema.Choice(
-            description=_(
-                u'Find the search page which will be used to show the results.'
-            ),
-            required=True,
-            source=SearchableTextSourceBinder({
-                'object_provides': 'plone.mls.listing.browser.listing_search.'
-                                   'IListingSearch',
-            }, default_query='path:'),
-            title=_(u'Search Page'),
-        )
+    target_search = schema.Choice(
+        description=_(
+            u'Find the search page which will be used to show the results.'
+        ),
+        required=True,
+        vocabulary='plone.mls.listing.available_searches',
+        title=_(u'Search Page'),
+    )
 
 
 @implementer(IQuickSearchPortlet)
@@ -345,17 +321,12 @@ class Renderer(base.Renderer):
         if search_path is None:
             return
 
-        if PLONE_5:
-            obj = api.content.get(UID=search_path)
-            search_path = '/'.join(obj.getPhysicalPath())
-
         if search_path.startswith('/'):
-            search_path = search_path[1:]
+            obj = api.content.get(path=search_path)
+        else:
+            obj = api.content.get(UID=search_path)
 
-        try:
-            return self.context.restrictedTraverse(search_path)
-        except Unauthorized:
-            return
+        return obj
 
     @property
     def title(self):
@@ -412,7 +383,6 @@ class AddForm(base.AddForm):
         schema = IQuickSearchPortlet
     elif PLONE_4:
         form_fields = formlib.form.Fields(IQuickSearchPortlet)
-        form_fields['target_search'].custom_widget = UberSelectionWidget
 
     label = _(u'Add Listing Quick Search portlet')
     description = MSG_PORTLET_DESCRIPTION
@@ -431,7 +401,14 @@ class EditForm(base.EditForm):
         schema = IQuickSearchPortlet
     elif PLONE_4:
         form_fields = formlib.form.Fields(IQuickSearchPortlet)
-        form_fields['target_search'].custom_widget = UberSelectionWidget
 
     label = _(u'Edit Listing Quick Search portlet')
     description = MSG_PORTLET_DESCRIPTION
+
+    def update(self):
+        if self.context.target_search.startswith('/'):
+            obj = api.content.get(path=self.context.target_search)
+            if obj is not None:
+                uid = api.content.get_uuid(obj)
+                self.context.target_search = uid
+        super(EditForm, self).update()

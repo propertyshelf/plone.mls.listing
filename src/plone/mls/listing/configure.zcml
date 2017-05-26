@@ -46,6 +46,11 @@
   <!-- Vocabularies for listing searches. -->
   <!-- ================================== -->
   <utility
+      component=".vocabularies.AvailableListingSearchesFactory"
+      name="plone.mls.listing.available_searches"
+      />
+
+  <utility
       component=".vocabularies.GeographicTypesVocabularyFactory"
       name="plone.mls.listing.GeographicTypes"
       />

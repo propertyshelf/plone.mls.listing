@@ -8,6 +8,7 @@ Changelog
 - Add workflow_state to listing search config.
 - Add location fields to listing search config. Hide all location fields in search form when one option is pre-selected.
 - Add auto-search option for listing searches.
+- Use custom vocabulary for available listing searches for quick search portlet (migration included).
 
 
 1.12 (2017-05-12)

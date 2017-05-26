@@ -41,41 +41,17 @@ jQuery(function($) {
     });
   }
 
-
-  if ($('.portletQuickSearch').length > 0) {
-
-    if ($('.portletQuickSearch #formfield-form-widgets-object_type input:checked').length > 0) {
-      $('.portletQuickSearch #formfield-form-widgets-object_type > .collapser').click();
+  $('.portletQuickSearch .collapsible').each(function() {
+    var collapser = $(this).find('.collapser');
+    var checkboxes =  $(this).find('input[type="checkbox"]:checked');
+    var radio =  $(this).find('input[type="radio"]:checked');
+    if($(checkboxes).length > 0) {
+      collapser.click();
     }
-
-    if ($('.portletQuickSearch #formfield-form-widgets-location_type input:checked').length > 0) {
-      $('.portletQuickSearch #formfield-form-widgets-location_type > .collapser').click();
+    if($(radio).length > 0) {
+      if($(radio).val() != '--NOVALUE--') {
+        collapser.click();
+      }
     }
-
-    if ($('.portletQuickSearch #formfield-form-widgets-geographic_type input:checked').length > 0) {
-      $('.portletQuickSearch #formfield-form-widgets-geographic_type > .collapser').click();
-    }
-
-    if ($('.portletQuickSearch #formfield-form-widgets-view_type input:checked').length > 0) {
-      $('.portletQuickSearch #formfield-form-widgets-view_type > .collapser').click();
-    }
-
-    if ($('.portletQuickSearch #formfield-form-widgets-ownership_type input:checked').length > 0) {
-      $('.portletQuickSearch #formfield-form-widgets-ownership_type > .collapser').click();
-    }
-
-    if ($('.portletQuickSearch #formfield-form-widgets-air_condition input:checked').val() != '--NOVALUE--') {
-      $('.portletQuickSearch #formfield-form-widgets-air_condition > .collapser').click();
-    }
-
-    if ($('.portletQuickSearch #formfield-form-widgets-pool input:checked').val() != '--NOVALUE--') {
-      $('.portletQuickSearch #formfield-form-widgets-pool > .collapser').click();
-    }
-
-    if ($('.portletQuickSearch #formfield-form-widgets-jacuzzi input:checked').val() != '--NOVALUE--') {
-      $('.portletQuickSearch #formfield-form-widgets-jacuzzi > .collapser').click();
-    }
-
-  }
-
+  });
 });
