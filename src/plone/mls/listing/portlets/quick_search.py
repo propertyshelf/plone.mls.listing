@@ -404,3 +404,11 @@ class EditForm(base.EditForm):
 
     label = _(u'Edit Listing Quick Search portlet')
     description = MSG_PORTLET_DESCRIPTION
+
+    def update(self):
+        if self.context.target_search.startswith('/'):
+            obj = api.content.get(path=self.context.target_search)
+            if obj is not None:
+                uid = api.content.get_uuid(obj)
+                self.context.target_search = uid
+        super(EditForm, self).update()
