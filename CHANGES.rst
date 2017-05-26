@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.13 (unreleased)
+1.13 (2017-05-26)
 -----------------
 
 - Add city field to listing collection.
