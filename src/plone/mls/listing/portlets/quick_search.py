@@ -11,10 +11,7 @@ from plone.directives import form
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
 from z3c.form import button
-from z3c.form.interfaces import (
-    HIDDEN_MODE,
-    IFormLayer,
-)
+from z3c.form.interfaces import IFormLayer
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.interface import (
@@ -149,14 +146,12 @@ class QuickSearchForm(form.SchemaForm):
                 'location_district',
             ])
 
-    def updateWidgets(self):
-        super(QuickSearchForm, self).updateWidgets()
         # Hide those 2 fields from quick search.
         if not self.show_filter:
-            if 'location_county' in self.widgets.keys():
-                self.widgets['location_county'].mode = HIDDEN_MODE
-            if 'location_district' in self.widgets.keys():
-                self.widgets['location_district'].mode = HIDDEN_MODE
+            self.omitted.extend([
+                'location_county',
+                'location_district',
+            ])
 
     @button.buttonAndHandler(PMF(u'label_search', default=u'Search'),
                              name='search')
