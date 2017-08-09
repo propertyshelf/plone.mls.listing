@@ -10,8 +10,7 @@
                   batch view/batching | nothing;
                   results batch/sequence_length | nothing;
                   search_performed view/search_performed | nothing;">
-
-  <section id="listing-search" class="listing__results"
+  <section id="listing-search" class="listing__results row"
            tal:define="page_url view/view_url | nothing;
                        is_view_template context/@@plone_context_state/is_view_template;
                        b_size view/limit;
@@ -22,12 +21,14 @@
       <h2 i18n:translate="">No matching results found - please expand your search.</h2>
     </tal:nolistings>
 
-    <div id="search-form"
+    <div class="listing__form"
          tal:condition="python: not view.hide_form"
-         tal:attributes="class python: results and 'results' or ''">
-      <p id="show-form" i18n:domain="plone" style="display: none;"><a href=""
-         i18n:translate="edit_your_search_options">Edit your search options</a></p>
-      <div tal:replace="structure view/form/render"></div>
+         tal:attributes="class python: results and 'listing__form col-xs-12 results' or 'listing__form col-xs-12'">
+      <div class="row">
+        <div class="listing__form-wrapper col-xs-12" tal:content="structure view/form/render">[form]</div>
+        <p class="listing__form-toggle col-xs-12" i18n:domain="plone" style="display: none;"><a href=""
+           i18n:translate="edit_your_search_options">Edit your search options</a></p>
+      </div>
     </div>
 
     <tal:listings tal:condition="listings">
