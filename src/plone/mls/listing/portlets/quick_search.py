@@ -80,8 +80,12 @@ FIELD_ORDER = {
 class QuickSearchForm(form.SchemaForm):
     """Quick Search Form."""
 
+    if PLONE_5:
+        template = ViewPageTemplateFile('templates/p5_search_form.pt')
+    elif PLONE_4:
+        template = ViewPageTemplateFile('templates/search_form.pt')
+
     schema = listing_search.IListingSearchForm
-    template = ViewPageTemplateFile('templates/search_form.pt')
     ignoreContext = True
     method = 'get'
 
