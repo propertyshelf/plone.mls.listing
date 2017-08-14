@@ -10,7 +10,7 @@
     <header class="portletHeader">
       <span tal:omit-tag="" tal:replace="view/title | nothing"></span>
     </header>
-    <section class="portletContent">
+    <section class="portletContent listing__form">
       <div tal:replace="structure view/form | nothing"></div>
     </section>
   </section>
