@@ -168,7 +168,7 @@ class ListingDetails(BrowserView):
                 if title is not None:
                     return title.get('value', self.context.title)
         else:
-            return self.context.Title
+            return self.context.title_or_id()
 
     @property
     def description(self):
