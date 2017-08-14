@@ -8,7 +8,7 @@
     <div metal:use-macro="context/@@ploneform-macros/titlelessform">
       <metal:fields-slot fill-slot="fields">
 
-        <div class="row"
+        <div class="row listing__form-listing_type"
              tal:define="widgets view/widgets_listing_type | nothing"
              tal:condition="widgets">
           <div class="col-xs-12" tal:repeat="widget widgets">
@@ -16,7 +16,7 @@
           </div>
         </div>
 
-        <div class="row"
+        <div class="row listing__form-location"
              tal:define="widgets view/widgets_location | nothing"
              tal:condition="widgets">
           <div class="col-xs-12 col-sm-4" tal:repeat="widget widgets">
@@ -24,7 +24,7 @@
           </div>
         </div>
 
-        <div class="row"
+        <div class="row listing__form-price"
              tal:define="widgets view/widgets_price | nothing"
              tal:condition="widgets">
           <div class="col-xs-12 col-sm-4" tal:repeat="widget widgets">
@@ -32,7 +32,7 @@
           </div>
         </div>
 
-        <div class="row"
+        <div class="row listing__form-beds_baths"
              tal:define="widgets view/widgets_beds_baths | nothing"
              tal:condition="widgets">
           <div class="col-xs-12 col-sm-6" tal:repeat="widget widgets">
@@ -40,7 +40,7 @@
           </div>
         </div>
 
-        <div class="row"
+        <div class="row listing__form-sizes"
              tal:define="widgets view/widgets_sizes | nothing"
              tal:condition="widgets">
           <div class="col-xs-12 col-sm-6" tal:repeat="widget widgets">
@@ -48,7 +48,7 @@
           </div>
         </div>
 
-        <div class="row"
+        <div class="row listing__form-other"
              tal:define="widgets view/widgets_other | nothing"
              tal:condition="widgets">
           <div class="col-xs-12 col-sm-4" tal:repeat="widget widgets">
