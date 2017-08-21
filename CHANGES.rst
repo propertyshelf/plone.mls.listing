@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.14 (unreleased)
+1.14 (2017-08-21)
 -----------------
 
 - Hide location fields completely, don't use hidden mode.
