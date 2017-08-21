@@ -38,11 +38,11 @@ class TCWidget(SingleCheckBoxWidget):
         if not self.target:
             return
 
-        portal = api.portal.get()
         path = str(self.target)
         if path.startswith('/'):
-            path = path[1:]
-        item = portal.restrictedTraverse(path, default=False)
+            item = api.content.get(path=path)
+        else:
+            item = api.content.get(UID=path)
         if not item:
             return
         return {
