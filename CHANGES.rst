@@ -4,7 +4,11 @@ Changelog
 1.14 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Hide location fields completely, don't use hidden mode.
+- Don't index print listing pages.
+- Adjust listing search form template for plone 5.
+- Add custom quick search portlet form template for Plone 5.
+- Fix get link method for tcwidget (now supports uids).
 
 
 1.13 (2017-05-26)
