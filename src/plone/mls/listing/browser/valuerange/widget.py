@@ -19,7 +19,7 @@ class ValueRangeWidget(HTMLTextInputWidget, SequenceWidget):
     """Value range widget."""
     implementsOnly(IValueRangeWidget)
 
-    klass = u'value-range-widget'
+    klass = u'value-range-widget pat-select2'
     prompt = False
 
     noValueMessage = _('All')
