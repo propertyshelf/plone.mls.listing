@@ -4,7 +4,7 @@ Changelog
 1.15 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Add class pat-select2 for valuerange widget.
 
 
 1.14 (2017-08-21)
