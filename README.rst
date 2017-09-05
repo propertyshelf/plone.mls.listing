@@ -19,8 +19,3 @@ Mostly Harmless
     :target: http://badge.fury.io/py/plone.mls.listing
     :alt: Fury Python
 
-
-Requirements
-------------
-
-Currently z3c.form needs to be pinned down to version 3.2.1 to render multi-select widgets for ListingCollections.
