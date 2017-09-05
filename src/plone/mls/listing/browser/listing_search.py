@@ -114,6 +114,24 @@ class IListingSearch(IBaseListingItems):
 class IListingSearchForm(model.Schema):
     """Listing search form schema definition."""
 
+    if PLONE_5:
+        from plone.app.z3cform.widget import SelectFieldWidget
+        form.widget(
+            'location_state',
+            SelectFieldWidget,
+            pattern_options={'placeholder': _(u'Select a State')},
+        )
+        form.widget(
+            'location_county',
+            SelectFieldWidget,
+            pattern_options={'placeholder': _(u'Select a County')},
+        )
+        form.widget(
+            'location_district',
+            SelectFieldWidget,
+            pattern_options={'placeholder': _(u'Select a District')},
+        )
+
     q = schema.TextLine(
         required=False,
         title=_(u'Freetext search (Location, Keywords, Listing ID, ...)'),
