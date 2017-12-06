@@ -13,6 +13,9 @@ env:
   - PLONE_VERSION=5.0
   - PLONE_VERSION=5.1
 matrix:
+  allow_failures:
+    - env: PLONE_VERSION=4.1
+    - env: PLONE_VERSION=4.2
   exclude:
     - python: 2.7
       env: PLONE_VERSION=4.1
@@ -25,18 +28,29 @@ matrix:
     - python: 2.6
       env: PLONE_VERSION=5.1
   fast_finish: true
+addons:
+  firefox: 45.8.0esr
 install:
   - sed -ie "s#test-4.x.cfg#test-$PLONE_VERSION.x.cfg#" travis.cfg
   - sed -ie "s#versions-$PLONE_VERSION.x#versions#" travis.cfg
   - mkdir -p buildout-cache/eggs
   - mkdir -p buildout-cache/downloads
-  - pip install zc.buildout==2.5.0
+  - pip install -r requirements_$TRAVIS_PYTHON_VERSION.txt
   - buildout -c travis.cfg annotate
   - buildout -c travis.cfg -N -q
+before_script:
+  - "export DISPLAY=:99.0"
+  - "sh -e /etc/init.d/xvfb start"
+  - firefox -v
 script:
   - bin/code-analysis
   - bin/test
+after_success:
+  - bin/createcoverage
+  - pip install coveralls
+  - coveralls
 notifications:
-  irc: irc.freenode.org#propertyshelf
+  email:
+    - development@propertyshelf.com
   hipchat:
     secure: "Zp+CCmHUlqghB8h1GD6ifSfIZN3Pshz+ZsZSRzWUnsjaSGL/27PVe1NPfVevEA5r1SovH+Rd7UH54QomsGJ765tuvIc3m9S59XQI9ykMaZoARYUSwm/JPyUTrPUH/KM5c0rfD8vX8PZHogsOHewWiUJgQfet4iIbN5yVoICmRD8="
