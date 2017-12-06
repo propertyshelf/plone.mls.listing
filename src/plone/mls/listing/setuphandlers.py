@@ -12,5 +12,6 @@ class HiddenProfiles(object):
     def getNonInstallableProfiles(self):
         """Hide uninstall profile from site-creation and quickinstaller."""
         return [
+            'plone.mls.listing:default',
             'plone.mls.listing:uninstall',
         ]
