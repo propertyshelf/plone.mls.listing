@@ -15,7 +15,8 @@
                        is_view_template context/@@plone_context_state/is_view_template;
                        b_size view/limit;
                        b_orphan python: 1;
-                       b_start request/b_start | python: 0;">
+                       b_start request/b_start | python: 0;
+                       utils context/@@psplonemls-utils;">
 
     <tal:nolistings tal:condition="python: search_performed and not results">
       <h2 i18n:translate="">No matching results found - please expand your search.</h2>
@@ -141,7 +142,7 @@
 
         <p class="listing__description col-sm-12"
             tal:condition="listing/description/value | nothing"
-            tal:content="listing/description/value">
+            tal:content="python: utils.smart_truncate(listing.get('description', {}).get('value'))">
             [Description]
         </p>
 
