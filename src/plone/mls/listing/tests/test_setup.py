@@ -1,15 +1,14 @@
 # -*- coding: utf-8 -*-
 """Test Setup of plone.mls.listing."""
 
-# python imports
+from plone.mls.listing import PLONE_4
+from plone.mls.listing.testing import PLONE_MLS_LISTING_INTEGRATION_TESTING
+
+
 try:
     import unittest2 as unittest
 except ImportError:
     import unittest
-
-# local imports
-from plone.mls.listing import PLONE_4
-from plone.mls.listing.testing import PLONE_MLS_LISTING_INTEGRATION_TESTING
 
 
 class TestSetup(unittest.TestCase):

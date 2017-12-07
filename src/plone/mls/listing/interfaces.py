@@ -3,12 +3,11 @@
 
 # zope imports
 from plone.directives import form
+from plone.mls.listing.i18n import _
 from plone.supermodel.directives import fieldset
 from zope import schema
 from zope.interface import Interface
 
-# local imports
-from plone.mls.listing.i18n import _
 
 MSG_PRIORITY_DESCRIPTION = _(
     u'Items in this vocabulary are sorted by priority key (if available) '

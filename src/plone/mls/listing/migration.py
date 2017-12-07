@@ -1,28 +1,22 @@
 # -*- coding: utf-8 -*-
 """Migration steps for plone.mls.listing."""
 
-# python imports
-import pkg_resources
-
-# zope imports
 from plone import api
 from plone.browserlayer import utils as layerutils
+from plone.mls.listing import PRODUCT_NAME
+from plone.mls.listing.browser.interfaces import IListingSpecific
+from plone.mls.listing.browser.listing_collection import CONFIGURATION_KEY
+from plone.mls.listing.browser.listing_collection import IListingCollection
+from plone.mls.listing.interfaces import IMLSAgencyContactInformation
 from plone.registry.interfaces import IRegistry
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.schema.interfaces import IVocabularyFactory
 
-# local imports
-from plone.mls.listing.browser.interfaces import IListingSpecific
-from plone.mls.listing.browser.listing_collection import (
-    CONFIGURATION_KEY as COLLECTION,
-    IListingCollection,
-)
-from plone.mls.listing.interfaces import IMLSAgencyContactInformation
-
-# Plone Loggig
 import logging
-from plone.mls.listing import PRODUCT_NAME
+import pkg_resources
+
+
 logger = logging.getLogger(PRODUCT_NAME)
 
 LISTING_TYPE = 'plone.mls.listing.listing'
@@ -314,7 +308,7 @@ def migrate_to_1013(context):
             logger.info(
                 'Migrating Listing Collection: {0}'.format(obj.absolute_url()))
             annotations = IAnnotations(obj)
-            content = annotations.get(COLLECTION, None)
+            content = annotations.get(CONFIGURATION_KEY, None)
             if content is None:
                 continue
 
@@ -355,7 +349,7 @@ def migrate_to_1013(context):
                 )
                 content['location_state'] = token_values
 
-            annotations[COLLECTION] = content
+            annotations[CONFIGURATION_KEY] = content
 
 
 def migrate_to_1014(context):

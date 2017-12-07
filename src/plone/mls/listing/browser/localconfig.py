@@ -3,18 +3,15 @@
 
 # zope imports
 from plone.directives import form
+from plone.mls.listing.i18n import _
+from plone.mls.listing.interfaces import ILocalAgencyInfo
+from plone.mls.listing.interfaces import IMLSAgencyContactInformation
+from plone.mls.listing.interfaces import IPossibleLocalAgencyInfo
 from z3c.form import button
 from zope.annotation.interfaces import IAnnotations
-from zope.interface import alsoProvides, noLongerProvides
+from zope.interface import alsoProvides
+from zope.interface import noLongerProvides
 from zope.traversing.browser.absoluteurl import absoluteURL
-
-# local imports
-from plone.mls.listing.i18n import _
-from plone.mls.listing.interfaces import (
-    ILocalAgencyInfo,
-    IMLSAgencyContactInformation,
-    IPossibleLocalAgencyInfo,
-)
 
 
 CONFIGURATION_KEY = 'plone.mls.listing.localagencyinfo'

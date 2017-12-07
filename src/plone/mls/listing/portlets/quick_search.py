@@ -1,32 +1,26 @@
 # -*- coding: utf-8 -*-
 """Listing Quick Search Portlet."""
 
-# zope imports
 from Acquisition import aq_inner
-from Products.CMFPlone import PloneMessageFactory as PMF
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
 from plone.app.portlets.portlets import base
 from plone.directives import form
+from plone.mls.listing import PLONE_4
+from plone.mls.listing import PLONE_5
+from plone.mls.listing.browser import listing_search
+from plone.mls.listing.i18n import _
 from plone.portlets.interfaces import IPortletDataProvider
 from plone.z3cform import z2
+from Products.CMFPlone import PloneMessageFactory as PMF
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
 from z3c.form.interfaces import IFormLayer
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
-from zope.interface import (
-    alsoProvides,
-    implementer,
-)
+from zope.interface import alsoProvides
+from zope.interface import implementer
 from zope.schema.fieldproperty import FieldProperty
 
-# local imports
-from plone.mls.listing import (
-    PLONE_4,
-    PLONE_5,
-)
-from plone.mls.listing.browser import listing_search
-from plone.mls.listing.i18n import _
 
 # starting from 0.6.0 version plone.z3cform has IWrappedForm interface
 try:

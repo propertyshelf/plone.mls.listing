@@ -2,10 +2,8 @@
 """Navigation Breadcrumb customizations."""
 
 # zope imports
-from Products.CMFPlone.browser.navigation import (
-    get_view_url,
-    PhysicalNavigationBreadcrumbs,
-)
+from Products.CMFPlone.browser.navigation import get_view_url
+from Products.CMFPlone.browser.navigation import PhysicalNavigationBreadcrumbs
 
 
 class ListingDetailsNavigationBreadcrumbs(PhysicalNavigationBreadcrumbs):

@@ -1,26 +1,41 @@
 # -*- coding: utf-8 -*-
 """MLS Listing Search."""
 
-# zope imports
 from Acquisition import aq_inner
-from Products.CMFPlone import PloneMessageFactory as PMF  # noqa
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone import api
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.autoform import directives
 from plone.directives import form
 from plone.memoize.view import memoize
-from plone.portlets.interfaces import IPortletManager, IPortletRetriever
+from plone.mls.core.navigation import ListingBatch
+from plone.mls.listing import AnnotationStorage
+from plone.mls.listing import PLONE_4
+from plone.mls.listing import PLONE_5
+from plone.mls.listing.api import prepare_search_params
+from plone.mls.listing.api import search
+from plone.mls.listing.browser.interfaces import IBaseListingItems
+from plone.mls.listing.browser.interfaces import IListingDetails
+from plone.mls.listing.browser.valuerange.widget import ValueRangeFieldWidget
+from plone.mls.listing.i18n import _
+from plone.portlets.interfaces import IPortletManager
+from plone.portlets.interfaces import IPortletRetriever
 from plone.supermodel import model
 from plone.z3cform import z2
+from Products.CMFPlone import PloneMessageFactory as PMF  # noqa
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
-from z3c.form.browser import checkbox, radio
+from z3c.form.browser import checkbox
+from z3c.form.browser import radio
 from z3c.form.interfaces import IFormLayer
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
-from zope.component import getUtility, queryMultiAdapter
-from zope.interface import Interface, alsoProvides, noLongerProvides
+from zope.component import getUtility
+from zope.component import queryMultiAdapter
+from zope.interface import alsoProvides
+from zope.interface import Interface
+from zope.interface import noLongerProvides
 from zope.traversing.browser.absoluteurl import absoluteURL
+
 
 # starting from 0.6.0 version plone.z3cform has IWrappedForm interface
 try:
@@ -29,20 +44,6 @@ try:
 except ImportError:
     HAS_WRAPPED_FORM = False
 
-# local imports
-from plone.mls.core.navigation import ListingBatch
-from plone.mls.listing import (
-    AnnotationStorage,
-    PLONE_4,
-    PLONE_5,
-)
-from plone.mls.listing.api import prepare_search_params, search
-from plone.mls.listing.browser.interfaces import (
-    IBaseListingItems,
-    IListingDetails,
-)
-from plone.mls.listing.browser.valuerange.widget import ValueRangeFieldWidget
-from plone.mls.listing.i18n import _
 
 CONFIGURATION_KEY = 'plone.mls.listing.listingsearch'
 

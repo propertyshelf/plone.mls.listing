@@ -1,17 +1,14 @@
 # -*- coding: utf-8 -*-
 """Test Content Types of plone.mls.listing."""
 
-# python imports
+from plone import api
+from plone.mls.listing.testing import PLONE_MLS_LISTING_INTEGRATION_TESTING
+
+
 try:
     import unittest2 as unittest
 except ImportError:
     import unittest
-
-# zope imports
-from plone import api
-
-# local imports
-from plone.mls.listing.testing import PLONE_MLS_LISTING_INTEGRATION_TESTING
 
 
 LISTING_TYPE = 'plone.mls.listing.listing'

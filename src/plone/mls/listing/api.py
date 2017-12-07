@@ -1,31 +1,25 @@
 # -*- coding: utf-8 -*-
 """MLS API utility methods."""
 
-# python imports
+from Acquisition import aq_inner
+from Acquisition import aq_parent
 from DateTime import DateTime
-import copy
-import logging
-import time
-
-# zope imports
-from Acquisition import aq_parent, aq_inner
-from Products.CMFPlone.interfaces import IPloneSiteRoot
-from plone import api
-from plone.registry.interfaces import IRegistry
-from zope.annotation.interfaces import IAnnotations
-from zope.component import getUtility
-
-
-# local imports
 from mls.apiclient.client import ListingResource
 from mls.apiclient.exceptions import MLSError
+from plone import api
 from plone.mls.core.api import get_settings
 from plone.mls.listing import PRODUCT_NAME
 from plone.mls.listing.browser.localconfig import CONFIGURATION_KEY
-from plone.mls.listing.interfaces import (
-    ILocalAgencyInfo,
-    IMLSAgencyContactInformation,
-)
+from plone.mls.listing.interfaces import ILocalAgencyInfo
+from plone.mls.listing.interfaces import IMLSAgencyContactInformation
+from plone.registry.interfaces import IRegistry
+from Products.CMFPlone.interfaces import IPloneSiteRoot
+from zope.annotation.interfaces import IAnnotations
+from zope.component import getUtility
+
+import copy
+import logging
+import time
 
 
 logger = logging.getLogger(PRODUCT_NAME)
@@ -167,7 +161,7 @@ class SearchOptions(object):
             results = []
             try:
                 results = resource.category(self.category, self.language)
-            except MLSError, e:
+            except MLSError as e:
                 self._loaded = True  # we tried at least but have a failed load
                 self._failed = True
                 logger.warn(e)
@@ -250,7 +244,7 @@ def listing_details(listing_id, lang=None, context=None):
     resource = ListingResource(base_url, api_key=api_key, debug=debug)
     try:
         listing = resource.get(listing_id, lang=lang, params=params)
-    except MLSError, e:
+    except MLSError as e:
         logger.warn(e)
         return None
     listing = listing.get('listing', None)
@@ -297,7 +291,7 @@ def search(params={}, batching=True, context=None, config=None):
 
     try:
         results, batch = resource.search(search_params)
-    except MLSError, e:
+    except MLSError as e:
         logger.warn(e)
 
     if batching:

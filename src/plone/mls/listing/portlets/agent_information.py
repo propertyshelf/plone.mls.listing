@@ -1,30 +1,22 @@
 # -*- coding: utf-8 -*-
 """Agent Information Portlet."""
 
-# zope imports
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.portlets.portlets import base
-from plone.portlets.interfaces import (
-    IPortletDataProvider,
-    IPortletManager,
-    IPortletRetriever,
-)
-from zope import schema
-from zope.component import (
-    getMultiAdapter,
-    getUtility,
-)
-from zope.interface import implementer
-from zope.schema.fieldproperty import FieldProperty
-
-# local imports
-from plone.mls.listing import (
-    PLONE_4,
-    PLONE_5,
-)
+from plone.mls.listing import PLONE_4
+from plone.mls.listing import PLONE_5
 from plone.mls.listing.browser.interfaces import IListingDetails
 from plone.mls.listing.i18n import _
 from plone.mls.listing.portlets.agent_contact import IAgentContactPortlet
+from plone.portlets.interfaces import IPortletDataProvider
+from plone.portlets.interfaces import IPortletManager
+from plone.portlets.interfaces import IPortletRetriever
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope import schema
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.interface import implementer
+from zope.schema.fieldproperty import FieldProperty
+
 
 if PLONE_4:
     from zope.formlib import form

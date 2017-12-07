@@ -1,28 +1,21 @@
 # -*- coding: utf-8 -*-
 """Test plone.mls.listing Agent Contact portlet."""
 
-# python imports
+from plone.app.portlets.storage import PortletAssignmentMapping
+from plone.app.testing import setRoles
+from plone.app.testing import TEST_USER_ID
+from plone.mls.listing.portlets import agent_contact
+from plone.mls.listing.testing import PLONE_MLS_LISTING_INTEGRATION_TESTING
+from plone.portlets import interfaces
+from zope.component import getMultiAdapter
+from zope.component import getUtility
+from zope.interface import Invalid
+
+
 try:
     import unittest2 as unittest
 except ImportError:
     import unittest
-
-# zope imports
-from plone.app.portlets.storage import PortletAssignmentMapping
-from plone.app.testing import (
-    TEST_USER_ID,
-    setRoles,
-)
-from plone.portlets import interfaces
-from zope.component import (
-    getMultiAdapter,
-    getUtility,
-)
-from zope.interface import Invalid
-
-# local imports
-from plone.mls.listing.portlets import agent_contact
-from plone.mls.listing.testing import PLONE_MLS_LISTING_INTEGRATION_TESTING
 
 
 class TestAgentContactPortlet(unittest.TestCase):

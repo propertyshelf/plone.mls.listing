@@ -1,20 +1,15 @@
 # -*- coding: utf-8 -*-
 """MLS Agency Contact Info Settings Control Panel."""
 
-# zope imports
 from plone.app.registry.browser import controlpanel
+from plone.mls.listing.i18n import _
+from plone.mls.listing.interfaces import IMLSAgencyContactInformation
+from plone.mls.listing.interfaces import IMLSAgencyContactInfoSettingsEditForm
+from plone.mls.listing.interfaces import IMLSUISettings
 from plone.registry.interfaces import IRegistry
 from z3c.form import field
 from zope.component import getUtility
 from zope.interface import implementer
-
-# local imports
-from plone.mls.listing.i18n import _
-from plone.mls.listing.interfaces import (
-    IMLSAgencyContactInformation,
-    IMLSAgencyContactInfoSettingsEditForm,
-    IMLSUISettings,
-)
 
 
 class SelfHealingRegistryEditForm(controlpanel.RegistryEditForm):

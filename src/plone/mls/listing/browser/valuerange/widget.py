@@ -1,18 +1,21 @@
 # -*- coding: utf-8 -*-
 """ValueRange Widget Implementation"""
 
-# zope imports
-from z3c.form.browser.widget import HTMLTextInputWidget, addFieldClass
-from z3c.form.interfaces import IFieldWidget, IFormLayer, NO_VALUE
-from z3c.form.widget import FieldWidget, SequenceWidget
-from zope.i18n import translate
-from zope.interface import implementer, implementsOnly
-from zope.schema.interfaces import IField, ITitledTokenizedTerm
-from zope.component import adapter
-
-# local imports
-from plone.mls.listing.i18n import _
 from plone.mls.listing.browser.valuerange.interfaces import IValueRangeWidget
+from plone.mls.listing.i18n import _
+from z3c.form.browser.widget import addFieldClass
+from z3c.form.browser.widget import HTMLTextInputWidget
+from z3c.form.interfaces import IFieldWidget
+from z3c.form.interfaces import IFormLayer
+from z3c.form.interfaces import NO_VALUE
+from z3c.form.widget import FieldWidget
+from z3c.form.widget import SequenceWidget
+from zope.component import adapter
+from zope.i18n import translate
+from zope.interface import implementer
+from zope.interface import implementsOnly
+from zope.schema.interfaces import IField
+from zope.schema.interfaces import ITitledTokenizedTerm
 
 
 class ValueRangeWidget(HTMLTextInputWidget, SequenceWidget):

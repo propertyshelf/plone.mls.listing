@@ -1,12 +1,9 @@
 # -*- coding: utf-8 -*-
 """Dexterity based Listing content type."""
 
-# zope imports
 from plone.directives import form
-from zope import schema
-
-# local imports
 from plone.mls.listing.i18n import _
+from zope import schema
 
 
 class IListing(form.Schema):

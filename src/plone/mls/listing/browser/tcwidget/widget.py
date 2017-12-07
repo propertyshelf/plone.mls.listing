@@ -1,26 +1,19 @@
 # -*- coding: utf-8 -*-
 """Terms & Conditions Widget Implementation"""
 
-# zope imports
+from plone import api
+from plone.mls.listing.browser.tcwidget.interfaces import ITCWidget
 from Products.Five.browser import BrowserView
 from Products.Five.browser.metaconfigure import ViewMixinForTemplates
-from plone import api
 from z3c.form.browser.checkbox import SingleCheckBoxWidget
-from z3c.form.interfaces import (
-    IFieldWidget,
-    IFormLayer,
-)
+from z3c.form.interfaces import IFieldWidget
+from z3c.form.interfaces import IFormLayer
 from z3c.form.widget import FieldWidget
 from zope.browserpage.viewpagetemplatefile import ViewPageTemplateFile
-from zope.interface import (
-    implementer,
-    implementer_only,
-)
-from zope.schema.interfaces import IBool
 from zope.component import adapter
-
-# local imports
-from plone.mls.listing.browser.tcwidget.interfaces import ITCWidget
+from zope.interface import implementer
+from zope.interface import implementer_only
+from zope.schema.interfaces import IBool
 
 
 class RenderTCWidget(ViewMixinForTemplates, BrowserView):

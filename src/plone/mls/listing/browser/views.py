@@ -1,43 +1,29 @@
 # -*- coding: utf-8 -*-
 """Various browser views for listings."""
 
-# python imports
-import logging
-
-# zope imports
-from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.memoize.view import memoize
+from plone.mls.core import api
+from plone.mls.listing import PLONE_4
+from plone.mls.listing import PLONE_5
+from plone.mls.listing import PRODUCT_NAME
+from plone.mls.listing.api import get_agency_info
+from plone.mls.listing.api import listing_details
+from plone.mls.listing.browser import listing_collection
+from plone.mls.listing.browser import listing_search
+from plone.mls.listing.browser import recent_listings
+from plone.mls.listing.browser.interfaces import IListingDetails
+from plone.mls.listing.interfaces import IMLSUISettings
 from plone.registry.interfaces import IRegistry
+from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from zope.annotation.interfaces import IAnnotations
-from zope.component import getUtility, queryMultiAdapter
+from zope.component import getUtility
+from zope.component import queryMultiAdapter
 from zope.interface import implementer
 from zope.publisher.interfaces import NotFound
 
-# local imports
-from plone.mls.core import api
-from plone.mls.listing import (
-    PLONE_4,
-    PLONE_5,
-    PRODUCT_NAME,
-)
-from plone.mls.listing.api import get_agency_info, listing_details
-from plone.mls.listing.browser.interfaces import IListingDetails
-from plone.mls.listing.browser.listing_collection import (
-    CONFIGURATION_KEY as LC_KEY,
-    IListingCollection,
-)
-from plone.mls.listing.browser.listing_search import (
-    CONFIGURATION_KEY as LS_KEY,
-    IListingSearch,
-)
-from plone.mls.listing.browser.recent_listings import (
-    CONFIGURATION_KEY as RL_KEY,
-    IRecentListings,
-)
-
-from plone.mls.listing.interfaces import IMLSUISettings
+import logging
 
 
 logger = logging.getLogger(PRODUCT_NAME)
@@ -423,20 +409,29 @@ class ListingDetails(BrowserView):
         # default zoomlevel
         zoomlevel = 7
         # check RecentListings settings
-        rl = self.config.get(RL_KEY, None)
-        if rl is not None and IRecentListings.providedBy(self.context):
+        rl = self.config.get(recent_listings.CONFIGURATION_KEY, None)
+        if (
+            rl is not None and
+            recent_listings.IRecentListings.providedBy(self.context)
+        ):
             z = rl.get('zoomlevel', None)
             if z is not None:
                 zoomlevel = z
         # check ListingCollection settings
-        lc = self.config.get(LC_KEY, None)
-        if lc is not None and IListingCollection.providedBy(self.context):
+        lc = self.config.get(listing_collection.CONFIGURATION_KEY, None)
+        if (
+            lc is not None and
+            listing_collection.IListingCollection.providedBy(self.context)
+        ):
             z = lc.get('zoomlevel', None)
             if z is not None:
                 zoomlevel = z
         # check ListingSearch settings
-        ls = self.config.get(LS_KEY, None)
-        if ls is not None and IListingSearch.providedBy(self.context):
+        ls = self.config.get(listing_search.CONFIGURATION_KEY, None)
+        if (
+            ls is not None and
+            listing_search.IListingSearch.providedBy(self.context)
+        ):
             z = ls.get('zoomlevel', None)
             if z is not None:
                 zoomlevel = z

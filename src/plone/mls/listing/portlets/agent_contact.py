@@ -1,55 +1,42 @@
 # -*- coding: utf-8 -*-
 """Agent Contact Portlet."""
 
-# python imports
+from Acquisition import aq_inner
 from email import message_from_string
-from email.utils import (
-    formataddr,
-    getaddresses,
-)
+from email.utils import formataddr
+from email.utils import getaddresses
+from plone import api
+from plone.app.portlets.portlets import base
+from plone.directives import form
+from plone.formwidget.captcha.validator import CaptchaValidator
+from plone.formwidget.captcha.widget import CaptchaFieldWidget
+from plone.mls.listing import PLONE_4
+from plone.mls.listing import PLONE_5
+from plone.mls.listing import PRODUCT_NAME
+from plone.mls.listing.browser.interfaces import IListingDetails
+from plone.mls.listing.browser.tcwidget.widget import TCFieldWidget
+from plone.mls.listing.i18n import _
+from plone.portlets.interfaces import IPortletDataProvider
+from plone.z3cform import z2
+from Products.CMFPlone import PloneMessageFactory as PMF
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from z3c.form import button
+from z3c.form import field
+from z3c.form import validator
+from z3c.form.interfaces import HIDDEN_MODE
+from z3c.form.interfaces import IFormLayer
+from zope import schema
+from zope.i18n import translate
+from zope.interface import alsoProvides
+from zope.interface import implementer
+from zope.interface import Interface
+from zope.interface import Invalid
+from zope.schema.fieldproperty import FieldProperty
+
 import copy
 import logging
 import re
 
-# zope imports
-from Acquisition import aq_inner
-from Products.CMFPlone import PloneMessageFactory as PMF
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from plone import api
-from plone.app.portlets.portlets import base
-from plone.directives import form
-from plone.formwidget.captcha.widget import CaptchaFieldWidget
-from plone.formwidget.captcha.validator import CaptchaValidator
-from plone.portlets.interfaces import IPortletDataProvider
-from plone.z3cform import z2
-from z3c.form import (
-    button,
-    field,
-    validator,
-)
-from z3c.form.interfaces import (
-    HIDDEN_MODE,
-    IFormLayer,
-)
-from zope import schema
-from zope.i18n import translate
-from zope.interface import (
-    Interface,
-    Invalid,
-    alsoProvides,
-    implementer,
-)
-from zope.schema.fieldproperty import FieldProperty
-
-# local imports
-from plone.mls.listing import (
-    PLONE_4,
-    PLONE_5,
-    PRODUCT_NAME,
-)
-from plone.mls.listing.browser.interfaces import IListingDetails
-from plone.mls.listing.browser.tcwidget.widget import TCFieldWidget
-from plone.mls.listing.i18n import _
 
 # starting from 0.6.0 version plone.z3cform has IWrappedForm interface
 try:
@@ -135,7 +122,7 @@ class IEmailForm(Interface):
             default=u'Please enter your full name',
         ),
         required=True,
-        title=PMF(u'label_name', default=u"Name"),
+        title=PMF(u'label_name', default=u'Name'),
     )
 
     sender_from_address = schema.TextLine(

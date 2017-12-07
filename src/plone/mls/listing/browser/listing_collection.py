@@ -1,32 +1,29 @@
 # -*- coding: utf-8 -*-
 """MLS Listing collection."""
 
-# zope imports
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from plone.app.layout.viewlets.common import ViewletBase
 from plone.directives import form
 from plone.memoize.view import memoize
-from z3c.form import field, button
+from plone.mls.core.navigation import ListingBatch
+from plone.mls.listing import AnnotationStorage
+from plone.mls.listing import PLONE_4
+from plone.mls.listing import PLONE_5
+from plone.mls.listing.api import prepare_search_params
+from plone.mls.listing.api import search
+from plone.mls.listing.browser.interfaces import IBaseListingItems
+from plone.mls.listing.browser.interfaces import IListingDetails
+from plone.mls.listing.i18n import _
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from z3c.form import button
+from z3c.form import field
 from z3c.form.browser import checkbox
 from zope import schema
 from zope.annotation.interfaces import IAnnotations
 from zope.component import queryMultiAdapter
-from zope.interface import Interface, alsoProvides, noLongerProvides
+from zope.interface import alsoProvides
+from zope.interface import Interface
+from zope.interface import noLongerProvides
 from zope.traversing.browser.absoluteurl import absoluteURL
-
-# local imports
-from plone.mls.core.navigation import ListingBatch
-from plone.mls.listing import (
-    AnnotationStorage,
-    PLONE_4,
-    PLONE_5,
-)
-from plone.mls.listing.api import prepare_search_params, search
-from plone.mls.listing.browser.interfaces import (
-    IBaseListingItems,
-    IListingDetails,
-)
-from plone.mls.listing.i18n import _
 
 
 CONFIGURATION_KEY = 'plone.mls.listing.listingcollection'

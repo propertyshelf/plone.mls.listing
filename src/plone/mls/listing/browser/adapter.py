@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 """View adapter."""
 
-# plone imports
-from z3c.form.widget import StaticWidgetAttribute
-
-# local imports
 from plone.mls.listing import browser
 from plone.mls.listing.i18n import _
+from z3c.form.widget import StaticWidgetAttribute
+
 
 LABEL_ALL = _(u'All')
 

@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 """Custom Traverser implementation for IRecentListings."""
 
-# zope imports
-from ZPublisher.BaseRequest import DefaultPublishTraverse
 from zope.component import queryMultiAdapter
 from zope.publisher.interfaces import NotFound
+from ZPublisher.BaseRequest import DefaultPublishTraverse
 
 
 class RecentListingsTraverser(DefaultPublishTraverse):

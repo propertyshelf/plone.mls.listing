@@ -1,24 +1,23 @@
 # -*- coding: utf-8 -*-
 """Vocabulary definitions."""
 
-# zope imports
 from plone import api as plone_api
+from plone.mls.core import api
+from plone.mls.listing import AnnotationStorage
+from plone.mls.listing.api import search_options
+from plone.mls.listing.browser import listing_search
+from plone.mls.listing.i18n import _
+from plone.mls.listing.interfaces import IMLSVocabularySettings
 from plone.registry.interfaces import IRegistry
-
 from zope.annotation.interfaces import IAnnotations
-from zope.component import getUtility, queryMultiAdapter
+from zope.component import getUtility
+from zope.component import queryMultiAdapter
 from zope.globalrequest import getRequest
 from zope.interface import implementer
 from zope.schema.interfaces import IVocabularyFactory
-from zope.schema.vocabulary import SimpleTerm, SimpleVocabulary
+from zope.schema.vocabulary import SimpleTerm
+from zope.schema.vocabulary import SimpleVocabulary
 
-# local imports
-from plone.mls.core import api
-from plone.mls.listing import AnnotationStorage
-from plone.mls.listing.i18n import _
-from plone.mls.listing.api import search_options
-from plone.mls.listing.browser import listing_search
-from plone.mls.listing.interfaces import IMLSVocabularySettings
 
 ROOM_VALUES = [
     ('--MINVALUE--', _(u'Min')),
