@@ -104,7 +104,7 @@ class IMLSUISettings(Interface):
     """
 
     slideshow = schema.Choice(
-        default=u'galleria',
+        default=u'fotorama',
         required=True,
         title=_(u'Slideshow'),
         values=[u'galleria', u'fotorama'],
