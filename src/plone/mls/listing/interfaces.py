@@ -131,6 +131,27 @@ class IMLSUISettings(Interface):
         title=_(u'Show Availability Calendar only for my agency listings'),
     )
 
+    truncate_texts = schema.Bool(
+        default=False,
+        description=_(
+            u'If activated, listing descriptions will be cropped '
+            u'in search results.'
+        ),
+        required=False,
+        title=_(u'Crop Descriptions'),
+    )
+
+    truncate_length = schema.Int(
+        default=320,
+        description=_(
+            u'Crop the item description in search results after '
+            u'a number of characters.'
+        ),
+        min=1,
+        required=True,
+        title=_(u'Crop After'),
+    )
+
     googleapi = schema.TextLine(
         description=_(
             u'Provide the Google API key if you want to use Google Maps.'
