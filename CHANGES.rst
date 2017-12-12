@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.16 (unreleased)
+1.16 (2017-12-12)
 -----------------
 
 - Add dependency to ps.plone.mls.
