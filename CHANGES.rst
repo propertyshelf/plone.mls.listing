@@ -4,7 +4,10 @@ Changelog
 1.16 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Add dependency to ps.plone.mls.
+- Remove controlpanel settings from GS profiles (now handled by ps.plone.mls).
+- Truncate description for listings in summaries with global configuration.
+- Make fotorama default slideshow.
 
 
 1.15 (2017-09-05)
