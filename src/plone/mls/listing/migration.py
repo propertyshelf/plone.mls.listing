@@ -8,6 +8,7 @@ from plone.mls.listing.browser.interfaces import IListingSpecific
 from plone.mls.listing.browser.listing_collection import CONFIGURATION_KEY
 from plone.mls.listing.browser.listing_collection import IListingCollection
 from plone.mls.listing.interfaces import IMLSAgencyContactInformation
+from plone.mls.listing.interfaces import IMLSUISettings
 from plone.registry.interfaces import IRegistry
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
@@ -395,3 +396,12 @@ def migrate_to_1016(context):
         pass
     else:
         setup.runImportStepFromProfile(PROFILE_ID, 'portlets')
+
+
+def migrate_to_1017(context):
+    """"Migrate from 1016 to 1017.
+
+    * Update plone.mls.listing settings.
+    """
+    registry = getUtility(IRegistry)
+    registry.registerInterface(IMLSUISettings)
