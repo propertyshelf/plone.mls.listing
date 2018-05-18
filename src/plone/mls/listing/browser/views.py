@@ -24,6 +24,7 @@ from zope.interface import implementer
 from zope.publisher.interfaces import NotFound
 
 import logging
+import random
 
 
 logger = logging.getLogger(PRODUCT_NAME)
@@ -473,12 +474,19 @@ class ListingDetails(BrowserView):
     @property
     def googleapi(self):
         if self.registry is not None:
+            keys = []
             try:
                 settings = self.registry.forInterface(IMLSUISettings)  # noqa
             except Exception:
                 logger.warning('MLS UI settings not available.')
             else:
-                return getattr(settings, 'googleapi', '')
+                keys = getattr(settings, 'googleapi_additional', []) or []
+                keys.append(getattr(settings, 'googleapi', ''))
+                keys = [
+                    key for key in keys if isinstance(key, basestring) and
+                    key.strip() != ''
+                ]
+                return random.choice(keys) or ''
         return ''
 
 
