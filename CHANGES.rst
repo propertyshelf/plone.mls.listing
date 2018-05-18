@@ -4,7 +4,7 @@ Changelog
 1.17 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Allow multiple API keys.
 
 
 1.16 (2017-12-12)
