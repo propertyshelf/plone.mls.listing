@@ -11,40 +11,80 @@ from zope.interface import Interface
 
 MSG_PRIORITY_DESCRIPTION = _(
     u'Items in this vocabulary are sorted by priority key (if available) '
-    u'and value otherwise. Enter one item per line. Possible values are: {0}'
+    u'and value otherwise. Enter one item per line. Possible values are: {0}',
 )
 
 POSSIBLE_GEOGRAPHIC_TYPES = ', '.join([
-    'cloud_forest', 'dry_forest', 'highland_forest', 'rain_forest',
+    'cloud_forest',
+    'dry_forest',
+    'highland_forest',
+    'rain_forest',
     'swamp_forest',
 ])
 
-POSSIBLE_LISTING_TYPES = ', '.join(['cl', 'cs', 'll', 'rl', 'rs', ])
+POSSIBLE_LISTING_TYPES = ', '.join(['cl', 'cs', 'll', 'rl', 'rs'])
 
 POSSIBLE_LOCATION_TYPES = ', '.join([
-    'lakefront', 'mountain', 'oceanfront', 'oceanvicinity', 'riverfront',
-    'rural', 'urban',
+    'lakefront',
+    'mountain',
+    'oceanfront',
+    'oceanvicinity',
+    'riverfront',
+    'rural',
+    'urban',
 ])
 
 POSSIBLE_OBJECT_TYPES = ', '.join([
-    'agricultural_land', 'apartment', 'bar_nightclub', 'commercial_condo',
-    'condominium', 'construction_site', 'development_land',
-    'freestanding_building', 'freestanding_villa', 'half_duplex',
-    'hotel_hostel', 'house', 'medical_facility', 'mixed_use_building',
-    'multi_unit_building', 'multiplex', 'office_condo', 'protected_area',
-    'restaurant', 'retail_singleplex', 'strip_center_complex',
-    'strip_center_unit', 'townhouse', 'warehouse',
+    'agricultural_land',
+    'apartment',
+    'bar_nightclub',
+    'commercial_condo',
+    'condominium',
+    'construction_site',
+    'development_land',
+    'freestanding_building',
+    'freestanding_villa',
+    'half_duplex',
+    'hotel_hostel',
+    'house',
+    'medical_facility',
+    'mixed_use_building',
+    'multi_unit_building',
+    'multiplex',
+    'office_condo',
+    'protected_area',
+    'restaurant',
+    'retail_singleplex',
+    'strip_center_complex',
+    'strip_center_unit',
+    'townhouse',
+    'warehouse',
 ])
 
 POSSIBLE_OWNERSHIP_TYPES = ', '.join([
-    'bank_owned', 'concession', 'fee_simple', 'fractional',
+    'bank_owned',
+    'concession',
+    'fee_simple',
+    'fractional',
 ])
 
 POSSIBLE_VIEW_TYPES = ', '.join([
-    'bay_view', 'beach_view', 'city_view', 'eastern_view', 'garden_view',
-    'greenbelt_view', 'lake_view', 'mountain_view', 'northern_view',
-    'ocean_view', 'pond_view', 'river_view', 'southern_view', 'valley_view',
-    'western_view', 'wooded_view',
+    'bay_view',
+    'beach_view',
+    'city_view',
+    'eastern_view',
+    'garden_view',
+    'greenbelt_view',
+    'lake_view',
+    'mountain_view',
+    'northern_view',
+    'ocean_view',
+    'pond_view',
+    'river_view',
+    'southern_view',
+    'valley_view',
+    'western_view',
+    'wooded_view',
 ])
 
 
@@ -114,7 +154,7 @@ class IMLSUISettings(Interface):
         default=True,
         description=_(
             u'If activated, the availability calendar (if configured for '
-            u'a listing) will be shown for rental listings.'
+            u'a listing) will be shown for rental listings.',
         ),
         required=False,
         title=_(u'Enable Availability Calendar'),
@@ -125,7 +165,7 @@ class IMLSUISettings(Interface):
         description=_(
             u'If activated, the availability calendar (if configured for '
             u'a listing) will only be shown for listings of the configured '
-            u'agency.'
+            u'agency.',
         ),
         required=False,
         title=_(u'Show Availability Calendar only for my agency listings'),
@@ -135,7 +175,7 @@ class IMLSUISettings(Interface):
         default=False,
         description=_(
             u'If activated, listing descriptions will be cropped '
-            u'in search results.'
+            u'in search results.',
         ),
         required=False,
         title=_(u'Crop Descriptions'),
@@ -145,7 +185,7 @@ class IMLSUISettings(Interface):
         default=320,
         description=_(
             u'Crop the item description in search results after '
-            u'a number of characters.'
+            u'a number of characters.',
         ),
         min=1,
         required=True,
@@ -154,7 +194,7 @@ class IMLSUISettings(Interface):
 
     googleapi = schema.TextLine(
         description=_(
-            u'Provide the Google API key if you want to use Google Maps.'
+            u'Provide the Google API key if you want to use Google Maps.',
         ),
         required=False,
         title=_(u'Google Maps API Key'),
@@ -211,7 +251,7 @@ class IMLSAgencyContactInformation(form.Schema):
         default=False,
         description=_(
             u'Update contact information when showing third party items '
-            u'from other agencies?'
+            u'from other agencies?',
         ),
         required=False,
         title=_(u'Enable'),
@@ -221,7 +261,7 @@ class IMLSAgencyContactInformation(form.Schema):
         default=False,
         description=_(
             u'Force usage of custom contact information, even when showing '
-            u'items from this agency?'
+            u'items from this agency?',
         ),
         required=False,
         title=_(u'Force Overwrite'),

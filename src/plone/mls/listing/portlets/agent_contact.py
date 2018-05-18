@@ -55,7 +55,7 @@ elif PLONE_4:
 
 MSG_PORTLET_DESCRIPTION = _(
     u'This portlet shows a form to contact the corresponding agent for a '
-    u'given listing via email.'
+    u'given listing via email.',
 )
 
 EMAIL_TEMPLATE = _(
@@ -66,7 +66,7 @@ EMAIL_TEMPLATE = _(
     u'{form_data}\n'
     u'\n'
     u'Message:\n'
-    u'{message}'
+    u'{message}',
 )
 
 EMAIL_TEMPLATE_AGENT = _(
@@ -74,7 +74,7 @@ EMAIL_TEMPLATE_AGENT = _(
     default=u'The responsible agent for this listing is '
     u'{agent} ({profile}).\n'
     u'\n'
-    u'Please contact {agent} at {agent_email}.'
+    u'Please contact {agent} at {agent_email}.',
 )
 
 
@@ -113,7 +113,7 @@ class IEmailForm(Interface):
 
     subject = schema.TextLine(
         required=False,
-        title=PMF(u'label_subject', default=u'Subject')
+        title=PMF(u'label_subject', default=u'Subject'),
     )
 
     name = schema.TextLine(
@@ -150,7 +150,7 @@ class IEmailForm(Interface):
     phone = schema.TextLine(
         description=_(
             u'Please enter a phone number. Some agents will not respond '
-            u'without one.'
+            u'without one.',
         ),
         missing_value=u'-',
         required=False,
@@ -317,21 +317,21 @@ class EmailForm(form.Form):
                 tpl.format(
                     translate(_(u'Country'), context=self.request),
                     data['country'],
-                )
+                ),
             )
         if 'zipcode' in data:
             items.append(
                 tpl.format(
                     translate(_(u'ZIP'), context=self.request),
                     data['zipcode'],
-                )
+                ),
             )
         if 'phone' in data:
             items.append(
                 tpl.format(
                     translate(_(u'Phone Number'), context=self.request),
                     data['phone'],
-                )
+                ),
             )
 
         if 'arrival_date' in data:
@@ -339,28 +339,28 @@ class EmailForm(form.Form):
                 tpl.format(
                     translate(_(u'Arrival Date'), context=self.request),
                     data['arrival_date'],
-                )
+                ),
             )
         if 'departure_date' in data:
             items.append(
                 tpl.format(
                     translate(_(u'Departure Date'), context=self.request),
                     data['departure_date'],
-                )
+                ),
             )
         if 'adults' in data:
             items.append(
                 tpl.format(
                     translate(_(u'Adults'), context=self.request),
                     data['adults'],
-                )
+                ),
             )
         if 'children' in data:
             items.append(
                 tpl.format(
                     translate(_(u'Children'), context=self.request),
                     data['children'],
-                )
+                ),
             )
         if 'accept_tcs' in data:
             items.append(
@@ -369,8 +369,8 @@ class EmailForm(form.Form):
                         _(u'Terms & Conditions accepted'),
                         context=self.request,
                     ),
-                    data['accept_tcs']
-                )
+                    data['accept_tcs'],
+                ),
             )
         return u''.join(items)
 
@@ -379,14 +379,16 @@ class EmailForm(form.Form):
         portal = api.portal.get()
 
         try:
-            email_charset = api.portal.get_registry_record('plone.email_charset')
+            email_charset = api.portal.get_registry_record(
+                'plone.email_charset',
+            )
         except api.exc.InvalidParameterError:
             email_charset = portal.getProperty('email_charset', 'utf-8')
 
         recipient = None
         try:
             portal_address = api.portal.get_registry_record(
-                'plone.email_from_address'
+                'plone.email_from_address',
             )
         except api.exc.InvalidParameterError:
             # Before Plone 5.0b2 these were stored in portal_properties
@@ -455,7 +457,7 @@ class IAgentContactPortlet(IPortletDataProvider):
     heading = schema.TextLine(
         description=_(
             u'Custom title for the portlet. If no title is provided, the '
-            u'default title is used.'
+            u'default title is used.',
         ),
         required=False,
         title=_(u'Portlet Title'),
@@ -469,12 +471,12 @@ class IAgentContactPortlet(IPortletDataProvider):
 
     country_visible = schema.Bool(
         required=False,
-        title=_(u'Show Country field in email form?')
+        title=_(u'Show Country field in email form?'),
     )
 
     zipcode_visible = schema.Bool(
         required=False,
-        title=_(u'Show ZIP field in email form?')
+        title=_(u'Show ZIP field in email form?'),
     )
 
     phone_required = schema.Bool(
@@ -484,7 +486,7 @@ class IAgentContactPortlet(IPortletDataProvider):
 
     accept_tcs_visible = schema.Bool(
         required=False,
-        title=_(u'Show Accept Terms & Conditions field in email form?')
+        title=_(u'Show Accept Terms & Conditions field in email form?'),
     )
 
     if PLONE_5:
@@ -508,7 +510,7 @@ class IAgentContactPortlet(IPortletDataProvider):
 
     mail_sent_msg = schema.Text(
         description=_(
-            u'Thank you message that is shown after the mail was sent.'
+            u'Thank you message that is shown after the mail was sent.',
         ),
         required=False,
         title=_(u'Mail Sent Message'),
@@ -518,7 +520,7 @@ class IAgentContactPortlet(IPortletDataProvider):
         constraint=validate_email,
         description=_(
             u'Override the recipient e-mail address. Leave blank to use the '
-            u'e-mail address from the agent information.'
+            u'e-mail address from the agent information.',
         ),
         required=False,
         title=_(u'Override Recipient'),
@@ -527,7 +529,7 @@ class IAgentContactPortlet(IPortletDataProvider):
     bcc = schema.TextLine(
         description=_(
             u'E-mail addresses which receive a blind carbon copy (comma '
-            u'separated).'
+            u'separated).',
         ),
         required=False,
         title=_(u'BCC Recipients'),
@@ -537,7 +539,7 @@ class IAgentContactPortlet(IPortletDataProvider):
         default=True,
         description=_(
             u'Activate for Spam Protection. Any attempt to use a link inside '
-            u'this form will raise a validation error.'
+            u'this form will raise a validation error.',
         ),
         required=False,
         title=_(u'Reject Text with Links?'),
@@ -554,7 +556,7 @@ class Assignment(base.Assignment):
     zipcode_visible = FieldProperty(IAgentContactPortlet['zipcode_visible'])
     phone_required = FieldProperty(IAgentContactPortlet['phone_required'])
     accept_tcs_visible = FieldProperty(
-        IAgentContactPortlet['accept_tcs_visible']
+        IAgentContactPortlet['accept_tcs_visible'],
     )
     accept_tcs_target = None
     captcha_visible = FieldProperty(IAgentContactPortlet['captcha_visible'])

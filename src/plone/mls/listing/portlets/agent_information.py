@@ -25,7 +25,7 @@ if PLONE_4:
 MSG_PORTLET_DESCRIPTION = _(
     u'This portlet shows the corresponding agent information for a given '
     u'listing. Note that this portlet is only available for the detail view '
-    u'of a listing.'
+    u'of a listing.',
 )
 
 

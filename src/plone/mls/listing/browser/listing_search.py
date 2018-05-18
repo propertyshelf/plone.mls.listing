@@ -80,7 +80,7 @@ FIELD_ORDER = {
         'geographic_type',
         'view_type',
         'object_type',
-        'ownership_type'
+        'ownership_type',
     ],
 }
 
@@ -143,7 +143,7 @@ class IListingSearchForm(model.Schema):
         required=False,
         title=_(u'Listing Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.ListingTypesSearch'
+            source='plone.mls.listing.ListingTypesSearch',
         ),
     )
 
@@ -185,7 +185,7 @@ class IListingSearchForm(model.Schema):
         required=False,
         title=_(u'Location Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.LocationTypes'
+            source='plone.mls.listing.LocationTypes',
         ),
     )
 
@@ -194,7 +194,7 @@ class IListingSearchForm(model.Schema):
         required=False,
         title=_(u'Geographic Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.GeographicTypes'
+            source='plone.mls.listing.GeographicTypes',
         ),
     )
 
@@ -203,7 +203,7 @@ class IListingSearchForm(model.Schema):
         required=False,
         title=_(u'View Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.ViewTypes'
+            source='plone.mls.listing.ViewTypes',
         ),
     )
 
@@ -212,7 +212,7 @@ class IListingSearchForm(model.Schema):
         required=False,
         title=_(u'Object Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.ObjectTypes'
+            source='plone.mls.listing.ObjectTypes',
         ),
     )
 
@@ -221,7 +221,7 @@ class IListingSearchForm(model.Schema):
         required=False,
         title=_(u'Ownership Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.OwnershipTypes'
+            source='plone.mls.listing.OwnershipTypes',
         ),
     )
 
@@ -546,7 +546,7 @@ class IListingSearchConfiguration(model.Schema):
             u'If selected, the results will first display the listings from '
             u'this agency and then display the rest of the applicable '
             u'listings. This option will supersede the \'Agency Listings\' '
-            u'option if selected.'
+            u'option if selected.',
         ),
         required=False,
         title=_(u'Agency Priority Ordering'),
@@ -555,16 +555,16 @@ class IListingSearchConfiguration(model.Schema):
     show_unverified = schema.Bool(
         default=False,
         required=False,
-        title=_(u'Show Unverified Listings')
+        title=_(u'Show Unverified Listings'),
     )
 
     show_unverified_only = schema.Bool(
         description=_(
-            u'"Show Unverified Listings" must be activated to take effect.'
+            u'"Show Unverified Listings" must be activated to take effect.',
         ),
         default=False,
         required=False,
-        title=_(u'Only Show Unverified Listings')
+        title=_(u'Only Show Unverified Listings'),
     )
 
     limit = schema.Int(
@@ -583,7 +583,7 @@ class IListingSearchConfiguration(model.Schema):
         default=True,
         required=False,
         title=_(
-            u'Hide the search form when Quick Search Portlet is available?'
+            u'Hide the search form when Quick Search Portlet is available?',
         ),
     )
 
@@ -592,7 +592,7 @@ class IListingSearchConfiguration(model.Schema):
         required=False,
         title=_(
             u'Start the search immediately, without showing the search '
-            u'form first?'
+            u'form first?',
         ),
     )
 
@@ -600,22 +600,22 @@ class IListingSearchConfiguration(model.Schema):
     listing_type = schema.Tuple(
         description=_(
             u'Select the available listing types for this search. If nothing '
-            u'is selected, all available listing types will be shown.'
+            u'is selected, all available listing types will be shown.',
         ),
         required=False,
         title=_(u'Listing Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.ListingTypes'
+            source='plone.mls.listing.ListingTypes',
         ),
     )
 
     directives.widget(workflow_state=checkbox.CheckBoxFieldWidget)
     workflow_state = schema.Tuple(
-        default=('Active', 'PendingSale', 'Sold', ),
+        default=('Active', 'PendingSale', 'Sold'),
         required=False,
         title=_(u'Workflow Status'),
         value_type=schema.Choice(
-            source='plone.mls.listing.WorkflowStates'
+            source='plone.mls.listing.WorkflowStates',
         ),
     )
 
@@ -623,7 +623,7 @@ class IListingSearchConfiguration(model.Schema):
         required=False,
         title=_(u'State'),
         value_type=schema.Choice(
-            source='plone.mls.listing.LocationStates'
+            source='plone.mls.listing.LocationStates',
         ),
     )
 
@@ -640,7 +640,7 @@ class IListingSearchConfiguration(model.Schema):
         title=_(u'District'),
         value_type=schema.Choice(
             source='plone.mls.listing.LocationDistricts',
-        )
+        ),
     )
 
     location_city = schema.TextLine(
@@ -661,7 +661,7 @@ class ListingSearchConfiguration(form.SchemaForm):
         annotations = IAnnotations(self.context)
         content = annotations.get(
             CONFIGURATION_KEY,
-            annotations.setdefault(CONFIGURATION_KEY, {})
+            annotations.setdefault(CONFIGURATION_KEY, {}),
         )
         content = AnnotationStorage(content)
         content.context = self.context
@@ -715,17 +715,17 @@ class ListingSearchToggle(object):
         if IListingSearch.providedBy(self.context):
             # Deactivate ListingSearch viewlet.
             noLongerProvides(self.context, IListingSearch)
-            self.context.reindexObject(idxs=['object_provides', ])
+            self.context.reindexObject(idxs=['object_provides'])
             msg = _(u"'Listing Search' viewlet deactivated.")
         elif IPossibleListingSearch.providedBy(self.context):
             alsoProvides(self.context, IListingSearch)
-            self.context.reindexObject(idxs=['object_provides', ])
+            self.context.reindexObject(idxs=['object_provides'])
             msg = _(u"'Listing Search' viewlet activated.")
         else:
             msg = _(
                 u'The \'Listing Search\' viewlet does\'t work with this '
                 u'content type. Add \'IPossibleListingSearch\' to the '
-                u'provided interfaces to enable this feature.'
+                u'provided interfaces to enable this feature.',
             )
             msg_type = 'error'
 

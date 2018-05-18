@@ -27,7 +27,7 @@ class SelfHealingRegistryEditForm(controlpanel.RegistryEditForm):
             self.fields = field.Fields()
             registry.registerInterface(self.schema)
             self.status = _(
-                u'Registry has been updated. Please reload this page.'
+                u'Registry has been updated. Please reload this page.',
             )
             return None
 

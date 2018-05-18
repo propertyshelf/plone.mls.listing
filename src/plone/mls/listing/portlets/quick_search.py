@@ -242,7 +242,7 @@ class IQuickSearchPortlet(IPortletDataProvider):
     heading = schema.TextLine(
         description=_(
             u'Custom title for the portlet (search mode). If no title is '
-            u'provided, the default title is used.'
+            u'provided, the default title is used.',
         ),
         required=False,
         title=_(u'Portlet Title (Search)'),
@@ -251,7 +251,7 @@ class IQuickSearchPortlet(IPortletDataProvider):
     heading_filter = schema.TextLine(
         description=_(
             u'Custom title for the portlet (filter mode). If no title is '
-            u'provided, the default title is used.'
+            u'provided, the default title is used.',
         ),
         required=False,
         title=_(u'Portlet Title (Filter)'),
@@ -259,7 +259,7 @@ class IQuickSearchPortlet(IPortletDataProvider):
 
     target_search = schema.Choice(
         description=_(
-            u'Find the search page which will be used to show the results.'
+            u'Find the search page which will be used to show the results.',
         ),
         required=True,
         vocabulary='plone.mls.listing.available_searches',

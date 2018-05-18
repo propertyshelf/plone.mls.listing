@@ -26,7 +26,7 @@ class TestQuickSearchPortlet(unittest.TestCase):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ('Manager', ))
         self.portlet = getUtility(
-            interfaces.IPortletType, name='portlets.QuickSearch'
+            interfaces.IPortletType, name='portlets.QuickSearch',
         )
 
     def test_portlet_type_registered(self):
@@ -36,7 +36,7 @@ class TestQuickSearchPortlet(unittest.TestCase):
         portlet = quick_search.Assignment()
         self.assertTrue(interfaces.IPortletAssignment.providedBy(portlet))
         self.assertTrue(
-            interfaces.IPortletDataProvider.providedBy(portlet)
+            interfaces.IPortletDataProvider.providedBy(portlet),
         )
 
     def test_invoke_add_view(self):
@@ -48,7 +48,7 @@ class TestQuickSearchPortlet(unittest.TestCase):
         addview.createAndAdd(data={})
         self.assertEqual(len(mapping), 1)
         self.assertTrue(
-            isinstance(mapping.values()[0], quick_search.Assignment)
+            isinstance(mapping.values()[0], quick_search.Assignment),
         )
 
     def test_invoke_edit_view(self):

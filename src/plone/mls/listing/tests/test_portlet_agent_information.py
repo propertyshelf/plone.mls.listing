@@ -26,7 +26,7 @@ class TestAgentInformationPortlet(unittest.TestCase):
         self.portal = self.layer['portal']
         setRoles(self.portal, TEST_USER_ID, ('Manager', ))
         self.portlet = getUtility(
-            interfaces.IPortletType, name='portlets.AgentInformation'
+            interfaces.IPortletType, name='portlets.AgentInformation',
         )
 
     def test_portlet_type_registered(self):
@@ -36,12 +36,12 @@ class TestAgentInformationPortlet(unittest.TestCase):
         portlet = agent_information.Assignment()
         self.assertTrue(interfaces.IPortletAssignment.providedBy(portlet))
         self.assertTrue(
-            interfaces.IPortletDataProvider.providedBy(portlet)
+            interfaces.IPortletDataProvider.providedBy(portlet),
         )
 
     def test_invoke_add_view(self):
         mapping = self.portal.restrictedTraverse(
-            '++contextportlets++plone.leftcolumn'
+            '++contextportlets++plone.leftcolumn',
         )
         for item in mapping.keys():
             del mapping[item]
@@ -49,7 +49,7 @@ class TestAgentInformationPortlet(unittest.TestCase):
         addview.createAndAdd(data={})
         self.assertEqual(len(mapping), 1)
         self.assertTrue(
-            isinstance(mapping.values()[0], agent_information.Assignment)
+            isinstance(mapping.values()[0], agent_information.Assignment),
         )
 
     def test_invoke_edit_view(self):
@@ -103,7 +103,7 @@ class TestRenderer(unittest.TestCase):
 
     def test_title(self):
         r = self.renderer(
-            context=self.portal, assignment=agent_information.Assignment()
+            context=self.portal, assignment=agent_information.Assignment(),
         )
         self.assertEqual('Agent Information', r.title)
 

@@ -130,7 +130,7 @@ class IListingCollectionConfiguration(Interface):
             u'Specify an agency ID (or a comma-separated list of multiple '
             u'agency IDs) that will override the Base/Local MLS Settings. If '
             u'left blank, the agency ID from the Base/Local MLS settings will '
-            u'be used.'
+            u'be used.',
         ),
         required=False,
         title=_(u'Overriding Agency IDs'),
@@ -149,7 +149,7 @@ class IListingCollectionConfiguration(Interface):
             u'If selected, the results will first display the listings from '
             u'this agency and then display the rest of the applicable '
             u'listings. This option will supersede the \'Agency Listings\' '
-            u'option if selected.'
+            u'option if selected.',
         ),
         required=False,
         title=_(u'Agency Priority Ordering'),
@@ -158,33 +158,33 @@ class IListingCollectionConfiguration(Interface):
     show_unverified = schema.Bool(
         default=False,
         required=False,
-        title=_(u'Show Unverified Listings')
+        title=_(u'Show Unverified Listings'),
     )
 
     show_unverified_only = schema.Bool(
         description=_(
-            u'"Show Unverified Listings" must be activated to take effect.'
+            u'"Show Unverified Listings" must be activated to take effect.',
         ),
         default=False,
         required=False,
-        title=_(u'Only Show Unverified Listings')
+        title=_(u'Only Show Unverified Listings'),
     )
 
     listing_type = schema.Tuple(
-        default=('cl', 'cs', 'll', 'rl', 'rs', ),
+        default=('cl', 'cs', 'll', 'rl', 'rs'),
         required=False,
         title=_(u'Listing Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.ListingTypes'
+            source='plone.mls.listing.ListingTypes',
         ),
     )
 
     workflow_state = schema.Tuple(
-        default=('Active', 'PendingSale', 'Sold', ),
+        default=('Active', 'PendingSale', 'Sold'),
         required=False,
         title=_(u'Workflow Status'),
         value_type=schema.Choice(
-            source='plone.mls.listing.WorkflowStates'
+            source='plone.mls.listing.WorkflowStates',
         ),
     )
 
@@ -192,7 +192,7 @@ class IListingCollectionConfiguration(Interface):
         required=False,
         title=_(u'State'),
         value_type=schema.Choice(
-            source='plone.mls.listing.LocationStates'
+            source='plone.mls.listing.LocationStates',
         ),
     )
 
@@ -209,7 +209,7 @@ class IListingCollectionConfiguration(Interface):
         title=_(u'District'),
         value_type=schema.Choice(
             source='plone.mls.listing.LocationDistricts',
-        )
+        ),
     )
 
     location_city = schema.TextLine(
@@ -242,7 +242,7 @@ class IListingCollectionConfiguration(Interface):
         title=_(u'Interior Area in m² (Min)'),
         description=_(
             u'Reminder: All land listings will be excluded once any value is '
-            u'set.'
+            u'set.',
         ),
     )
 
@@ -256,7 +256,7 @@ class IListingCollectionConfiguration(Interface):
         title=_(u'Bedrooms (Min)'),
         description=_(
             u'Reminder: All land listings will be excluded once any value is '
-            u'set as well as any commercial listings with no bedrooms.'
+            u'set as well as any commercial listings with no bedrooms.',
         ),
     )
 
@@ -270,7 +270,7 @@ class IListingCollectionConfiguration(Interface):
         title=_(u'Bathrooms (Min)'),
         description=_(
             u'Reminder: All land listings will be excluded once any value is '
-            u'set as well as any commercial listings with no bathrooms.'
+            u'set as well as any commercial listings with no bathrooms.',
         ),
     )
 
@@ -283,7 +283,7 @@ class IListingCollectionConfiguration(Interface):
         required=False,
         title=_(u'Location Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.LocationTypes'
+            source='plone.mls.listing.LocationTypes',
         ),
     )
 
@@ -291,7 +291,7 @@ class IListingCollectionConfiguration(Interface):
         required=False,
         title=_(u'Geographic Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.GeographicTypes'
+            source='plone.mls.listing.GeographicTypes',
         ),
     )
 
@@ -299,7 +299,7 @@ class IListingCollectionConfiguration(Interface):
         required=False,
         title=_(u'View Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.ViewTypes'
+            source='plone.mls.listing.ViewTypes',
         ),
     )
 
@@ -307,7 +307,7 @@ class IListingCollectionConfiguration(Interface):
         required=False,
         title=_(u'Object Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.ObjectTypes'
+            source='plone.mls.listing.ObjectTypes',
         ),
     )
 
@@ -315,7 +315,7 @@ class IListingCollectionConfiguration(Interface):
         required=False,
         title=_(u'Ownership Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.OwnershipTypes'
+            source='plone.mls.listing.OwnershipTypes',
         ),
     )
 
@@ -346,14 +346,14 @@ class ListingCollectionConfiguration(form.Form):
 
     label = _(u"'Listing Collection' Configuration")
     description = _(
-        u"Adjust the behaviour for this 'Listing Collection' viewlet."
+        u"Adjust the behaviour for this 'Listing Collection' viewlet.",
     )
 
     def getContent(self):
         annotations = IAnnotations(self.context)
         content = annotations.get(
             CONFIGURATION_KEY,
-            annotations.setdefault(CONFIGURATION_KEY, {})
+            annotations.setdefault(CONFIGURATION_KEY, {}),
         )
         content = AnnotationStorage(content)
         content.context = self.context
@@ -404,17 +404,17 @@ class ListingCollectionToggle(object):
         if IListingCollection.providedBy(self.context):
             # Deactivate ListingCollection viewlet.
             noLongerProvides(self.context, IListingCollection)
-            self.context.reindexObject(idxs=['object_provides', ])
+            self.context.reindexObject(idxs=['object_provides'])
             msg = _(u"'Listing Collection' viewlet deactivated.")
         elif IPossibleListingCollection.providedBy(self.context):
             alsoProvides(self.context, IListingCollection)
-            self.context.reindexObject(idxs=['object_provides', ])
+            self.context.reindexObject(idxs=['object_provides'])
             msg = _(u"'Listing Collection' viewlet activated.")
         else:
             msg = _(
                 u'The \'Listing Collection\' viewlet does\'t work with this '
                 u'content type. Add \'IPossibleListingCollection\' to the '
-                u'provided interfaces to enable this feature.'
+                u'provided interfaces to enable this feature.',
             )
             msg_type = 'error'
 

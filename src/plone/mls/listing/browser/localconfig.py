@@ -24,7 +24,7 @@ class LocalAgencyInfo(form.SchemaForm):
     label = _(u'Local Agency Information')
     description = _(
         u'This agency information will be used for this content item and all '
-        u'possible child elements.'
+        u'possible child elements.',
     )
 
     def getContent(self):
@@ -85,17 +85,17 @@ class LocalAgencyInfoToggle(object):
         if ILocalAgencyInfo.providedBy(self.context):
             # Deactivate local agency information.
             noLongerProvides(self.context, ILocalAgencyInfo)
-            self.context.reindexObject(idxs=['object_provides', ])
+            self.context.reindexObject(idxs=['object_provides'])
             msg = _(u'Local agency information deactivated.')
         elif IPossibleLocalAgencyInfo.providedBy(self.context):
             alsoProvides(self.context, ILocalAgencyInfo)
-            self.context.reindexObject(idxs=['object_provides', ])
+            self.context.reindexObject(idxs=['object_provides'])
             msg = _(u'Local agency information activated.')
         else:
             msg = _(
                 u'The local agency information don\'t work with this '
                 u'content type. Add \'IPossibleLocalAgencyInfo\' to the '
-                u'provided interfaces to enable this feature.'
+                u'provided interfaces to enable this feature.',
             )
             msg_type = 'error'
 

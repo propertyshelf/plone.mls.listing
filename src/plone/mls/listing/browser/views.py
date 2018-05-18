@@ -367,7 +367,7 @@ class ListingDetails(BrowserView):
         items = [
             self.context.absolute_url(),
             getattr(self.request, 'development_id', None),
-            getattr(self.request, 'listing_id', None)
+            getattr(self.request, 'listing_id', None),
         ]
         return '/'.join([item for item in items if item is not None])
 

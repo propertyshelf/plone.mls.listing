@@ -32,7 +32,7 @@ class TestSetup(unittest.TestCase):
             self.assertTrue(qi.isProductInstalled('plone.app.dexterity'))
         else:
             self.assertTrue(
-                'plone.app.dexterity' in qi.listInstallableProfiles()
+                'plone.app.dexterity' in qi.listInstallableProfiles(),
             )
 
     def test_plone_mls_core_installed(self):

@@ -58,7 +58,7 @@ def prepare_search_params(data, omit=None):
 
         if item in ['baths', 'beds', 'lot_size', 'floor_area']:
             min_max = data[item]
-            if isinstance(min_max, (list, tuple, )):
+            if isinstance(min_max, (list, tuple)):
                 if len(min_max) > 0 and min_max[0] != '--MINVALUE--':
                     params[item + '_min'] = min_max[0]
                 if len(min_max) > 1 and min_max[1] != '--MAXVALUE--':
@@ -66,7 +66,7 @@ def prepare_search_params(data, omit=None):
                 continue
 
         # Convert lists and tuples to comma separated lists.
-        if isinstance(data[item], (list, tuple, )):
+        if isinstance(data[item], (list, tuple)):
             if len(data.get(item, ())) > 0:
                 data[item] = ','.join(data[item])
             else:
@@ -333,15 +333,15 @@ def get_agency_info(context=None):
     if registry is not None:
         try:
             registry_settings = registry.forInterface(  # noqa
-                IMLSAgencyContactInformation
+                IMLSAgencyContactInformation,
             )
         except Exception:
             logger.warning('Global agency information not available.')
         else:
             settings = dict([
                 (a, getattr(registry_settings, a)) for a in
-                registry_settings.__schema__]
-            )
+                registry_settings.__schema__
+            ])
             logger.debug('Returning global agency information.')
     if not settings.get('use_custom_info', False):
         return

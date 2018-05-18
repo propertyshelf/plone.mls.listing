@@ -85,9 +85,9 @@ def migrate_to_1001(context):
             # Kupu's resource list can accumulate old, no longer valid types.
             # It will throw an exception if we try to resave them.
             # So, let's clean the list.
-            valid_types = dict(
-                [(t.id, 1) for t in portal_types.listTypeInfo()]
-            )
+            valid_types = dict([
+                (t.id, 1) for t in portal_types.listTypeInfo()
+            ])
             linkable = [pt for pt in linkable if pt in valid_types]
 
             linkable.append(LISTING_TYPE)
@@ -323,7 +323,7 @@ def migrate_to_1013(context):
                     request=request,
                     value=district,
                     vocab=vocab,
-                    loc_type='district'
+                    loc_type='district',
                 )
                 content['location_district'] = token_values
 
@@ -372,10 +372,10 @@ def migrate_to_1015(context):
         pass
     else:
         js.unregisterResource(
-            'http://maps.google.com/maps/api/js?sensor=false'
+            'http://maps.google.com/maps/api/js?sensor=false',
         )
         js.unregisterResource(
-            'https://maps-api-ssl.google.com/maps/api/js?sensor=false'
+            'https://maps-api-ssl.google.com/maps/api/js?sensor=false',
         )
 
 

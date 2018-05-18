@@ -37,12 +37,12 @@ class TestAgentContactPortlet(unittest.TestCase):
         portlet = agent_contact.Assignment()
         self.assertTrue(interfaces.IPortletAssignment.providedBy(portlet))
         self.assertTrue(
-            interfaces.IPortletDataProvider.providedBy(portlet)
+            interfaces.IPortletDataProvider.providedBy(portlet),
         )
 
     def test_invoke_add_view(self):
         mapping = self.portal.restrictedTraverse(
-            '++contextportlets++plone.leftcolumn'
+            '++contextportlets++plone.leftcolumn',
         )
         for item in mapping.keys():
             del mapping[item]
@@ -50,7 +50,7 @@ class TestAgentContactPortlet(unittest.TestCase):
         addview.createAndAdd(data={})
         self.assertEqual(len(mapping), 1)
         self.assertTrue(
-            isinstance(mapping.values()[0], agent_contact.Assignment)
+            isinstance(mapping.values()[0], agent_contact.Assignment),
         )
 
     def test_invoke_edit_view(self):
@@ -104,14 +104,14 @@ class TestRenderer(unittest.TestCase):
 
     def test_title(self):
         r = self.renderer(
-            context=self.portal, assignment=agent_contact.Assignment()
+            context=self.portal, assignment=agent_contact.Assignment(),
         )
         self.assertEqual('Agent Contact', r.title)
 
     def test_custom_title(self):
         r = self.renderer(
             context=self.portal,
-            assignment=agent_contact.Assignment(heading=u'My Title')
+            assignment=agent_contact.Assignment(heading=u'My Title'),
         )
         self.assertEqual('My Title', r.title)
 

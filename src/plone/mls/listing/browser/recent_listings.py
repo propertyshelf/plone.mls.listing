@@ -125,7 +125,7 @@ class IRecentListingsConfiguration(Interface):
             u'If selected, the results will first display the listings from '
             u'this agency and then display the rest of the applicable '
             u'listings. This option will supersede the \'Agency Listings\' '
-            u'option if selected.'
+            u'option if selected.',
         ),
         required=False,
         title=_(u'Agency Priority Ordering'),
@@ -134,30 +134,30 @@ class IRecentListingsConfiguration(Interface):
     show_unverified = schema.Bool(
         default=False,
         required=False,
-        title=_(u'Show Unverified Listings')
+        title=_(u'Show Unverified Listings'),
     )
 
     show_unverified_only = schema.Bool(
         description=_(
-            u'"Show Unverified Listings" must be activated to take effect.'
+            u'"Show Unverified Listings" must be activated to take effect.',
         ),
         default=False,
         required=False,
-        title=_(u'Only Show Unverified Listings')
+        title=_(u'Only Show Unverified Listings'),
     )
 
     listing_type = schema.List(
         required=False,
         title=_(u'Listing Type'),
         value_type=schema.Choice(
-            source='plone.mls.listing.ListingTypes'
+            source='plone.mls.listing.ListingTypes',
         ),
     )
 
     price_min = schema.Int(
         description=_(
             u'Enter the minimum price for listings. If no price is given, all '
-            u'listings from the lowest price are shown.'
+            u'listings from the lowest price are shown.',
         ),
         required=False,
         title=_(u'Price (Min)'),
@@ -166,7 +166,7 @@ class IRecentListingsConfiguration(Interface):
     price_max = schema.Int(
         description=_(
             u'Enter the maximum price for listings. If no price is given, all '
-            u'listings to the highest price are shown.'
+            u'listings to the highest price are shown.',
         ),
         required=False,
         title=_(u'Price (Max)'),
@@ -192,14 +192,14 @@ class RecentListingsConfiguration(form.Form):
     fields['listing_type'].widgetFactory = checkbox.CheckBoxFieldWidget
     label = _(u"'Recent Listings' Configuration")
     description = _(
-        u"Adjust the behaviour for this 'Recent Listings' viewlet."
+        u"Adjust the behaviour for this 'Recent Listings' viewlet.",
     )
 
     def getContent(self):
         annotations = IAnnotations(self.context)
         content = annotations.get(
             CONFIGURATION_KEY,
-            annotations.setdefault(CONFIGURATION_KEY, {})
+            annotations.setdefault(CONFIGURATION_KEY, {}),
         )
         content = AnnotationStorage(content)
         content.context = self.context
@@ -249,17 +249,17 @@ class RecentListingsToggle(object):
         if IRecentListings.providedBy(self.context):
             # Deactivate RecentListings viewlet.
             noLongerProvides(self.context, IRecentListings)
-            self.context.reindexObject(idxs=['object_provides', ])
+            self.context.reindexObject(idxs=['object_provides'])
             msg = _(u"'Recent Listings' viewlet deactivated.")
         elif IPossibleRecentListings.providedBy(self.context):
             alsoProvides(self.context, IRecentListings)
-            self.context.reindexObject(idxs=['object_provides', ])
+            self.context.reindexObject(idxs=['object_provides'])
             msg = _(u"'Recent Listings' viewlet activated.")
         else:
             msg = _(
                 u'The \'Recent Listings\' viewlet does\'t work with this '
                 u'content type. Add \'IPossibleRecentListings\' to the '
-                u'provided interfaces to enable this feature.'
+                u'provided interfaces to enable this feature.',
             )
             msg_type = 'error'
 
