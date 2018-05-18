@@ -200,6 +200,17 @@ class IMLSUISettings(Interface):
         title=_(u'Google Maps API Key'),
     )
 
+    googleapi_additional = schema.List(
+        description=_(
+            u'Provide additional Google API keys to use Google Maps.',
+        ),
+        required=False,
+        title=_(u'Additional Google Maps API Keys'),
+        value_type=schema.TextLine(
+            title=_(u'Google Maps API Key'),
+        ),
+    )
+
 
 FIELDS_AGENCY = (
     'agency_name',
