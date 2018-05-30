@@ -4,7 +4,7 @@ Changelog
 1.18 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Fix random api key usage.
 
 
 1.17 (2018-05-18)

@@ -23,6 +23,7 @@ from zope.component import queryMultiAdapter
 from zope.interface import implementer
 from zope.publisher.interfaces import NotFound
 
+import copy
 import logging
 import random
 
@@ -480,7 +481,8 @@ class ListingDetails(BrowserView):
             except Exception:
                 logger.warning('MLS UI settings not available.')
             else:
-                keys = getattr(settings, 'googleapi_additional', []) or []
+                settings_keys = getattr(settings, 'googleapi_additional', []) or []
+                keys = copy.copy(settings_keys)
                 keys.append(getattr(settings, 'googleapi', ''))
                 keys = [
                     key for key in keys if isinstance(key, basestring) and
