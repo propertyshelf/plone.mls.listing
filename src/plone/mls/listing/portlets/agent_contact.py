@@ -66,7 +66,7 @@ EMAIL_TEMPLATE = _(
     u'{form_data}\n'
     u'\n'
     u'Message:\n'
-    u'{message}',
+    u'{message}\n',
 )
 
 EMAIL_TEMPLATE_AGENT = _(
@@ -74,7 +74,7 @@ EMAIL_TEMPLATE_AGENT = _(
     default=u'The responsible agent for this listing is '
     u'{agent} ({profile}).\n'
     u'\n'
-    u'Please contact {agent} at {agent_email}.',
+    u'Please contact {agent} at {agent_email}',
 )
 
 
