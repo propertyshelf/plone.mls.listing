@@ -180,9 +180,6 @@
           </div>
 
           <div class="visualClear" id="sec-agent-quote" tal:define="quote view/agent_quote | nothing" tal:condition="quote">
-            <h2 tal:content="quote/title | nothing">[listing title]</h2>
-            <blockquote tal:content="quote/description | nothing">[description]</blockquote>
-
             <div id="sec-listing-long-description" tal:define="long_description view/long_description | nothing" tal:condition="long_description">
               <h3 i18n:translate="">Long Description</h3>
               <div>
