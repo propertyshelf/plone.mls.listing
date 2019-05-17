@@ -17,6 +17,7 @@ from plone.mls.listing.interfaces import IMLSUISettings
 from plone.registry.interfaces import IRegistry
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from ps.plone.mls import config
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
@@ -490,6 +491,22 @@ class ListingDetails(BrowserView):
                 ]
                 return random.choice(keys) or ''
         return ''
+
+    def live_chat_embedding(self):
+        """Return embedding code for live chat widget from the development if
+        it is enabled.
+        """
+        dev_cfg = self.config.get(config.SETTINGS_DEVELOPMENT_COLLECTION, {})
+        if not dev_cfg.get('enable_live_chat', False):
+            return None
+        cache = IAnnotations(self.request)
+        development = cache.get('ps.plone.mls.development.traversed', None)
+        if not development:
+            return None
+        embedding_code = getattr(development, 'live_chat_embedding', None)
+        if embedding_code is not None:
+            embedding_code = embedding_code.value
+        return embedding_code
 
 
 class ListingCanonicalURL(ViewletBase):

@@ -234,6 +234,11 @@
         <div tal:replace="structure provider:plone.belowcontentbody" />
 
       </div>
+      <section class="listing__live_chat"
+               tal:define="live_chat view/live_chat_embedding | nothing"
+               tal:condition="live_chat">
+        <div class="chat" tal:content="structure live_chat"></div>
+      </section>
       <script type="text/javascript">
         jQuery(function(jq) {
           jq('#sec-agent-quote').hide();
