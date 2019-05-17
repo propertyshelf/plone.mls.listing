@@ -171,7 +171,11 @@
           </div>
 
           <div class="visualClear">
-            <p class="documentDescription" tal:content="view/description | nothing" />
+            <div class="documentDescription" tal:define="description view/description | nothing" tal:condition="description">
+              <tal:descriptionline tal:repeat="line python:description.splitlines()">
+                <p tal:content="line">[Description Line]</p>
+              </tal:descriptionline>
+            </div>
             <p><a i18n:translate="" id="agentquote" href="#">See what the agent says about this listing (original title and description):</a></p>
           </div>
 
@@ -179,9 +183,13 @@
             <h2 tal:content="quote/title | nothing">[listing title]</h2>
             <blockquote tal:content="quote/description | nothing">[description]</blockquote>
 
-            <div id="sec-listing-long-description" tal:define="description view/long_description | nothing" tal:condition="description">
+            <div id="sec-listing-long-description" tal:define="long_description view/long_description | nothing" tal:condition="long_description">
               <h3 i18n:translate="">Long Description</h3>
-              <p tal:content="description">Long Description</p>
+              <div>
+                <tal:descriptionline tal:repeat="line python:long_description.splitlines()">
+                  <p tal:content="line">[Long Description Line]</p>
+                </tal:descriptionline>
+              </div>
             </div>
           </div>
 

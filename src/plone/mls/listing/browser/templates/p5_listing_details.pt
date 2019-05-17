@@ -13,7 +13,13 @@
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
         <h1 class="documentFirstHeading" tal:content="view/title | nothing">[Title]</h1>
-        <p class="documentDescription" tal:content="view/description | nothing" />
+        <div class="documentDescription"
+             tal:define="description view/description | nothing"
+             tal:condition="description">
+          <tal:descriptionline tal:repeat="line python:description.splitlines()">
+            <p tal:content="line">[Description Line]</p>
+          </tal:descriptionline>
+        </div>
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
@@ -170,7 +176,9 @@
 
           <div id="sec-listing-long-description" class="listing__longdescription" tal:define="description view/long_description | nothing" tal:condition="description">
             <h3 i18n:translate="">More about this property</h3>
-            <p tal:content="description">Long Description</p>
+              <tal:descriptionline tal:repeat="line python:description.splitlines()">
+                <p tal:content="line">[Long Description Line]</p>
+              </tal:descriptionline>
           </div>
 
           <div id="listing-details" class="pat-autotoc autotabs" data-pat-autotoc="section:section;levels:header;"
