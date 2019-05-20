@@ -4,7 +4,9 @@ Changelog
 1.19 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Add live chat embedding code to development listings.
+- Allow line breaks and parragraph spacing in listing descriptions.
+- Remove the "Agent Quote" and modify the way the long description is shown.
 
 
 1.18 (2018-05-30)
