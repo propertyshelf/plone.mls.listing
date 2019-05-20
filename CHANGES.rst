@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.19 (unreleased)
+1.19 (2019-05-20)
 -----------------
 
 - Add live chat embedding code to development listings.
