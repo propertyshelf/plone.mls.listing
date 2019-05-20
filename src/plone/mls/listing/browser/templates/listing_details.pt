@@ -176,7 +176,7 @@
                 <p tal:content="line">[Description Line]</p>
               </tal:descriptionline>
             </div>
-            <p><a i18n:translate="" id="agentquote" href="#">See what the agent says about this listing (original title and description):</a></p>
+            <p><a i18n:translate="" id="agentquote" href="#">See More Details</a></p>
           </div>
 
           <div class="visualClear" id="sec-agent-quote" tal:define="quote view/agent_quote | nothing" tal:condition="quote">
