@@ -145,12 +145,13 @@ article, aside, figure, figcaption, footer, header, hgroup, nav, section {
 }
 
 .listing a#agentquote {
-  background: transparent url('++resource++plone.mls.listing.images/icon_talk.png') no-repeat 0% 50%;
   border: none;
-  color: #999;
+  font-weight: bold;
+  font-size: 1.4em;
+  text-transform: uppercase;
   display: inline-block;
-  line-height: 2em;
-  padding-left: 3em;
+  line-height: 3em;
+  padding-left: 0.5em;
 }
 
 .listing #sec-agent-quote {
@@ -166,12 +167,6 @@ article, aside, figure, figcaption, footer, header, hgroup, nav, section {
   margin-left: 1em;
   margin-right: 2.5em;
   padding-bottom: 0.5em;
-}
-
-.listing #sec-agent-quote blockquote {
-  color: #666;
-  font-style: normal;
-  margin: 0 3.5em 1em 1.5em;
 }
 
 .listing #sec-listing-long-description {
