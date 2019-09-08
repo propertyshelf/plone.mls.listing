@@ -68,7 +68,7 @@
               <dd tal:content="item/value">[Value]</dd>
             </div>
 
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6listing__price" tal:define="item listing/price | nothing" tal:condition="item">
+            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 listing__price" tal:define="item listing/price | nothing" tal:condition="item">
               <dt tal:content="item/label">[Label]</dt>
               <dd tal:content="item/value">[Value]</dd>
             </div>
