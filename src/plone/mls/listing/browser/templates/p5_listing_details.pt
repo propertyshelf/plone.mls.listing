@@ -13,13 +13,6 @@
         <div tal:replace="structure provider:plone.abovecontenttitle" />
 
         <h1 class="documentFirstHeading" tal:content="view/title | nothing">[Title]</h1>
-        <div class="documentDescription"
-             tal:define="description view/description | nothing"
-             tal:condition="description">
-          <tal:descriptionline tal:repeat="line python:description.splitlines()">
-            <p tal:content="line">[Description Line]</p>
-          </tal:descriptionline>
-        </div>
 
         <div tal:replace="structure provider:plone.belowcontenttitle" />
 
@@ -172,6 +165,14 @@
                 <dd tal:content="item/value">[Value]</dd>
               </div>
             </dl>
+          </div>
+
+          <div class="documentDescription"
+               tal:define="description view/description | nothing"
+               tal:condition="description">
+            <tal:descriptionline tal:repeat="line python:description.splitlines()">
+              <p tal:content="line">[Description Line]</p>
+            </tal:descriptionline>
           </div>
 
           <div id="sec-listing-long-description" class="listing__longdescription" tal:define="description view/long_description | nothing" tal:condition="description">
