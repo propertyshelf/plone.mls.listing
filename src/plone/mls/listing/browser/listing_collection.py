@@ -86,7 +86,7 @@ class ListingCollectionViewlet(ViewletBase):
         self._batching = batching
 
     @property
-    def layout_class(self):
+    def layout_css(self):
         if self.config.get('grid_layout', False):
             return u'listing-grid-view'
         return u''
