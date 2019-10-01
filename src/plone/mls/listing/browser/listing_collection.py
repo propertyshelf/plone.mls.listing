@@ -86,6 +86,12 @@ class ListingCollectionViewlet(ViewletBase):
         self._batching = batching
 
     @property
+    def layout_class(self):
+        if self.config.get('grid_layout', False):
+            return u'listing-grid-view'
+        return u''
+
+    @property
     @memoize
     def listings(self):
         """Return listing results."""
@@ -122,7 +128,17 @@ class IListingCollectionConfiguration(Interface):
     reverse = schema.Bool(
         default=True,
         required=False,
-        title=(u'Reverse'),
+        title=_(u'Reverse'),
+    )
+
+    grid_layout = schema.Bool(
+        description=_(
+            u'If allowed by the theme/design, the listings will be displayed '
+            u'in a grid layout when enabled.',
+        ),
+        default=False,
+        required=False,
+        title=_(u'Grid Layout'),
     )
 
     overriding_agency_id = schema.TextLine(
