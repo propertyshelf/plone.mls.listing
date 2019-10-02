@@ -10,7 +10,7 @@
                   batch view/batching | nothing;
                   results batch/sequence_length | nothing;
                   search_performed view/search_performed | nothing;">
-  <section id="listing-search" class="listing__results row ${view/layout_css}"
+  <section id="listing-search" class="listing__results row ${view/layout_css | nothing}"
            tal:define="page_url view/view_url | nothing;
                        is_view_template context/@@plone_context_state/is_view_template;
                        b_size view/limit;
