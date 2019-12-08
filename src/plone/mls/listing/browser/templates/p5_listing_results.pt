@@ -16,7 +16,12 @@
     <tal:listings tal:define="listings view/listings | nothing;
                               batch view/batching | nothing;"
                   tal:condition="listings">
-
+      <h3 tal:define="total view/total_listings | nothing"
+          tal:condition="total"><span
+          i18n:translate="batch_x_items_matching_your_criteria"><span
+          i18n:name="number"
+          tal:omit-tag=""
+          tal:content="total">234</span> properties available</span></h3>
       <div metal:use-macro="context/batch_macros/macros/navigation" />
 
       <div class="tileItem visualIEFloatFix row"

@@ -85,6 +85,12 @@ class ListingCollectionViewlet(ViewletBase):
         self._listings = results
         self._batching = batching
 
+    def total_listings(self):
+        if self._batching:
+            return self._batching.get('results')
+        elif self._listings:
+            return len(self._listings)
+
     @property
     def layout_css(self):
         if self.config.get('grid_layout', False):
