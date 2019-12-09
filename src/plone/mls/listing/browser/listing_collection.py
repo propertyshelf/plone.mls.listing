@@ -192,6 +192,15 @@ class IListingCollectionConfiguration(Interface):
         title=_(u'Only Show Unverified Listings'),
     )
 
+    freetext = schema.TextLine(
+        required=False,
+        title=_(u'Freetext Search'),
+        description=_(
+            u'Filter the results by a free text search for location, keywords,'
+            u' Listing IDs, and more that can combine results using \'AND\', '
+            u'\'OR\', \'NOT\', etc.'),
+    )
+
     listing_type = schema.Tuple(
         default=('cl', 'cs', 'll', 'rl', 'rs'),
         required=False,

@@ -281,6 +281,9 @@ def search(params={}, batching=True, context=None, config=None):
             agency_id = settings.get('agency_id', None)
         agency_id = agency_id.replace(' ', '')
         search_params['agency_id'] = agency_id
+    freetext = config.get('freetext')
+    if freetext:
+        params['q'] = freetext
     search_params.update(params)
     base_url = settings.get('mls_site', None)
     api_key = settings.get('mls_key', None)
