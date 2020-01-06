@@ -104,6 +104,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{{id}}/tiles/{{z}}/{{x}}/{{y}}@2x?
     maxZoom: 18,
     tileSize: 512,
     zoomOffset: -1,
+    scrollWheelZoom: false,
     id: 'mapbox/streets-v11'
 }}).addTo(map);
 """
