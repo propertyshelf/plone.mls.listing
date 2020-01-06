@@ -99,7 +99,7 @@ MAPBOX_JS = """
 var map = L.map('{map_id}').setView([{lat}, {lng}], {zoom});
 
 // load a tile layer
-L.tileLayer('https://api.mapbox.com/styles/v1/{{id}}/tiles/{{z}}/{{x}}/{{y}}?access_token={api_key}', {{
+L.tileLayer('https://api.mapbox.com/styles/v1/{{id}}/tiles/{{z}}/{{x}}/{{y}}@2x?access_token={api_key}', {{
     attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
     maxZoom: 18,
     tileSize: 512,
