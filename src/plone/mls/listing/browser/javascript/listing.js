@@ -14,8 +14,8 @@ jQuery(function($) {
     }
   }
 
-  if($('.listing-map').length > 0) {
-    $('.listing-map > div').addClass('map__canvas');
+  if($('.listing-map-google').length > 0) {
+    $('.listing-map-google > div').addClass('map__canvas');
     loadGoogleMaps(initializeMap);
   }
 
