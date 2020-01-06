@@ -32,7 +32,7 @@ import random
 logger = logging.getLogger(PRODUCT_NAME)
 
 
-MAP_JS = """
+GOOGLE_MAP_JS = """
 var isTouch = false;
 var map;
 
@@ -91,6 +91,20 @@ function initializeMap() {{
     }}
     return map;
 }};
+"""
+
+
+MAPBOX_JS = """
+// initialize the map
+var map = L.map('{map_id}').setView([{lat}, {lng}], {zoom});
+
+// load a tile layer
+L.tileLayer('https://api.mapbox.com/styles/v1/{{id}}/tiles/{{z}}/{{x}}/{{y}}?access_token={api_key}', {{
+    attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+    maxZoom: 18,
+    tileSize: 512,
+    id: 'mapbox/streets-v11'
+}}).addTo(map);
 """
 
 
@@ -465,13 +479,37 @@ class ListingDetails(BrowserView):
         except ValueError:
             return
 
-        return MAP_JS.format(
-            lat=unicode(lat),
-            lng=unicode(lng),
-            map_id=self.map_id,
-            zoom=self.zoomlevel,
-            ak=self.googleapi,
-        )
+        provider = self.map_provider
+        if provider == u'google':
+            js = GOOGLE_MAP_JS.format(
+                lat=unicode(lat),
+                lng=unicode(lng),
+                map_id=self.map_id,
+                zoom=self.zoomlevel,
+                ak=self.googleapi,
+            )
+        elif provider == u'mapbox':
+            js = MAPBOX_JS.format(
+                lat=unicode(lat),
+                lng=unicode(lng),
+                map_id=self.map_id,
+                zoom=self.zoomlevel,
+                api_key=self.mapbox_api,
+            )
+
+        return js
+
+    @property
+    def map_provider(self):
+        provider = u'google'
+        if self.registry is not None:
+            try:
+                settings = self.registry.forInterface(IMLSUISettings)  # noqa
+            except Exception:
+                logger.warning('MLS UI settings not available.')
+            else:
+                provider = getattr(settings, 'map_provider', u'') or u''
+        return provider
 
     @property
     def googleapi(self):
@@ -491,6 +529,17 @@ class ListingDetails(BrowserView):
                 ]
                 return random.choice(keys) or ''
         return ''
+
+    @property
+    def mapbox_api(self):
+        if self.registry is not None:
+            try:
+                settings = self.registry.forInterface(IMLSUISettings)  # noqa
+            except Exception:
+                logger.warning('MLS UI settings not available.')
+            else:
+                return getattr(settings, 'mapbox_api', u'') or u''
+        return u''
 
     def live_chat_embedding(self):
         """Return embedding code for live chat widget from the development if

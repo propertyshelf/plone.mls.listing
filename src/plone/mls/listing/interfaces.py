@@ -192,6 +192,18 @@ class IMLSUISettings(Interface):
         title=_(u'Crop After'),
     )
 
+    map_provider = schema.Choice(
+        default=u'google',
+        required=True,
+        title=_(u'Mapping Provider'),
+        description=_(
+            u'Please select the mapping provider for this website. Note: you '
+            u'will need to enter the API key for the selected provider in '
+            u'order for the maps to load properly.',
+        ),
+        values=[u'google', u'mapbox'],
+    )
+
     googleapi = schema.TextLine(
         description=_(
             u'Provide the Google API key if you want to use Google Maps.',
@@ -209,6 +221,14 @@ class IMLSUISettings(Interface):
         value_type=schema.TextLine(
             title=_(u'Google Maps API Key'),
         ),
+    )
+
+    mapbox_api = schema.TextLine(
+        description=_(
+            u'Provide the MapBox API key if you want to use MapBox.',
+        ),
+        required=False,
+        title=_(u'MapBox API Key'),
     )
 
 
