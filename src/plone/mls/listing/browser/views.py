@@ -107,6 +107,8 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{{id}}/tiles/{{z}}/{{x}}/{{y}}@2x?
     scrollWheelZoom: false,
     id: 'mapbox/streets-v11'
 }}).addTo(map);
+
+var marker = L.marker([{lat}, {lng}]).addTo(map);
 """
 
 
