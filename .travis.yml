@@ -16,6 +16,7 @@ matrix:
   allow_failures:
     - env: PLONE_VERSION=4.1
     - env: PLONE_VERSION=4.2
+    - env: PLONE_VERSION=5.0
   exclude:
     - python: 2.7
       env: PLONE_VERSION=4.1
