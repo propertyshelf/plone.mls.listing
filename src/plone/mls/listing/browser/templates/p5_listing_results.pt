@@ -18,7 +18,7 @@
                   tal:condition="listings">
       <h3 tal:define="total view/total_listings | nothing"
           tal:condition="total"><span
-          i18n:translate="batch_x_items_matching_your_criteria"><span
+          i18n:translate="batch_x_properties_available"><span
           i18n:name="number"
           tal:omit-tag=""
           tal:content="total">234</span> properties available</span></h3>
