@@ -4,7 +4,9 @@ Changelog
 1.20 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Change position of listing description in Plone 5.
+- Add option for grid layout to listing collections, searches, and recent listings.
+- Add number of results for listing collections.
 
 
 1.19 (2019-05-20)
