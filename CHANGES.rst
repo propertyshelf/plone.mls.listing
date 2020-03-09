@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.20 (unreleased)
+1.20 (2020-03-09)
 -----------------
 
 - Change position of listing description in Plone 5.
