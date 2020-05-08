@@ -9,7 +9,7 @@
 # Thomas Massmann <thomas.massmann@it-spir.it>, 2016-2017
 # Valeria Garcia <valeriassimsou@gmail.com>, 2014-2015
 # Xavier Freire <xavier@propertyshelf.com>, 2019
-# Zach Cashero <zcashero@gmail.com>, 2015,2019
+# Zach Cashero <zach@propertyshelf.com>, 2015,2019
 msgid ""
 msgstr ""
 "Project-Id-Version: MLS Plone Components\n"
