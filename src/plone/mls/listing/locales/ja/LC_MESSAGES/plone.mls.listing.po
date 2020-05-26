@@ -1,16 +1,18 @@
 # --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
 # SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Translators:
-# BryanAllen <bryan@propertyshelf.com>, 2013-2014
-# BryanAllen <bryan@propertyshelf.com>, 2012
-# Thomas Massmann <thomas.massmann@it-spir.it>, 2013
+# Thomas Massmann <thomas.massmann@it-spir.it>, 2020
+# BryanAllen <bryan@propertyshelf.com>, 2020
+# Zach Cashero <zach@propertyshelf.com>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: MLS Plone Components\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-03-03 18:12+0000\n"
-"PO-Revision-Date: 2020-03-03 18:34+0000\n"
-"Last-Translator: Zach Cashero <zach@propertyshelf.com>\n"
-"Language-Team: Japanese (http://www.transifex.com/propertyshelf/MLS_Plone/language/ja/)\n"
+"PO-Revision-Date: 2020-05-25 22:06+0000\n"
+"Last-Translator: Zach Cashero <zach@propertyshelf.com>, 2020\n"
+"Language-Team: Japanese (https://www.transifex.com/propertyshelf/teams/13797/ja/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -84,22 +86,22 @@ msgstr "\"表示タイプ\"優先順位リスト"
 #: plone/mls/listing/profiles/plone4/types/plone.mls.listing.listing.xml
 #: plone/mls/listing/profiles/plone5/types/plone.mls.listing.listing.xml
 msgid "A single MLS Listing"
-msgstr ""
+msgstr "MLS単独物件"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Activate Listing Collection"
-msgstr ""
+msgstr "物件集作動"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Activate Listing Search"
-msgstr ""
+msgstr "物件検索作動"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Activate Recent Listings"
-msgstr ""
+msgstr "最新物件作動"
 
 #: plone/mls/listing/portlets/agent_contact.py:540
 msgid ""
@@ -115,17 +117,17 @@ msgstr ""
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Activate the Listing Collection viewlet."
-msgstr ""
+msgstr "物件集ヴューレット作動"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Activate the Listing Search viewlet."
-msgstr ""
+msgstr "物件検索ヴューレット作動"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Activate the Recent Listings viewlet."
-msgstr ""
+msgstr "最新物件ヴューレット作動"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
@@ -170,7 +172,7 @@ msgstr "大人"
 
 #: plone/mls/listing/interfaces.py:249
 msgid "Agency"
-msgstr ""
+msgstr "不動産会社"
 
 #: plone/mls/listing/interfaces.py:293
 msgid "Agency Business Address"
@@ -339,32 +341,32 @@ msgstr "市"
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Configure Listing Collection"
-msgstr ""
+msgstr "物件表環境設定"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Configure Listing Search"
-msgstr ""
+msgstr "物件検索環境設定"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Configure Recent Listings"
-msgstr ""
+msgstr "最新物件環境設定"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Configure the Listing Collection viewlet."
-msgstr ""
+msgstr "物件集ヴューレット環境設定"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Configure the Listing Search viewlet."
-msgstr ""
+msgstr "物件検索ヴューレット環境設定"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Configure the Recent Listings viewlet."
-msgstr ""
+msgstr "最新物件ヴューレット環境設定"
 
 #: plone/mls/listing/browser/templates/print_listing_details.pt:98
 msgid "Contact Information"
@@ -372,7 +374,7 @@ msgstr "连络叙穂"
 
 #: plone/mls/listing/portlets/agent_contact.py:141
 msgid "Country"
-msgstr ""
+msgstr "国"
 
 #: plone/mls/listing/browser/listing_collection.py:232
 #: plone/mls/listing/browser/listing_search.py:158
@@ -414,17 +416,17 @@ msgstr "ポートレットタイトル　空欄の場合は初期入力時のタ
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Deactivate Listing Collection"
-msgstr ""
+msgstr "物件集不作動"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Deactivate Listing Search"
-msgstr ""
+msgstr "物件検索不作動"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Deactivate Recent Listings"
-msgstr ""
+msgstr "最新物件不作動"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
@@ -434,17 +436,17 @@ msgstr ""
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Deactivate the Listing Collection viewlet."
-msgstr ""
+msgstr "物件集ヴューレット不作動"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Deactivate the Listing Search viewlet."
-msgstr ""
+msgstr "物件検索ヴューレット不作動"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Deactivate the Recent Listings viewlet."
-msgstr ""
+msgstr "最新物件ヴューレット不作動"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
@@ -470,7 +472,7 @@ msgstr "BCC受信者メールアドレス"
 
 #: plone/mls/listing/profiles/plone5/types/plone.mls.listing.listing.xml
 msgid "Edit"
-msgstr ""
+msgstr "編集"
 
 #: plone/mls/listing/portlets/agent_contact.py:685
 msgid "Edit Agent Contact portlet"
@@ -645,7 +647,7 @@ msgstr "ジャクジー"
 #: plone/mls/listing/profiles/plone4/types/plone.mls.listing.listing.xml
 #: plone/mls/listing/profiles/plone5/types/plone.mls.listing.listing.xml
 msgid "Listing"
-msgstr ""
+msgstr "物件"
 
 #: plone/mls/listing/browser/templates/listing_details.pt:113
 #: plone/mls/listing/browser/templates/p5_listing_details.pt:33
@@ -985,19 +987,25 @@ msgid ""
 "The 'Listing Collection' viewlet does't work with this content type. Add "
 "'IPossibleListingCollection' to the provided interfaces to enable this "
 "feature."
-msgstr "このコンテンツタイプを使用して、'リストコレクション \"ビューレットのdoes't作業。この機能を有効にするために提供されているインタフェースに 'IPossibleListingCollection'を追加します。"
+msgstr ""
+"このコンテンツタイプを使用して、'リストコレクション \"ビューレットのdoes't作業。この機能を有効にするために提供されているインタフェースに "
+"'IPossibleListingCollection'を追加します。"
 
 #: plone/mls/listing/browser/listing_search.py:741
 msgid ""
 "The 'Listing Search' viewlet does't work with this content type. Add "
 "'IPossibleListingSearch' to the provided interfaces to enable this feature."
-msgstr "このコンテンツタイプを使用して、'リストの検索\"ビューレットのdoes't作業。この機能を有効にするために提供されているインタフェースに 'IPossibleListingSearch'を追加します。"
+msgstr ""
+"このコンテンツタイプを使用して、'リストの検索\"ビューレットのdoes't作業。この機能を有効にするために提供されているインタフェースに "
+"'IPossibleListingSearch'を追加します。"
 
 #: plone/mls/listing/browser/recent_listings.py:275
 msgid ""
 "The 'Recent Listings' viewlet does't work with this content type. Add "
 "'IPossibleRecentListings' to the provided interfaces to enable this feature."
-msgstr "このコンテンツタイプを使用して、\"最近の掲載\"ビューレットのdoes't作業。この機能を有効にするために提供されているインタフェースに 'IPossibleRecentListings'を追加します。"
+msgstr ""
+"このコンテンツタイプを使用して、\"最近の掲載\"ビューレットのdoes't作業。この機能を有効にするために提供されているインタフェースに "
+"'IPossibleRecentListings'を追加します。"
 
 #: plone/mls/listing/browser/localconfig.py:95
 msgid ""

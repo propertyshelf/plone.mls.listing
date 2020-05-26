@@ -1,22 +1,23 @@
 # --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
 # SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Translators:
-# Benjamin Berger <ben@propertyshelf.com>, 2014-2015
-# Frank Robles <frank@propertyshelf.com>, 2016
-# Juan Salazar <juancarlos@propertyshelf.com>, 2012-2013
 # Propertyshelf <development@propertyshelf.com>, 2020
-# Thomas Massmann <thomas.massmann@it-spir.it>, 2012-2013
-# Thomas Massmann <thomas.massmann@it-spir.it>, 2016-2017
-# Valeria Garcia <valeriassimsou@gmail.com>, 2014-2015
-# Xavier Freire <xavier@propertyshelf.com>, 2019
-# Zach Cashero <zach@propertyshelf.com>, 2015,2019
+# Xavier Freire <xavier@propertyshelf.com>, 2020
+# Thomas Massmann <thomas.massmann@it-spir.it>, 2020
+# Juan Salazar <juancarlos@propertyshelf.com>, 2020
+# Benjamin Berger <ben@propertyshelf.com>, 2020
+# Valeria Garcia <valeriassimsou@gmail.com>, 2020
+# Frank Robles <frank@propertyshelf.com>, 2020
+# Zach Cashero <zach@propertyshelf.com>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: MLS Plone Components\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-03-03 18:12+0000\n"
-"PO-Revision-Date: 2020-03-03 18:35+0000\n"
-"Last-Translator: Propertyshelf <development@propertyshelf.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/propertyshelf/MLS_Plone/language/es/)\n"
+"PO-Revision-Date: 2020-05-25 22:06+0000\n"
+"Last-Translator: Zach Cashero <zach@propertyshelf.com>, 2020\n"
+"Language-Team: Spanish (https://www.transifex.com/propertyshelf/teams/13797/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -111,7 +112,9 @@ msgstr "Activar Propiedades Recientes"
 msgid ""
 "Activate for Spam Protection. Any attempt to use a link inside this form "
 "will raise a validation error."
-msgstr "Activar para la Protección del Spam. Cualquier intento de utilizar un enlace dentro de este formulario levantará un error de validación."
+msgstr ""
+"Activar para la Protección del Spam. Cualquier intento de utilizar un enlace"
+" dentro de este formulario levantará un error de validación."
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
@@ -402,20 +405,26 @@ msgstr ""
 msgid ""
 "Custom title for the portlet (filter mode). If no title is provided, the "
 "default title is used."
-msgstr "Titulo personalizado para el portlet (modo de filtro). Si no se ingresa un titulo, se utiliza el titulo predeterminado."
+msgstr ""
+"Titulo personalizado para el portlet (modo de filtro). Si no se ingresa un "
+"titulo, se utiliza el titulo predeterminado."
 
 #: plone/mls/listing/portlets/quick_search.py:243
 msgid ""
 "Custom title for the portlet (search mode). If no title is provided, the "
 "default title is used."
-msgstr "Titulo personalizado para el portlet (modo de búsqueda). Si no se ingresa un titulo, se utiliza el titulo predeterminado."
+msgstr ""
+"Titulo personalizado para el portlet (modo de búsqueda). Si no se ingresa un"
+" titulo, se utiliza el titulo predeterminado."
 
 #: plone/mls/listing/portlets/agent_contact.py:458
 #: plone/mls/listing/portlets/agent_information.py:36
 msgid ""
 "Custom title for the portlet. If no title is provided, the default title is "
 "used."
-msgstr "Título personalizado para el portlet. Si no se proporciona título, se utiliza el título por defecto."
+msgstr ""
+"Título personalizado para el portlet. Si no se proporciona título, se "
+"utiliza el título por defecto."
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
@@ -472,7 +481,9 @@ msgstr "Distrito"
 
 #: plone/mls/listing/portlets/agent_contact.py:530
 msgid "E-mail addresses which receive a blind carbon copy (comma separated)."
-msgstr "Direcciones de correo electrónico que reciben una copia oculta (separadas por comas)."
+msgstr ""
+"Direcciones de correo electrónico que reciben una copia oculta (separadas "
+"por comas)."
 
 #: plone/mls/listing/profiles/plone5/types/plone.mls.listing.listing.xml
 msgid "Edit"
@@ -510,13 +521,17 @@ msgstr "Introduzca el URL del logo que se debe utilizar."
 msgid ""
 "Enter the maximum price for listings. If no price is given, all listings to "
 "the highest price are shown."
-msgstr "Ingrese el precio máximo para los listados. Si no se da el precio, se muestran todos los listados con el precio mas alto."
+msgstr ""
+"Ingrese el precio máximo para los listados. Si no se da el precio, se "
+"muestran todos los listados con el precio mas alto."
 
 #: plone/mls/listing/browser/recent_listings.py:174
 msgid ""
 "Enter the minimum price for listings. If no price is given, all listings "
 "from the lowest price are shown."
-msgstr "Ingrese el precio minimo para los listados. Si no se da el precio, se muestran todos los listados con el precio mas bajo."
+msgstr ""
+"Ingrese el precio minimo para los listados. Si no se da el precio, se "
+"muestran todos los listados con el precio mas bajo."
 
 #: plone/mls/listing/portlets/quick_search.py:331
 msgid "Filter Results"
@@ -530,7 +545,9 @@ msgstr ""
 
 #: plone/mls/listing/portlets/quick_search.py:261
 msgid "Find the search page which will be used to show the results."
-msgstr "Encontrar la pagina de búsqueda que sera utilizada para mostrar los resultados."
+msgstr ""
+"Encontrar la pagina de búsqueda que sera utilizada para mostrar los "
+"resultados."
 
 #: plone/mls/listing/interfaces.py:278
 msgid "Force Overwrite"
@@ -540,7 +557,9 @@ msgstr "Sobrescribir"
 msgid ""
 "Force usage of custom contact information, even when showing items from this"
 " agency?"
-msgstr "Forzar el uso de información de las agencias encargo, incluso en anuncios propios?"
+msgstr ""
+"Forzar el uso de información de las agencias encargo, incluso en anuncios "
+"propios?"
 
 #: plone/mls/listing/browser/listing_collection.py:197
 msgid "Freetext Search"
@@ -548,7 +567,8 @@ msgstr ""
 
 #: plone/mls/listing/browser/listing_search.py:138
 msgid "Freetext search (Location, Keywords, Listing ID, ...)"
-msgstr "Búsqueda de texto (Ubicación, Palabra clave, Código de la Propiedad, ...)"
+msgstr ""
+"Búsqueda de texto (Ubicación, Palabra clave, Código de la Propiedad, ...)"
 
 #: plone/mls/listing/interfaces.py:334
 msgid "Geographic Location (latitude, longitude)"
@@ -571,7 +591,9 @@ msgstr ""
 
 #: plone/mls/listing/browser/listing_search.py:601
 msgid "Hide the search form when Quick Search Portlet is available?"
-msgstr "Desea ocultar el formulario cuando el portlet de búsqueda rápida esta disponible?"
+msgstr ""
+"Desea ocultar el formulario cuando el portlet de búsqueda rápida esta "
+"disponible?"
 
 #: plone/mls/listing/portlets/agent_contact.py:203
 msgid "I accept the Terms & Conditions"
@@ -585,19 +607,24 @@ msgstr ""
 #: plone/mls/listing/browser/listing_search.py:553
 #: plone/mls/listing/browser/recent_listings.py:132
 msgid "If activated, only listings of the configured agency are shown."
-msgstr "Si esta activado, son visibles solo propiedades de la agencia configurada."
+msgstr ""
+"Si esta activado, son visibles solo propiedades de la agencia configurada."
 
 #: plone/mls/listing/interfaces.py:155
 msgid ""
 "If activated, the availability calendar (if configured for a listing) will "
 "be shown for rental listings."
-msgstr "Si se activa, la disponibilidad de calendario (configurada en el listado) será mostrada para listados de alquiler."
+msgstr ""
+"Si se activa, la disponibilidad de calendario (configurada en el listado) "
+"será mostrada para listados de alquiler."
 
 #: plone/mls/listing/interfaces.py:165
 msgid ""
 "If activated, the availability calendar (if configured for a listing) will "
 "only be shown for listings of the configured agency."
-msgstr "Si se activa, la disponibilidad de calendario (configurada en el listado) será mostrada para los listados de la agencia configurada."
+msgstr ""
+"Si se activa, la disponibilidad de calendario (configurada en el listado) "
+"será mostrada para los listados de la agencia configurada."
 
 #: plone/mls/listing/browser/listing_collection.py:141
 #: plone/mls/listing/browser/listing_search.py:543
@@ -614,7 +641,10 @@ msgid ""
 "If selected, the results will first display the listings from this agency "
 "and then display the rest of the applicable listings. This option will "
 "supersede the 'Agency Listings' option if selected."
-msgstr "Si se selecciona, los resultados mostrarán primero los listados de esta agencia y luego mostrarán el resto de los listados que apliquen.  Esto  reemplazará a la opción \"Listados de Agencia\", si se selecciona."
+msgstr ""
+"Si se selecciona, los resultados mostrarán primero los listados de esta "
+"agencia y luego mostrarán el resto de los listados que apliquen.  Esto  "
+"reemplazará a la opción \"Listados de Agencia\", si se selecciona."
 
 #: plone/mls/listing/browser/listing_search.py:286
 msgid "Interior Area"
@@ -636,7 +666,10 @@ msgstr "Dirección de correo electrónico invalida"
 msgid ""
 "Items in this vocabulary are sorted by priority key (if available) and value"
 " otherwise. Enter one item per line. Possible values are: {0}"
-msgstr "Los elementos de este vocabulario se ordenan por prioridad clave (si está disponible) de otra manera por el valor. Introduce un elemento por línea. Los valores posibles son: {0}"
+msgstr ""
+"Los elementos de este vocabulario se ordenan por prioridad clave (si está "
+"disponible) de otra manera por el valor. Introduce un elemento por línea. "
+"Los valores posibles son: {0}"
 
 #: plone/mls/listing/browser/listing_collection.py:356
 #: plone/mls/listing/browser/listing_search.py:589
@@ -778,7 +811,9 @@ msgstr "Cambiar Email del Destinatario"
 msgid ""
 "Override the recipient e-mail address. Leave blank to use the e-mail address"
 " from the agent information."
-msgstr "Cambiar email del destinatario. Deja el espacio en blanco para usar la información del agente que ingresa la propiedad en el MLS."
+msgstr ""
+"Cambiar email del destinatario. Deja el espacio en blanco para usar la "
+"información del agente que ingresa la propiedad en el MLS."
 
 #: plone/mls/listing/browser/listing_collection.py:158
 msgid "Overriding Agency IDs"
@@ -800,7 +835,8 @@ msgstr "Por favor, habilite JavaScript para mostrar el mapa."
 
 #: plone/mls/listing/portlets/agent_contact.py:151
 msgid "Please enter a phone number. Some agents will not respond without one."
-msgstr "Ingresa numero de teléfono. Algunos agentes no te responderán sin eso."
+msgstr ""
+"Ingresa numero de teléfono. Algunos agentes no te responderán sin eso."
 
 #: plone/mls/listing/portlets/agent_contact.py:145
 msgid "Please enter your ZIP code."
@@ -872,17 +908,25 @@ msgstr "Rechazar Texto com Enlaces?"
 msgid ""
 "Reminder: All land listings will be excluded once any value is set as well "
 "as any commercial listings with no bathrooms."
-msgstr "Recuerde: Todos los listados de terreno serán excluidos una vez que se establezca cualquier valor, así como los listados comerciales que no tengan baños."
+msgstr ""
+"Recuerde: Todos los listados de terreno serán excluidos una vez que se "
+"establezca cualquier valor, así como los listados comerciales que no tengan "
+"baños."
 
 #: plone/mls/listing/browser/listing_collection.py:288
 msgid ""
 "Reminder: All land listings will be excluded once any value is set as well "
 "as any commercial listings with no bedrooms."
-msgstr "Recuerde: Todos los listados de terreno serán excluidos una vez que se establezca cualquier valor, así como los listados comerciales que no tengan habitaciones."
+msgstr ""
+"Recuerde: Todos los listados de terreno serán excluidos una vez que se "
+"establezca cualquier valor, así como los listados comerciales que no tengan "
+"habitaciones."
 
 #: plone/mls/listing/browser/listing_collection.py:274
 msgid "Reminder: All land listings will be excluded once any value is set."
-msgstr "Recuerde: Todos los listados de terreno serán excluidos una vez que se establezca cualquier valor."
+msgstr ""
+"Recuerde: Todos los listados de terreno serán excluidos una vez que se "
+"establezca cualquier valor."
 
 #: plone/mls/listing/browser/listing_collection.py:137
 msgid "Reverse"
@@ -922,15 +966,20 @@ msgstr "Seleccione un valor..."
 msgid ""
 "Select the available listing types for this search. If nothing is selected, "
 "all available listing types will be shown."
-msgstr "Seleccione los tipos de propiedades disponibles para esta búsqueda. Si no hay nada seleccionado, se mostrarán todos los tipos de propiedades disponibles."
+msgstr ""
+"Seleccione los tipos de propiedades disponibles para esta búsqueda. Si no "
+"hay nada seleccionado, se mostrarán todos los tipos de propiedades "
+"disponibles."
 
 #: plone/mls/listing/portlets/agent_contact.py:489
 msgid "Show Accept Terms & Conditions field in email form?"
-msgstr "¿Mostrar campo Aceptar Términos y Condiciones en el formulario de e-mail?"
+msgstr ""
+"¿Mostrar campo Aceptar Términos y Condiciones en el formulario de e-mail?"
 
 #: plone/mls/listing/interfaces.py:171
 msgid "Show Availability Calendar only for my agency listings"
-msgstr "Mostrar disponibilidad de calendario sólo para los listados de mi agencia."
+msgstr ""
+"Mostrar disponibilidad de calendario sólo para los listados de mi agencia."
 
 #: plone/mls/listing/portlets/agent_contact.py:508
 msgid "Show Captcha field in email form?"
@@ -963,11 +1012,17 @@ msgid ""
 "Specify an agency ID (or a comma-separated list of multiple agency IDs) that"
 " will override the Base/Local MLS Settings. If left blank, the agency ID "
 "from the Base/Local MLS settings will be used."
-msgstr "Especifique un ID de agencia (o una lista separada por comas de varios ID de agencia). Esto sobreescribirá los ajustes del MLS local. Si se deja en blanco, se utilizará el ID de la agencia que se encuentre en la configuración del MLS local."
+msgstr ""
+"Especifique un ID de agencia (o una lista separada por comas de varios ID de"
+" agencia). Esto sobreescribirá los ajustes del MLS local. Si se deja en "
+"blanco, se utilizará el ID de la agencia que se encuentre en la "
+"configuración del MLS local."
 
 #: plone/mls/listing/browser/listing_search.py:609
 msgid "Start the search immediately, without showing the search form first?"
-msgstr "¿Comience la búsqueda inmediatamente, sin mostrar el formulario de búqueda primero?"
+msgstr ""
+"¿Comience la búsqueda inmediatamente, sin mostrar el formulario de búqueda "
+"primero?"
 
 #: plone/mls/listing/browser/listing_collection.py:224
 #: plone/mls/listing/browser/listing_search.py:152
@@ -984,45 +1039,63 @@ msgstr "Página de Términos y Condiciones."
 
 #: plone/mls/listing/portlets/agent_contact.py:512
 msgid "Thank you message that is shown after the mail was sent."
-msgstr "Mensaje de agradecimiento que se muestra después de que el correo ha sido enviado."
+msgstr ""
+"Mensaje de agradecimiento que se muestra después de que el correo ha sido "
+"enviado."
 
 #: plone/mls/listing/browser/listing_collection.py:445
 msgid ""
 "The 'Listing Collection' viewlet does't work with this content type. Add "
 "'IPossibleListingCollection' to the provided interfaces to enable this "
 "feature."
-msgstr "El viewlet de la Colección de Listados no trabaja con este tipo de contenido. Agregar 'IPossibleListingCollection' a las interfaces proporcionadas para permitir esta característica."
+msgstr ""
+"El viewlet de la Colección de Listados no trabaja con este tipo de "
+"contenido. Agregar 'IPossibleListingCollection' a las interfaces "
+"proporcionadas para permitir esta característica."
 
 #: plone/mls/listing/browser/listing_search.py:741
 msgid ""
 "The 'Listing Search' viewlet does't work with this content type. Add "
 "'IPossibleListingSearch' to the provided interfaces to enable this feature."
-msgstr "El viewlet de Busqueda de Listados no trabaja con este tipo de contenido. Agregar 'IPossibleListingSearch' a las interfaces proporcionadas para permitir esta característica."
+msgstr ""
+"El viewlet de Busqueda de Listados no trabaja con este tipo de contenido. "
+"Agregar 'IPossibleListingSearch' a las interfaces proporcionadas para "
+"permitir esta característica."
 
 #: plone/mls/listing/browser/recent_listings.py:275
 msgid ""
 "The 'Recent Listings' viewlet does't work with this content type. Add "
 "'IPossibleRecentListings' to the provided interfaces to enable this feature."
-msgstr "El viewlet de Listados Recientes no trabaja con este tipo de contenido. Agregar 'IPossibleRecentListings' a las interfaces proporcionadas para permitir esta característica."
+msgstr ""
+"El viewlet de Listados Recientes no trabaja con este tipo de contenido. "
+"Agregar 'IPossibleRecentListings' a las interfaces proporcionadas para "
+"permitir esta característica."
 
 #: plone/mls/listing/browser/localconfig.py:95
 msgid ""
 "The local agency information don't work with this content type. Add "
 "'IPossibleLocalAgencyInfo' to the provided interfaces to enable this "
 "feature."
-msgstr "La información que la agencia local no funciona con este tipo de contenido. Añadir 'IPossibleLocalAgencyInfo' a las interfaces proporcionadas para activar esta función."
+msgstr ""
+"La información que la agencia local no funciona con este tipo de contenido. "
+"Añadir 'IPossibleLocalAgencyInfo' a las interfaces proporcionadas para "
+"activar esta función."
 
 #: plone/mls/listing/browser/localconfig.py:25
 msgid ""
 "This agency information will be used for this content item and all possible "
 "child elements."
-msgstr "Esta información de agencia se utilizará para este elemento de contenido y todos los posibles elementos secundarios."
+msgstr ""
+"Esta información de agencia se utilizará para este elemento de contenido y "
+"todos los posibles elementos secundarios."
 
 #: plone/mls/listing/portlets/agent_contact.py:56
 msgid ""
 "This portlet shows a form to contact the corresponding agent for a given "
 "listing via email."
-msgstr "Este portlet muestra un formulario para contactar con el agente correspondiente en determinado listado a través de correo electrónico."
+msgstr ""
+"Este portlet muestra un formulario para contactar con el agente "
+"correspondiente en determinado listado a través de correo electrónico."
 
 #: plone/mls/listing/portlets/quick_search.py:35
 msgid "This portlet shows a listing quick search form."
@@ -1032,7 +1105,10 @@ msgstr "Este portlet muestra un formulario de búsqueda rápida."
 msgid ""
 "This portlet shows the corresponding agent information for a given listing. "
 "Note that this portlet is only available for the detail view of a listing."
-msgstr "Este portlet muestra la información del agente correspondiente a determinado listado. Note que este portlet esta disponible solamente para la vista detallada del listado."
+msgstr ""
+"Este portlet muestra la información del agente correspondiente a determinado"
+" listado. Note que este portlet esta disponible solamente para la vista "
+"detallada del listado."
 
 #: plone/mls/listing/content/listing.py:13
 msgid "Title"
@@ -1082,13 +1158,23 @@ msgstr ""
 #. {url}\n\n{form_data}\n\nMessage:\n{message}\n"
 #: plone/mls/listing/portlets/agent_contact.py:61
 msgid "agent_contact_email"
-msgstr "Solicitud de: {name} <{sender_from_address}>\nURL de Anuncio: {url}\n\n{form_data}\n\nMensaje:\n{message}"
+msgstr ""
+"Solicitud de: {name} <{sender_from_address}>\n"
+"URL de Anuncio: {url}\n"
+"\n"
+"{form_data}\n"
+"\n"
+"Mensaje:\n"
+"{message}"
 
 #. Default: "The responsible agent for this listing is {agent}
 #. ({profile}).\n\nPlease contact {agent} at {agent_email}"
 #: plone/mls/listing/portlets/agent_contact.py:72
 msgid "agent_contact_email_agent"
-msgstr "El agente responsable de este anuncio es {agent} ({profile}).\n\nPonte en contacto con {agent} at {agent_email}"
+msgstr ""
+"El agente responsable de este anuncio es {agent} ({profile}).\n"
+"\n"
+"Ponte en contacto con {agent} at {agent_email}"
 
 #. Default: "${number} properties available"
 #: plone/mls/listing/browser/templates/listing_collection_viewlet.pt:22

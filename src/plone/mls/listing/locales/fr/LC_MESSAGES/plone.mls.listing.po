@@ -1,21 +1,20 @@
 # --- PLEASE EDIT THE LINES BELOW CORRECTLY ---
 # SOME DESCRIPTIVE TITLE.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 # Translators:
-# Anna-Lya Masson <masson@monde-immo.fr>, 2015
-# claudia.aubin <inactive+claudia.aubin@transifex.com>, 2014
-# claudia.aubin <inactive+claudia.aubin@transifex.com>, 2014
-# Claudia Oberbeck <c.oberbeck@gmx.de>, 2013
-# Claudia Oberbeck <c.oberbeck@gmx.de>, 2013
-# Thomas Massmann <thomas.massmann@it-spir.it>, 2013
-# Thomas Massmann <thomas.massmann@it-spir.it>, 2013
-# Zach Cashero <zach@propertyshelf.com>, 2015,2019
+# Anna-Lya Masson <masson@monde-immo.fr>, 2020
+# Thomas Massmann <thomas.massmann@it-spir.it>, 2020
+# Claudia Oberbeck <c.oberbeck@gmx.de>, 2020
+# 8b976f076cecbff717a993efc390f52e_48990f1 <47d06e3253cc1348a8dc9fc522d742ae_136862>, 2020
+# Zach Cashero <zach@propertyshelf.com>, 2020
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: MLS Plone Components\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2020-03-03 18:12+0000\n"
-"PO-Revision-Date: 2020-03-03 18:34+0000\n"
-"Last-Translator: Zach Cashero <zach@propertyshelf.com>\n"
-"Language-Team: French (http://www.transifex.com/propertyshelf/MLS_Plone/language/fr/)\n"
+"PO-Revision-Date: 2020-05-25 22:06+0000\n"
+"Last-Translator: Zach Cashero <zach@propertyshelf.com>, 2020\n"
+"Language-Team: French (https://www.transifex.com/propertyshelf/teams/13797/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -89,28 +88,30 @@ msgstr "Liste de priorité des 'Types de Vue'"
 #: plone/mls/listing/profiles/plone4/types/plone.mls.listing.listing.xml
 #: plone/mls/listing/profiles/plone5/types/plone.mls.listing.listing.xml
 msgid "A single MLS Listing"
-msgstr ""
+msgstr "Un MLS  Listage unique"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Activate Listing Collection"
-msgstr ""
+msgstr "Activer Collection des Propriétés"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Activate Listing Search"
-msgstr ""
+msgstr "Activer Recherche des Propriétés"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Activate Recent Listings"
-msgstr ""
+msgstr "Activer Propriétés Récentes"
 
 #: plone/mls/listing/portlets/agent_contact.py:540
 msgid ""
 "Activate for Spam Protection. Any attempt to use a link inside this form "
 "will raise a validation error."
-msgstr "Activer pour la protection anti-spam. Toute tentative d'utilisation d'un lien à l'intérieur de ce formulaire générera une erreur de validation."
+msgstr ""
+"Activer pour la protection anti-spam. Toute tentative d'utilisation d'un "
+"lien à l'intérieur de ce formulaire générera une erreur de validation."
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
@@ -120,17 +121,17 @@ msgstr ""
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Activate the Listing Collection viewlet."
-msgstr ""
+msgstr "Activer le viewlet de la Collection des Propriétés."
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Activate the Listing Search viewlet."
-msgstr ""
+msgstr "Activer le viewlet de la Recherche des Propriétés."
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Activate the Recent Listings viewlet."
-msgstr ""
+msgstr "Activer les viewlets des Propriétés Récentes."
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
@@ -159,11 +160,13 @@ msgstr "Description supplémentaire pour la portlet."
 
 #: plone/mls/listing/browser/listing_collection.py:379
 msgid "Adjust the behaviour for this 'Listing Collection' viewlet."
-msgstr "Ajuster le comportement de cette viewlet de 'Collection de propriétés'."
+msgstr ""
+"Ajuster le comportement de cette viewlet de 'Collection de propriétés'."
 
 #: plone/mls/listing/browser/listing_search.py:674
 msgid "Adjust the behaviour for this 'Listing Search' viewlet."
-msgstr "Ajuster le comportement de cette viewlet de 'Recherche de Propriétés'."
+msgstr ""
+"Ajuster le comportement de cette viewlet de 'Recherche de Propriétés'."
 
 #: plone/mls/listing/browser/recent_listings.py:210
 msgid "Adjust the behaviour for this 'Recent Listings' viewlet."
@@ -175,7 +178,7 @@ msgstr "Adultes"
 
 #: plone/mls/listing/interfaces.py:249
 msgid "Agency"
-msgstr ""
+msgstr "Agence"
 
 #: plone/mls/listing/interfaces.py:293
 msgid "Agency Business Address"
@@ -231,7 +234,7 @@ msgstr "Site Internet de l'Agence"
 
 #: plone/mls/listing/interfaces.py:255
 msgid "Agent"
-msgstr ""
+msgstr "Agent"
 
 #: plone/mls/listing/interfaces.py:345
 msgid "Agent Avatar"
@@ -344,32 +347,32 @@ msgstr "Ville/Village"
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Configure Listing Collection"
-msgstr ""
+msgstr "Configurer Collection de la Propriété"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Configure Listing Search"
-msgstr ""
+msgstr "Configurer Recherche de la Propriété"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Configure Recent Listings"
-msgstr ""
+msgstr "Configurer Propriétés Récentes"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Configure the Listing Collection viewlet."
-msgstr ""
+msgstr "Configurer le viewlet de la Collection de la Propriété."
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Configure the Listing Search viewlet."
-msgstr ""
+msgstr "Configurer le viewlet de la Recherche de la Propriété."
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Configure the Recent Listings viewlet."
-msgstr ""
+msgstr "Configurer le viewlet des Propriétés Récents."
 
 #: plone/mls/listing/browser/templates/print_listing_details.pt:98
 msgid "Contact Information"
@@ -377,12 +380,12 @@ msgstr "Coordonnées"
 
 #: plone/mls/listing/portlets/agent_contact.py:141
 msgid "Country"
-msgstr ""
+msgstr "Pays"
 
 #: plone/mls/listing/browser/listing_collection.py:232
 #: plone/mls/listing/browser/listing_search.py:158
 msgid "County"
-msgstr "Conté"
+msgstr "Comté"
 
 #: plone/mls/listing/interfaces.py:192
 msgid "Crop After"
@@ -401,25 +404,31 @@ msgstr ""
 msgid ""
 "Custom title for the portlet (filter mode). If no title is provided, the "
 "default title is used."
-msgstr "Titre personnalisé pour la portlet (mode de filtration). Si aucun titre n'est fourni, le titre par défaut est utilisé."
+msgstr ""
+"Titre personnalisé pour la portlet (mode de filtration). Si aucun titre "
+"n'est fourni, le titre par défaut est utilisé."
 
 #: plone/mls/listing/portlets/quick_search.py:243
 msgid ""
 "Custom title for the portlet (search mode). If no title is provided, the "
 "default title is used."
-msgstr "Titre personnalisé pour la portlet (mode de recherche). Si aucun titre n'est fourni, le titre par défaut est utilisé."
+msgstr ""
+"Titre personnalisé pour la portlet (mode de recherche). Si aucun titre n'est"
+" fourni, le titre par défaut est utilisé."
 
 #: plone/mls/listing/portlets/agent_contact.py:458
 #: plone/mls/listing/portlets/agent_information.py:36
 msgid ""
 "Custom title for the portlet. If no title is provided, the default title is "
 "used."
-msgstr "Titre personnalisé pour la portlet. Si aucun titre n'est fourni, le titre par défaut est utilisé."
+msgstr ""
+"Titre personnalisé pour la portlet. Si aucun titre n'est fourni, le titre "
+"par défaut est utilisé."
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Deactivate Listing Collection"
-msgstr ""
+msgstr "Désactiver Collection de la Propriété"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
@@ -429,7 +438,7 @@ msgstr "Désactiver la recherche de propriétés"
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Deactivate Recent Listings"
-msgstr ""
+msgstr "Désactiver Propriétés Récentes"
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
@@ -439,17 +448,17 @@ msgstr ""
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Deactivate the Listing Collection viewlet."
-msgstr ""
+msgstr "Désactiver le viewlet de la Collection de la Propriété."
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Deactivate the Listing Search viewlet."
-msgstr ""
+msgstr "Désactiver le viewlet de la Recherche de la Propriété."
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
 msgid "Deactivate the Recent Listings viewlet."
-msgstr ""
+msgstr "Désactiver le viewlet des Propriétés Récentes."
 
 #: plone/mls/listing/profiles/plone4/actions.xml
 #: plone/mls/listing/profiles/plone5/actions.xml
@@ -471,11 +480,13 @@ msgstr "District"
 
 #: plone/mls/listing/portlets/agent_contact.py:530
 msgid "E-mail addresses which receive a blind carbon copy (comma separated)."
-msgstr "Les adresses e-mail qui reçoivent une copie conforme invisible (séparées par une virgule)."
+msgstr ""
+"Les adresses e-mail qui reçoivent une copie conforme invisible (séparées par"
+" une virgule)."
 
 #: plone/mls/listing/profiles/plone5/types/plone.mls.listing.listing.xml
 msgid "Edit"
-msgstr ""
+msgstr "Éditer"
 
 #: plone/mls/listing/portlets/agent_contact.py:685
 msgid "Edit Agent Contact portlet"
@@ -509,13 +520,17 @@ msgstr "Insérer le URL ou le logo qui devrait être utilisé."
 msgid ""
 "Enter the maximum price for listings. If no price is given, all listings to "
 "the highest price are shown."
-msgstr "Entrer le prix maximum pour la propriété. Si aucun prix n'est indiqué, toutes les propriétés avec le prix le plus élevé sont présentées."
+msgstr ""
+"Entrer le prix maximum pour la propriété. Si aucun prix n'est indiqué, "
+"toutes les propriétés avec le prix le plus élevé sont présentées."
 
 #: plone/mls/listing/browser/recent_listings.py:174
 msgid ""
 "Enter the minimum price for listings. If no price is given, all listings "
 "from the lowest price are shown."
-msgstr "Entrer le prix minimum pour la propriété. Si aucun prix n'est indiqué, toutes les propriétés avec le prix le plus bas sont présentées."
+msgstr ""
+"Entrer le prix minimum pour la propriété. Si aucun prix n'est indiqué, "
+"toutes les propriétés avec le prix le plus bas sont présentées."
 
 #: plone/mls/listing/portlets/quick_search.py:331
 msgid "Filter Results"
@@ -529,7 +544,9 @@ msgstr ""
 
 #: plone/mls/listing/portlets/quick_search.py:261
 msgid "Find the search page which will be used to show the results."
-msgstr "Trouver la page de la recherche qui sera utilisée pour afficher les résultats."
+msgstr ""
+"Trouver la page de la recherche qui sera utilisée pour afficher les "
+"résultats."
 
 #: plone/mls/listing/interfaces.py:278
 msgid "Force Overwrite"
@@ -539,7 +556,9 @@ msgstr "Modification Forcée"
 msgid ""
 "Force usage of custom contact information, even when showing items from this"
 " agency?"
-msgstr "Forcer l'utilisation des renseignements de l'agence personnalisés, même sur vos propres propriétés?"
+msgstr ""
+"Forcer l'utilisation des renseignements de l'agence personnalisés, même sur "
+"vos propres propriétés?"
 
 #: plone/mls/listing/browser/listing_collection.py:197
 msgid "Freetext Search"
@@ -570,7 +589,9 @@ msgstr ""
 
 #: plone/mls/listing/browser/listing_search.py:601
 msgid "Hide the search form when Quick Search Portlet is available?"
-msgstr "Cacher le formulaire de recherche lorsque la Portlet de Recherche Rapide est disponible?"
+msgstr ""
+"Cacher le formulaire de recherche lorsque la Portlet de Recherche Rapide est"
+" disponible?"
 
 #: plone/mls/listing/portlets/agent_contact.py:203
 msgid "I accept the Terms & Conditions"
@@ -650,7 +671,7 @@ msgstr "Jacuzzi"
 #: plone/mls/listing/profiles/plone4/types/plone.mls.listing.listing.xml
 #: plone/mls/listing/profiles/plone5/types/plone.mls.listing.listing.xml
 msgid "Listing"
-msgstr ""
+msgstr "Propriété"
 
 #: plone/mls/listing/browser/templates/listing_details.pt:113
 #: plone/mls/listing/browser/templates/p5_listing_details.pt:33
@@ -799,7 +820,9 @@ msgstr ""
 
 #: plone/mls/listing/portlets/agent_contact.py:151
 msgid "Please enter a phone number. Some agents will not respond without one."
-msgstr "S'il-vous-plaît saisissez un numéro de téléphone. Sinon certains agents ne vous répondrons pas."
+msgstr ""
+"S'il-vous-plaît saisissez un numéro de téléphone. Sinon certains agents ne "
+"vous répondrons pas."
 
 #: plone/mls/listing/portlets/agent_contact.py:145
 msgid "Please enter your ZIP code."
@@ -990,48 +1013,68 @@ msgid ""
 "The 'Listing Collection' viewlet does't work with this content type. Add "
 "'IPossibleListingCollection' to the provided interfaces to enable this "
 "feature."
-msgstr "La viewlet de la «Collection de la Propriété» ne fonctionne pas avec ce type de contenu. Ajouter 'IPossibleListingCollection' aux interfaces fournies pour activer cette fonction."
+msgstr ""
+"La viewlet de la «Collection de la Propriété» ne fonctionne pas avec ce type"
+" de contenu. Ajouter 'IPossibleListingCollection' aux interfaces fournies "
+"pour activer cette fonction."
 
 #: plone/mls/listing/browser/listing_search.py:741
 msgid ""
 "The 'Listing Search' viewlet does't work with this content type. Add "
 "'IPossibleListingSearch' to the provided interfaces to enable this feature."
-msgstr "La viewlet de la 'Recherche de Propriété' ne fonctionne pas avec ce type de contenu. Ajouter 'IPossibleListingSearch' aux interfaces fournies pour activer cette fonction."
+msgstr ""
+"La viewlet de la 'Recherche de Propriété' ne fonctionne pas avec ce type de "
+"contenu. Ajouter 'IPossibleListingSearch' aux interfaces fournies pour "
+"activer cette fonction."
 
 #: plone/mls/listing/browser/recent_listings.py:275
 msgid ""
 "The 'Recent Listings' viewlet does't work with this content type. Add "
 "'IPossibleRecentListings' to the provided interfaces to enable this feature."
-msgstr "La viewlet des «Propriétés Récentes» ne fonctionne pas avec ce type de contenu. Ajouter 'IPossibleRecentListings' aux interfaces fournies pour activer cette fonction."
+msgstr ""
+"La viewlet des «Propriétés Récentes» ne fonctionne pas avec ce type de "
+"contenu. Ajouter 'IPossibleRecentListings' aux interfaces fournies pour "
+"activer cette fonction."
 
 #: plone/mls/listing/browser/localconfig.py:95
 msgid ""
 "The local agency information don't work with this content type. Add "
 "'IPossibleLocalAgencyInfo' to the provided interfaces to enable this "
 "feature."
-msgstr "L'information de l'agence locale ne fonctionne pas avec ce type de contenu. Ajouter 'IPossibleLocalAgencyInfo' aux interfaces fournies pour activer cette fonction."
+msgstr ""
+"L'information de l'agence locale ne fonctionne pas avec ce type de contenu. "
+"Ajouter 'IPossibleLocalAgencyInfo' aux interfaces fournies pour activer "
+"cette fonction."
 
 #: plone/mls/listing/browser/localconfig.py:25
 msgid ""
 "This agency information will be used for this content item and all possible "
 "child elements."
-msgstr "Ces renseignements sur l'agence sera utilisé pour ce contenu et pour tous les sous éléments possibles."
+msgstr ""
+"Ces renseignements sur l'agence sera utilisé pour ce contenu et pour tous "
+"les sous éléments possibles."
 
 #: plone/mls/listing/portlets/agent_contact.py:56
 msgid ""
 "This portlet shows a form to contact the corresponding agent for a given "
 "listing via email."
-msgstr "Cette portlet affiche un formulaire afin de contacter l'agent correspondant à un listage envoyé par courriel."
+msgstr ""
+"Cette portlet affiche un formulaire afin de contacter l'agent correspondant "
+"à un listage envoyé par courriel."
 
 #: plone/mls/listing/portlets/quick_search.py:35
 msgid "This portlet shows a listing quick search form."
-msgstr "Cette portlet affiche un formulaire de recherche rapide de propriétés."
+msgstr ""
+"Cette portlet affiche un formulaire de recherche rapide de propriétés."
 
 #: plone/mls/listing/portlets/agent_information.py:25
 msgid ""
 "This portlet shows the corresponding agent information for a given listing. "
 "Note that this portlet is only available for the detail view of a listing."
-msgstr "Cette portlet affiche les informations de l'agent correspondant à un listage donné. Notez que cette portlet n'est disponible que pour la vue détaillée d'un listage."
+msgstr ""
+"Cette portlet affiche les informations de l'agent correspondant à un listage"
+" donné. Notez que cette portlet n'est disponible que pour la vue détaillée "
+"d'un listage."
 
 #: plone/mls/listing/content/listing.py:13
 msgid "Title"
@@ -1041,11 +1084,13 @@ msgstr "Titre"
 msgid ""
 "Update contact information when showing third party items from other "
 "agencies?"
-msgstr "Mettre à jour les informations d'agent affichant la propriété à quelqu'un d'autre?"
+msgstr ""
+"Mettre à jour les informations d'agent affichant la propriété à quelqu'un "
+"d'autre?"
 
 #: plone/mls/listing/profiles/plone5/types/plone.mls.listing.listing.xml
 msgid "View"
-msgstr ""
+msgstr "Visualiser"
 
 #: plone/mls/listing/browser/listing_collection.py:331
 #: plone/mls/listing/browser/listing_search.py:204
