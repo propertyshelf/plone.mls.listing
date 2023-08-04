@@ -10,6 +10,7 @@ from plone.app.portlets.portlets import base
 from plone.directives import form
 from plone.formwidget.captcha.validator import CaptchaValidator
 from plone.formwidget.captcha.widget import CaptchaFieldWidget
+from plone.mls.core import api as mls_api
 from plone.mls.listing import PLONE_4
 from plone.mls.listing import PLONE_5
 from plone.mls.listing import PRODUCT_NAME
@@ -412,7 +413,7 @@ class EmailForm(form.Form):
             bcc = self.data.bcc
             recipients += [formataddr(addr) for addr in getaddresses((bcc, ))]
 
-        sender = formataddr((data['name'], data['sender_from_address']))
+        sender = self.get_sender(portal, portal_address)
 
         overridden = self.listing_info.get('overridden', False)
         if overridden is True or custom_recipient is not None:
@@ -444,6 +445,27 @@ class EmailForm(form.Form):
             subject=subject,
             body=email_msg,
         )
+
+    def get_sender(self, portal, portal_address):
+        """
+        Construct the sender email address based on the configuration for this site.
+        First check the Propertyshelf MLS Embedding settings to see if an override
+        has been defined. If not, try constructing one using the same domain as the
+        SMTP Username. If not defined, use the From address defined in the Email settings.
+        """
+        mls_settings = mls_api.get_settings(self.context)
+        sender_address = mls_settings.get('override_from_email', None)
+        if not sender_address and portal_address:
+            from_domain = portal_address.split('@')[-1]
+            sender_address = 'leads@{0}'.format(from_domain)
+
+        try:
+            from_name = api.portal.get_registry_record('plone.email_from_name')
+        except api.exc.InvalidParameterError:
+            # Before Plone 5.0b2 these were stored in portal_properties
+            from_name = portal.getProperty('email_from_name', '')
+
+        return formataddr((from_name, sender_address))
 
 
 # Register Captcha validator for the captcha field in the ICaptchaForm
