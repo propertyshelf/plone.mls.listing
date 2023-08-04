@@ -4,7 +4,7 @@ Changelog
 1.21 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Update the sender address so that listing inquiries originate from the portal address.
 
 
 1.20 (2020-03-09)
