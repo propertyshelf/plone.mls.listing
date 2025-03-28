@@ -1,10 +1,24 @@
 Changelog
 =========
 
-1.20 (unreleased)
+1.22 (unreleased)
 -----------------
 
 - Nothing changed yet.
+
+
+1.21 (2023-08-04)
+-----------------
+
+- Update the sender address so that listing inquiries originate from the portal address.
+
+
+1.20 (2020-03-09)
+-----------------
+
+- Change position of listing description in Plone 5.
+- Add option for grid layout to listing collections, searches, and recent listings.
+- Add number of results for listing collections.
 
 
 1.19 (2019-05-20)

@@ -108,6 +108,7 @@ class AvailableListingSearches(object):
             items.append(SimpleTerm(brain.UID, brain.UID, title))
         return SimpleVocabulary(items)
 
+
 AvailableListingSearchesFactory = AvailableListingSearches()
 
 
@@ -153,6 +154,7 @@ class BasePriorityVocabulary(object):
 
     def _sort(self, data, priority):
         """Sort list of tuple by keys in priority list or value otherwise."""
+
         def get_key(item):
             if item[0] in priority:
                 return '__{0:03d}'.format(priority.index(item[0]))
@@ -227,6 +229,7 @@ class GeographicTypesVocabulary(BasePriorityVocabulary):
     vocabulary_name = 'geographic_types'
     priority = 'geographic_types_priority'
 
+
 GeographicTypesVocabularyFactory = GeographicTypesVocabulary()
 
 
@@ -235,6 +238,7 @@ class ListingTypesVocabulary(BasePriorityVocabulary):
 
     vocabulary_name = 'listing_types'
     priority = 'listing_types_priority'
+
 
 ListingTypesVocabularyFactory = ListingTypesVocabulary()
 
@@ -245,6 +249,7 @@ class ListingTypesSearchVocabulary(ListingTypesVocabulary):
     local_settings_key = listing_search.CONFIGURATION_KEY
     filter_key = 'listing_type'
 
+
 ListingTypesSearchVocabularyFactory = ListingTypesSearchVocabulary()
 
 
@@ -252,6 +257,7 @@ class LocationCountyVocabulary(BasePriorityVocabulary):
     """Priority sortable vocabulary factory for 'location_county'."""
 
     vocabulary_name = 'location_county'
+
 
 LocationCountyVocabularyFactory = LocationCountyVocabulary()
 
@@ -261,6 +267,7 @@ class LocationDistrictVocabulary(BasePriorityVocabulary):
 
     vocabulary_name = 'location_district'
 
+
 LocationDistrictVocabularyFactory = LocationDistrictVocabulary()
 
 
@@ -268,6 +275,7 @@ class LocationStateVocabulary(BasePriorityVocabulary):
     """Priority sortable vocabulary factory for 'location_state'."""
 
     vocabulary_name = 'location_state'
+
 
 LocationStateVocabularyFactory = LocationStateVocabulary()
 
@@ -278,6 +286,7 @@ class LocationTypesVocabulary(BasePriorityVocabulary):
     vocabulary_name = 'location_types'
     priority = 'location_types_priority'
 
+
 LocationTypesVocabularyFactory = LocationTypesVocabulary()
 
 
@@ -287,6 +296,7 @@ class ObjectTypesVocabulary(BasePriorityVocabulary):
     vocabulary_name = 'object_types'
     priority = 'object_types_priority'
 
+
 ObjectTypesVocabularyFactory = ObjectTypesVocabulary()
 
 
@@ -295,6 +305,7 @@ class OwnershipTypesVocabulary(BasePriorityVocabulary):
 
     vocabulary_name = 'ownership_types'
     priority = 'ownership_types_priority'
+
 
 OwnershipTypesVocabularyFactory = OwnershipTypesVocabulary()
 
@@ -308,6 +319,7 @@ class RoomsVocabulary(object):
             items.append(SimpleTerm(item[0], item[0], item[1]))
         return SimpleVocabulary(items)
 
+
 RoomsVocabularyFactory = RoomsVocabulary()
 
 
@@ -316,6 +328,7 @@ class ViewTypesVocabulary(BasePriorityVocabulary):
 
     vocabulary_name = 'view_types'
     priority = 'view_types_priority'
+
 
 ViewTypesVocabularyFactory = ViewTypesVocabulary()
 
@@ -330,6 +343,7 @@ class YesNoAllVocabulary(object):
         items.append(SimpleTerm('--NOVALUE--', '--NOVALUE--', _(u'All')))
         return SimpleVocabulary(items)
 
+
 YesNoAllVocabularyFactory = YesNoAllVocabulary()
 
 
@@ -341,6 +355,7 @@ class LotSizeVocabulary(object):
         for item in LOT_SIZE_VALUES:
             items.append(SimpleTerm(item[0], item[0], item[1]))
         return SimpleVocabulary(items)
+
 
 LotSizeVocabularyFactory = LotSizeVocabulary()
 
@@ -354,6 +369,7 @@ class InteriorAreaVocabulary(object):
             items.append(SimpleTerm(item[0], item[0], item[1]))
         return SimpleVocabulary(items)
 
+
 InteriorAreaVocabularyFactory = InteriorAreaVocabulary()
 
 
@@ -366,6 +382,7 @@ class SortIndicesVocabulary(object):
             items.append(SimpleTerm(item[0], item[0], item[1]))
         return SimpleVocabulary(items)
 
+
 SortIndicesVocabularyFactory = SortIndicesVocabulary()
 
 
@@ -377,5 +394,6 @@ class WorkflowStatesVocabulary(object):
         for item in WORKFLOW_STATE_VALUES:
             items.append(SimpleTerm(item[0], item[0], item[1]))
         return SimpleVocabulary(items)
+
 
 WorkflowStatesVocabularyFactory = WorkflowStatesVocabulary()
