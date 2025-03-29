@@ -531,7 +531,8 @@ class ListingDetails(BrowserView):
                     key for key in keys if isinstance(key, basestring) and
                     key.strip() != ''
                 ]
-                return random.choice(keys) or ''
+                if keys:
+                    return random.choice(keys)
         return ''
 
     @property
