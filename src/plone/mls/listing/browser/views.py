@@ -512,7 +512,7 @@ class ListingDetails(BrowserView):
             except Exception:
                 logger.warning('MLS UI settings not available.')
             else:
-                provider = getattr(settings, 'map_provider', u'') or u''
+                provider = getattr(settings, 'map_provider', u'') or u'google'
         return provider
 
     @property
