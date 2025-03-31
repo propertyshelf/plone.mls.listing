@@ -308,11 +308,6 @@ article, aside, figure, figcaption, footer, header, hgroup, nav, section {
     width: 100%;
 }
 
-.listing-map-mapbox > div.map-mapbox {
-    height: 340px;
-    width: 100%;
-}
-
 .portletQuickSearch .field input[type="text"] {
   width: 100%;
 }

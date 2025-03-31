@@ -225,14 +225,14 @@
                    tal:condition="js">
             <tal:google tal:condition="python: provider=='google'">
               <section class="listing-map listing-map-google">
-                <div class="" id="map" tal:attributes="id view/map_id"></div>
+                <div class="map__canvas" id="map" tal:attributes="id view/map_id"></div>
                 <script type="text/javascript" tal:content="structure js"></script>
                 <noscript i18n:translate="">Please enable JavaScript to show the Map.</noscript>
               </section>
             </tal:google>
             <tal:mapbox tal:condition="python: provider=='mapbox'">
               <section class="listing-map listing-map-mapbox">
-                <div class="map-mapbox" id="map" tal:attributes="id view/map_id"></div>
+                <div class="map__canvas" id="map" tal:attributes="id view/map_id"></div>
                 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
                 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
      crossorigin=""></script>
