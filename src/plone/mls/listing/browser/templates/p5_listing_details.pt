@@ -260,8 +260,7 @@
       </div>
       <script type="text/javascript">
         jQuery(function($) {
-          if($('.listing-map').length > 0) {
-            $('.listing-map > div').addClass('map__canvas');
+          if($('.listing-map-google').length > 0) {
             loadGoogleMaps(initializeMap);
           }
         });
