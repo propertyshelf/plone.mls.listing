@@ -57,7 +57,7 @@ function loadGoogleMaps(callback) {{
   if (typeof google === 'object' && typeof google.maps === 'object') {{
     callback();
   }} else {{
-    loadScript('https://maps.googleapis.com/maps/api/js?key={ak}', callback);
+    loadScript('https://maps.googleapis.com/maps/api/js?key={api_key}', callback);
   }}
 }}
 
@@ -482,25 +482,24 @@ class ListingDetails(BrowserView):
         except ValueError:
             return
 
+        js = None
         provider = self.map_provider
         if provider == u'google':
-            js = GOOGLE_MAP_JS.format(
-                lat=unicode(lat),
-                lng=unicode(lng),
-                map_id=self.map_id,
-                zoom=self.zoomlevel,
-                ak=self.googleapi,
-            )
+            api_key = self.googleapi
+            js = GOOGLE_MAP_JS
         elif provider == u'mapbox':
-            js = MAPBOX_JS.format(
-                lat=unicode(lat),
-                lng=unicode(lng),
-                map_id=self.map_id,
-                zoom=self.zoomlevel,
-                api_key=self.mapbox_api,
-            )
+            api_key = self.mapbox_api
+            js = MAPBOX_JS
 
-        return js
+        if not api_key:
+            return None
+        return js.format(
+            lat=unicode(lat),
+            lng=unicode(lng),
+            map_id=self.map_id,
+            zoom=self.zoomlevel,
+            api_key=api_key,
+        )
 
     @property
     def map_provider(self):
