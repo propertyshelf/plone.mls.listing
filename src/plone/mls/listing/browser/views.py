@@ -108,6 +108,7 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{{id}}/tiles/{{z}}/{{x}}/{{y}}@2x?
 }}).addTo(map);
 
 var marker = L.marker([{lat}, {lng}]).addTo(map);
+marker._icon.style.filter = "hue-rotate(153deg)";
 """
 
 
@@ -125,6 +126,7 @@ L.tileLayer('https://api.maptiler.com/maps/streets-v2/{{z}}/{{x}}/{{y}}@2x.png?k
 }}).addTo(map);
 
 var marker = L.marker([{lat}, {lng}]).addTo(map);
+marker._icon.style.filter = "hue-rotate(153deg)";
 """
 
 
