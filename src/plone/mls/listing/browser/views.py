@@ -111,6 +111,23 @@ var marker = L.marker([{lat}, {lng}]).addTo(map);
 """
 
 
+MAPTILER_JS = """
+// initialize the map
+var map = L.map('{map_id}', {{scrollWheelZoom: false}}).setView([{lat}, {lng}], {zoom});
+
+// load a tile layer
+L.tileLayer('https://api.maptiler.com/maps/streets-v2/{{z}}/{{x}}/{{y}}@2x.png?key={api_key}',{{ //style URL
+    tileSize: 512,
+    zoomOffset: -1,
+    minZoom: 1,
+    attribution: '\u003ca href="https://www.maptiler.com/copyright/" target="_blank"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href="https://www.openstreetmap.org/copyright" target="_blank"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e',
+    crossOrigin: true
+}}).addTo(map);
+
+var marker = L.marker([{lat}, {lng}]).addTo(map);
+"""
+
+
 @implementer(IListingDetails)
 class ListingDetails(BrowserView):
 
@@ -490,6 +507,9 @@ class ListingDetails(BrowserView):
         elif provider == u'mapbox':
             api_key = self.mapbox_api
             js = MAPBOX_JS
+        elif provider == u'maptiler':
+            api_key = self.maptiler_api
+            js = MAPTILER_JS
 
         if not api_key:
             return None
@@ -542,6 +562,17 @@ class ListingDetails(BrowserView):
                 logger.warning('MLS UI settings not available.')
             else:
                 return getattr(settings, 'mapbox_api', u'') or u''
+        return u''
+
+    @property
+    def maptiler_api(self):
+        if self.registry is not None:
+            try:
+                settings = self.registry.forInterface(IMLSUISettings)  # noqa
+            except Exception:
+                logger.warning('MLS UI settings not available.')
+            else:
+                return getattr(settings, 'maptiler_api', u'') or u''
         return u''
 
     def live_chat_embedding(self):

@@ -201,7 +201,7 @@ class IMLSUISettings(Interface):
             u'will need to enter the API key for the selected provider in '
             u'order for the maps to load properly.',
         ),
-        values=[u'google', u'mapbox'],
+        values=[u'google', u'mapbox', u'maptiler'],
     )
 
     googleapi = schema.TextLine(
@@ -229,6 +229,14 @@ class IMLSUISettings(Interface):
         ),
         required=False,
         title=_(u'MapBox API Key'),
+    )
+
+    maptiler_api = schema.TextLine(
+        description=_(
+            u'Provide the MapTiler API key if you want to use MapTiler.',
+        ),
+        required=False,
+        title=_(u'MapTiler API Key'),
     )
 
 
