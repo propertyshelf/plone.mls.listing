@@ -96,7 +96,7 @@ function initializeMap() {{
 
 MAPBOX_JS = """
 // initialize the map
-var map = L.map('{map_id}').setView([{lat}, {lng}], {zoom});
+var map = L.map('{map_id}', {{scrollWheelZoom: false}}).setView([{lat}, {lng}], {zoom});
 
 // load a tile layer
 L.tileLayer('https://api.mapbox.com/styles/v1/{{id}}/tiles/{{z}}/{{x}}/{{y}}@2x?access_token={api_key}', {{
@@ -104,7 +104,6 @@ L.tileLayer('https://api.mapbox.com/styles/v1/{{id}}/tiles/{{z}}/{{x}}/{{y}}@2x?
     maxZoom: 18,
     tileSize: 512,
     zoomOffset: -1,
-    scrollWheelZoom: false,
     id: 'mapbox/streets-v11'
 }}).addTo(map);
 
