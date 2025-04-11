@@ -405,3 +405,12 @@ def migrate_to_1017(context):
     """
     registry = getUtility(IRegistry)
     registry.registerInterface(IMLSUISettings)
+
+
+def migrate_to_1018(context):
+    """"Migrate from 1017 to 1018.
+
+    * Update plone.mls.listing settings for new settings related to mapping providers.
+    """
+    registry = getUtility(IRegistry)
+    registry.registerInterface(IMLSUISettings)

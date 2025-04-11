@@ -204,6 +204,16 @@
       profile="plone.mls.listing:default"
       />
 
+  <genericsetup:upgradeStep
+      title="Upgrade plone.mls.listing"
+      description="Update plone.mls.listing mapping configurations."
+      source="1017"
+      destination="1018"
+      handler=".migration.migrate_to_1018"
+      sortkey="1"
+      profile="plone.mls.listing:default"
+      />
+
 
   <!-- GenericSetup utilities. -->
   <!-- ======================= -->
