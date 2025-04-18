@@ -114,48 +114,48 @@ class IEmailForm(Interface):
 
     subject = schema.TextLine(
         required=False,
-        title=PMF(u'label_subject', default=u'Subject'),
+        title=_(u'label_subject', default=u'Subject'),
     )
 
     name = schema.TextLine(
-        description=PMF(
+        description=_(
             u'help_sender_fullname',
-            default=u'Please enter your full name',
+            default=u'Please enter your full name so the agent knows who to contact.',
         ),
         required=True,
-        title=PMF(u'label_name', default=u'Name'),
+        title=_(u'label_name', default=u'Name'),
     )
 
     sender_from_address = schema.TextLine(
         constraint=validate_email,
-        description=PMF(
+        description=_(
             u'help_sender_from_address',
-            default=u'Please enter your e-mail address',
+            default=u'We’ll use this email to connect you with the representative.',
         ),
         required=True,
-        title=PMF(u'label_sender_from_address', default=u'E-Mail'),
+        title=_(u'label_sender_from_address', default=u'Email'),
     )
 
     country = schema.TextLine(
-        description=_(u'Please enter your country of residence.'),
+        description=_(u'help_country', default=u'Please enter your country of residence.'),
         required=True,
-        title=_(u'Country'),
+        title=_(u'label_country', default=u'Country'),
     )
 
     zipcode = schema.TextLine(
-        description=_(u'Please enter your ZIP code.'),
+        description=_(u'help_zipcode', default=u'Please enter your ZIP code.'),
         required=False,
-        title=_(u'ZIP'),
+        title=_(u'label_zipcode', default=u'ZIP Code'),
     )
 
     phone = schema.TextLine(
         description=_(
-            u'Please enter a phone number. Some agents will not respond '
-            u'without one.',
+            u'help_phone',
+            default=u"If you'd like to be contacted by phone, please include your number and country code.",
         ),
         missing_value=u'-',
         required=False,
-        title=_(u'Phone Number'),
+        title=_(u'label_phone', default=u'Phone Number'),
     )
 
     arrival_date = schema.TextLine(
@@ -184,13 +184,13 @@ class IEmailForm(Interface):
 
     message = schema.Text(
         constraint=contains_nuts,
-        description=PMF(
+        description=_(
             u'help_message',
-            default=u'Please enter the message you want to send.',
+            default=u'Have any questions about this property or want to schedule a visit? Let us know how we can assist you.',
         ),
         max_length=1000,
         required=True,
-        title=PMF(u'label_message', default=u'Message'),
+        title=_(u'label_message', default=u'Message'),
     )
 
     captcha = schema.TextLine(
@@ -323,7 +323,7 @@ class EmailForm(form.Form):
         if 'zipcode' in data:
             items.append(
                 tpl.format(
-                    translate(_(u'ZIP'), context=self.request),
+                    translate(_(u'ZIP Code'), context=self.request),
                     data['zipcode'],
                 ),
             )
