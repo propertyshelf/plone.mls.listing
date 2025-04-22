@@ -1200,38 +1200,37 @@ msgstr "${number} propiedades disponibles"
 #. Default: "Please enter your country of residence."
 #: plone/mls/listing/portlets/agent_contact.py:140
 msgid "help_country"
-msgstr "Por favor, ingresa tu país de residencia."
+msgstr "Por favor, ingrese su país de residencia."
 
 #. Default: "Have any questions about this property or want to schedule a
 #. visit? Let us know how we can assist you."
 #: plone/mls/listing/portlets/agent_contact.py:187
 msgid "help_message"
 msgstr ""
-"¿Tienes preguntas sobre esta propiedad o quieres agendar una visita? "
-"Cuéntanos cómo podemos ayudarte."
+"¿Tiene preguntas sobre esta propiedad o desea agendar una visita? Indíquenos"
+" cómo podemos ayudarle."
 
 #. Default: "If you'd like to be contacted by phone, please include your
 #. number and country code."
 #: plone/mls/listing/portlets/agent_contact.py:152
 msgid "help_phone"
 msgstr ""
-"Si deseas ser contactado por teléfono, incluye tu número y el código de "
-"país."
+"Si desea ser contactado por teléfono, incluya su número y el código de país."
 
 #. Default: "We’ll use this email to connect you with the representative."
 #: plone/mls/listing/portlets/agent_contact.py:131
 msgid "help_sender_from_address"
-msgstr "Ingresa una dirección de correo válida."
+msgstr "Ingrese una dirección de correo electrónico válida."
 
 #. Default: "Please enter your full name so the agent knows who to contact."
 #: plone/mls/listing/portlets/agent_contact.py:121
 msgid "help_sender_fullname"
-msgstr "Por favor, ingresa tu nombre completo."
+msgstr "Ingrese su nombre completo."
 
 #. Default: "Please enter your ZIP code."
 #: plone/mls/listing/portlets/agent_contact.py:146
 msgid "help_zipcode"
-msgstr "Por favor, ingresa tu código postal."
+msgstr "Por favor, ingrese su código postal."
 
 #. Default: "Country"
 #: plone/mls/listing/portlets/agent_contact.py:142
