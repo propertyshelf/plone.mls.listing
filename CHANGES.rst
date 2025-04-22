@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.22 (unreleased)
+1.22 (2025-04-22)
 -----------------
 
 - Add the ability to switch between different mapping providers (Google Map, Mapbox, and Maptiler).
