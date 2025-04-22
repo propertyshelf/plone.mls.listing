@@ -175,7 +175,7 @@ msgstr "Ajustar el comportamiento para este viewlet 'Colección de Listados'."
 
 #: plone/mls/listing/portlets/agent_contact.py:176
 msgid "Adults"
-msgstr "Numero de Adultos"
+msgstr "Número de Adultos"
 
 #: plone/mls/listing/interfaces.py:277
 msgid "Agency"
@@ -338,7 +338,7 @@ msgstr "Verificación"
 
 #: plone/mls/listing/portlets/agent_contact.py:182
 msgid "Children"
-msgstr "Numero de Niños"
+msgstr "Número de Niños"
 
 #: plone/mls/listing/browser/listing_collection.py:248
 #: plone/mls/listing/browser/listing_search.py:170
