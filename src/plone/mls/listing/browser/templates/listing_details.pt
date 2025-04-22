@@ -170,22 +170,26 @@
             </tal:galleria>
           </div>
 
-          <div class="visualClear">
-            <div class="documentDescription" tal:define="description view/description | nothing" tal:condition="description">
-              <tal:descriptionline tal:repeat="line python:description.splitlines()">
-                <p tal:content="line">[Description Line]</p>
-              </tal:descriptionline>
-            </div>
-            <p><a i18n:translate="" id="agentquote" href="#">See More Details</a></p>
-          </div>
-
-          <div class="visualClear" id="sec-agent-quote" tal:define="quote view/agent_quote | nothing" tal:condition="quote">
-            <div id="sec-listing-long-description" tal:define="long_description view/long_description | nothing" tal:condition="long_description">
-              <h3 i18n:translate="">Long Description</h3>
-              <div>
-                <tal:descriptionline tal:repeat="line python:long_description.splitlines()">
-                  <p tal:content="line">[Long Description Line]</p>
+          <div tal:define="description view/description | nothing;
+                           quote view/agent_quote | nothing;
+                           long_description view/long_description | nothing">
+            <div class="visualClear">
+              <div class="documentDescription" tal:condition="description">
+                <tal:descriptionline tal:repeat="line python:description.splitlines()">
+                  <p tal:content="line">[Description Line]</p>
                 </tal:descriptionline>
+              </div>
+              <p><a i18n:translate="" id="agentquote" href="#" tal:condition="long_description">See More Details</a></p>
+            </div>
+
+            <div class="visualClear" id="sec-agent-quote" tal:condition="quote">
+              <div id="sec-listing-long-description" tal:condition="long_description">
+                <h3 i18n:translate="">Long Description</h3>
+                <div>
+                  <tal:descriptionline tal:repeat="line python:long_description.splitlines()">
+                    <p tal:content="line">[Long Description Line]</p>
+                  </tal:descriptionline>
+                </div>
               </div>
             </div>
           </div>
