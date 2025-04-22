@@ -4,7 +4,9 @@ Changelog
 1.22 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Add the ability to switch between different mapping providers (Google Map, Mapbox, and Maptiler).
+- Fix some problematic translations
+- Fix the "See More Details" link to only show when there is a long description available.
 
 
 1.21 (2023-08-04)
