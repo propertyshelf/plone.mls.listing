@@ -243,6 +243,23 @@ def listing_details(listing_id, lang=None, context=None):
     api_key = settings.get('mls_key', None)
     debug = api.env.debug_mode
     config = get_all_listing_configs(context=context, merged=True)
+
+    # if check_valid_listing is set, we need to ensure the listing exists
+    if settings.get('check_valid_listing', False):
+        params_search = {}
+        params_search['listing_ids'] = [listing_id]
+        params_search.update(config)
+        params_search = prepare_search_params(params_search)
+        results = search(
+            params=params_search,
+            batching=False,
+            context=context,
+            config=config,
+        )
+        if not results or len(results) == 0:
+            return None
+
+    # if we have a valid listing, we can continue
     params = {}
     if config.get('show_unverified', False):
         params['apiowner'] = settings.get('agency_id')
