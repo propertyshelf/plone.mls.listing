@@ -4,9 +4,9 @@
 from plone import api
 from plone.browserlayer import utils as layerutils
 from plone.mls.listing import PRODUCT_NAME
+from plone.mls.listing.browser.interfaces import IListingCollection
 from plone.mls.listing.browser.interfaces import IListingSpecific
 from plone.mls.listing.browser.listing_collection import CONFIGURATION_KEY
-from plone.mls.listing.browser.listing_collection import IListingCollection
 from plone.mls.listing.interfaces import IMLSAgencyContactInformation
 from plone.mls.listing.interfaces import IMLSUISettings
 from plone.registry.interfaces import IRegistry

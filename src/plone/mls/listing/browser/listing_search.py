@@ -13,8 +13,9 @@ from plone.mls.listing import PLONE_4
 from plone.mls.listing import PLONE_5
 from plone.mls.listing.api import prepare_search_params
 from plone.mls.listing.api import search
-from plone.mls.listing.browser.interfaces import IBaseListingItems
 from plone.mls.listing.browser.interfaces import IListingDetails
+from plone.mls.listing.browser.interfaces import IListingSearch
+from plone.mls.listing.browser.interfaces import IPossibleListingSearch
 from plone.mls.listing.browser.valuerange.widget import ValueRangeFieldWidget
 from plone.mls.listing.i18n import _
 from plone.portlets.interfaces import IPortletManager
@@ -32,7 +33,6 @@ from zope.annotation.interfaces import IAnnotations
 from zope.component import getUtility
 from zope.component import queryMultiAdapter
 from zope.interface import alsoProvides
-from zope.interface import Interface
 from zope.interface import noLongerProvides
 from zope.traversing.browser.absoluteurl import absoluteURL
 
@@ -102,14 +102,6 @@ def encode_dict(in_dict):
             v.decode('utf8')
         out_dict[k] = v
     return out_dict
-
-
-class IPossibleListingSearch(Interface):
-    """Marker interface for possible ListingSearch viewlet."""
-
-
-class IListingSearch(IBaseListingItems):
-    """Marker interface for ListingSearch viewlet."""
 
 
 class IListingSearchForm(model.Schema):

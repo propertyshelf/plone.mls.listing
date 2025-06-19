@@ -12,7 +12,10 @@ from plone.mls.listing.api import listing_details
 from plone.mls.listing.browser import listing_collection
 from plone.mls.listing.browser import listing_search
 from plone.mls.listing.browser import recent_listings
+from plone.mls.listing.browser.interfaces import IListingCollection
 from plone.mls.listing.browser.interfaces import IListingDetails
+from plone.mls.listing.browser.interfaces import IListingSearch
+from plone.mls.listing.browser.interfaces import IRecentListings
 from plone.mls.listing.interfaces import IMLSUISettings
 from plone.registry.interfaces import IRegistry
 from Products.Five import BrowserView
@@ -453,28 +456,19 @@ class ListingDetails(BrowserView):
         zoomlevel = 7
         # check RecentListings settings
         rl = self.config.get(recent_listings.CONFIGURATION_KEY, None)
-        if (
-            rl is not None and
-            recent_listings.IRecentListings.providedBy(self.context)
-        ):
+        if rl is not None and IRecentListings.providedBy(self.context):
             z = rl.get('zoomlevel', None)
             if z is not None:
                 zoomlevel = z
         # check ListingCollection settings
         lc = self.config.get(listing_collection.CONFIGURATION_KEY, None)
-        if (
-            lc is not None and
-            listing_collection.IListingCollection.providedBy(self.context)
-        ):
+        if lc is not None and IListingCollection.providedBy(self.context):
             z = lc.get('zoomlevel', None)
             if z is not None:
                 zoomlevel = z
         # check ListingSearch settings
         ls = self.config.get(listing_search.CONFIGURATION_KEY, None)
-        if (
-            ls is not None and
-            listing_search.IListingSearch.providedBy(self.context)
-        ):
+        if ls is not None and IListingSearch.providedBy(self.context):
             z = ls.get('zoomlevel', None)
             if z is not None:
                 zoomlevel = z

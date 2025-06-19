@@ -64,7 +64,7 @@
   <!-- =================== -->
   <browser:viewlet
       class=".listing_collection.ListingCollectionViewlet"
-      for=".listing_collection.IListingCollection"
+      for=".interfaces.IListingCollection"
       layer=".interfaces.IListingSpecific"
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
       name="plone.mls.listing.listing_collection"
@@ -74,7 +74,7 @@
   <browser:viewlet
       class=".views.ListingCanonicalURL"
       name="plone.links.canonical_url"
-      for=".listing_collection.IListingCollection"
+      for=".interfaces.IListingCollection"
       layer=".interfaces.IListingSpecific"
       manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
       permission="zope2.View"
@@ -82,7 +82,7 @@
 
   <browser:page
       class=".listing_collection.ListingCollectionConfiguration"
-      for=".listing_collection.IListingCollection"
+      for=".interfaces.IListingCollection"
       layer=".interfaces.IListingSpecific"
       name="listing-collection-config"
       permission="cmf.ModifyPortalContent"
@@ -109,7 +109,7 @@
   <!-- =============== -->
   <browser:viewlet
       class=".listing_search.ListingSearchViewlet"
-      for=".listing_search.IListingSearch"
+      for=".interfaces.IListingSearch"
       layer=".interfaces.IListingSpecific"
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
       name="plone.mls.listing.listing_search"
@@ -119,7 +119,7 @@
   <browser:viewlet
       class=".views.ListingCanonicalURL"
       name="plone.links.canonical_url"
-      for=".listing_search.IListingSearch"
+      for=".interfaces.IListingSearch"
       layer=".interfaces.IListingSpecific"
       manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
       permission="zope2.View"
@@ -127,7 +127,7 @@
 
   <browser:page
       class=".listing_search.ListingSearchConfiguration"
-      for=".listing_search.IListingSearch"
+      for=".interfaces.IListingSearch"
       layer=".interfaces.IListingSpecific"
       name="listing-search-config"
       permission="cmf.ModifyPortalContent"
@@ -154,7 +154,7 @@
   <!-- ================ -->
   <browser:viewlet
       class=".recent_listings.RecentListingsViewlet"
-      for=".recent_listings.IRecentListings"
+      for=".interfaces.IRecentListings"
       layer=".interfaces.IListingSpecific"
       manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
       name="plone.mls.listing.recent_listings"
@@ -164,7 +164,7 @@
   <browser:viewlet
       class=".views.ListingCanonicalURL"
       name="plone.links.canonical_url"
-      for=".recent_listings.IRecentListings"
+      for=".interfaces.IRecentListings"
       layer=".interfaces.IListingSpecific"
       manager="plone.app.layout.viewlets.interfaces.IHtmlHeadLinks"
       permission="zope2.View"
@@ -172,7 +172,7 @@
 
   <browser:page
       class=".recent_listings.RecentListingsConfiguration"
-      for=".recent_listings.IRecentListings"
+      for=".interfaces.IRecentListings"
       layer=".interfaces.IListingSpecific"
       name="recent-listings-config"
       permission="cmf.ModifyPortalContent"

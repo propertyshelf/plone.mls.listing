@@ -10,8 +10,9 @@ from plone.mls.listing import PLONE_4
 from plone.mls.listing import PLONE_5
 from plone.mls.listing.api import prepare_search_params
 from plone.mls.listing.api import search
-from plone.mls.listing.browser.interfaces import IBaseListingItems
+from plone.mls.listing.browser.interfaces import IListingCollection
 from plone.mls.listing.browser.interfaces import IListingDetails
+from plone.mls.listing.browser.interfaces import IPossibleListingCollection
 from plone.mls.listing.i18n import _
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
@@ -27,14 +28,6 @@ from zope.traversing.browser.absoluteurl import absoluteURL
 
 
 CONFIGURATION_KEY = 'plone.mls.listing.listingcollection'
-
-
-class IPossibleListingCollection(Interface):
-    """Marker interface for possible ListingCollection viewlet."""
-
-
-class IListingCollection(IBaseListingItems):
-    """Marker interface for ListingCollection viewlet."""
 
 
 class ListingCollectionViewlet(ViewletBase):

@@ -10,8 +10,9 @@ from plone.mls.listing import PLONE_4
 from plone.mls.listing import PLONE_5
 from plone.mls.listing.api import prepare_search_params
 from plone.mls.listing.api import recent_listings
-from plone.mls.listing.browser.interfaces import IBaseListingItems
 from plone.mls.listing.browser.interfaces import IListingDetails
+from plone.mls.listing.browser.interfaces import IPossibleRecentListings
+from plone.mls.listing.browser.interfaces import IRecentListings
 from plone.mls.listing.i18n import _
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from z3c.form import button
@@ -27,14 +28,6 @@ from zope.traversing.browser.absoluteurl import absoluteURL
 
 
 CONFIGURATION_KEY = 'plone.mls.listing.recentlistings'
-
-
-class IPossibleRecentListings(Interface):
-    """Marker interface for possible RecentListings viewlet."""
-
-
-class IRecentListings(IBaseListingItems):
-    """Marker interface for RecentListings viewlet."""
 
 
 class RecentListingsViewlet(ViewletBase):
