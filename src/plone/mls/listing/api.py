@@ -9,6 +9,9 @@ from mls.apiclient.exceptions import MLSError
 from plone import api
 from plone.mls.core.api import get_settings
 from plone.mls.listing import PRODUCT_NAME
+from plone.mls.listing.browser.interfaces import IListingCollection
+from plone.mls.listing.browser.interfaces import IListingSearch
+from plone.mls.listing.browser.interfaces import IRecentListings
 from plone.mls.listing.browser.localconfig import CONFIGURATION_KEY
 from plone.mls.listing.interfaces import ILocalAgencyInfo
 from plone.mls.listing.interfaces import IMLSAgencyContactInformation
@@ -22,15 +25,13 @@ import logging
 import time
 
 
+LISTING_COLLECTION_KEY = 'plone.mls.listing.listingcollection'
+LISTING_SEARCH_KEY = 'plone.mls.listing.listingsearch'
+RECENT_LISTINGS_KEY = 'plone.mls.listing.recentlistings'
+
 logger = logging.getLogger(PRODUCT_NAME)
 # Store the options here (which means in RAM)
 OPTIONS_CACHE = {}  # language_category: ({date, language, category, itemlist})
-
-CONFIGURATION_KEYS = [
-    'plone.mls.listing.recentlistings',
-    'plone.mls.listing.listingsearch',
-    'plone.mls.listing.listingcollection',
-]
 
 
 def _remove_omitted(params, omit):
@@ -213,13 +214,20 @@ def recent_listings(params={}, batching=True, context=None, config=None):
     )
 
 
-def get_configs(context=None, merged=False):
+def get_all_listing_configs(context=None, merged=False):
     """Return all available configurations."""
     result = {}
     if not context:
         return result
     annotations = IAnnotations(context)
-    for key in CONFIGURATION_KEYS:
+    keys = []
+    if IListingCollection.providedBy(context):
+        keys.append(LISTING_COLLECTION_KEY)
+    elif IListingSearch.providedBy(context):
+        keys.append(LISTING_SEARCH_KEY)
+    elif IRecentListings.providedBy(context):
+        keys.append(RECENT_LISTINGS_KEY)
+    for key in keys:
         config = annotations.get(key, {})
         if merged:
             result.update(config)
@@ -234,7 +242,7 @@ def listing_details(listing_id, lang=None, context=None):
     base_url = settings.get('mls_site', None)
     api_key = settings.get('mls_key', None)
     debug = api.env.debug_mode
-    config = get_configs(context=context, merged=True)
+    config = get_all_listing_configs(context=context, merged=True)
     params = {}
     if config.get('show_unverified', False):
         params['apiowner'] = settings.get('agency_id')
