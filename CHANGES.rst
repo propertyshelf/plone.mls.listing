@@ -4,7 +4,8 @@ Changelog
 1.23 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Add a new configuration option to check if a listing detail view should be displayed based on the listing collection settings.
+- Bug fix: when getting the settings for a page, only check for collections and searches which are currently active.
 
 
 1.22 (2025-04-22)
