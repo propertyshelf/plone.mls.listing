@@ -4,7 +4,8 @@ Changelog
 1.24 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Add a new configuration option to exclude listings from certain agencies given a list of agency IDs.
+- Add configuration options for sorting, reverse, and override agency IDs to the listing search view.
 
 
 1.23 (2025-06-20)
