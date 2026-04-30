@@ -531,6 +531,19 @@ class ListingSearchViewlet(ViewletBase):
 class IListingSearchConfiguration(model.Schema):
     """Listing Search Configuration Form."""
 
+    sort_on = schema.Choice(
+        default='last_activated_date',
+        required=True,
+        title=_(u'Sort by'),
+        source='plone.mls.listing.SortIndices',
+    )
+
+    reverse = schema.Bool(
+        default=True,
+        required=False,
+        title=_(u'Reverse'),
+    )
+
     grid_layout = schema.Bool(
         description=_(
             u'If allowed by the theme/design, the listings will be displayed '
@@ -539,6 +552,17 @@ class IListingSearchConfiguration(model.Schema):
         default=False,
         required=False,
         title=_(u'Grid Layout'),
+    )
+
+    overriding_agency_id = schema.TextLine(
+        description=_(
+            u'Specify an agency ID (or a comma-separated list of multiple '
+            u'agency IDs) that will override the Base/Local MLS Settings. If '
+            u'left blank, the agency ID from the Base/Local MLS settings will '
+            u'be used.',
+        ),
+        required=False,
+        title=_(u'Overriding Agency IDs'),
     )
 
     agency_listings = schema.Bool(
