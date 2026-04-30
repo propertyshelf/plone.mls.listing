@@ -73,13 +73,15 @@ def prepare_search_params(data, omit=None):
             else:
                 data[item] = None
 
+        if item in ('exclude_agency_id', 'overriding_agency_id') and isinstance(data[item], basestring):
+            data[item] = data[item].replace(' ', '')
+
         # Remove all None-Type values and empty strings.
-        if data[item] is not None:
+        if data[item] is not None and data[item] != '':
             value = data[item]
             if isinstance(value, unicode):
                 value = value.encode('utf-8')
-            if value != '':
-                params[item] = value
+            params[item] = value
     return params
 
 
