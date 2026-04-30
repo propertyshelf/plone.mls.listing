@@ -575,6 +575,15 @@ class IListingSearchConfiguration(model.Schema):
         title=_(u'Only Show Unverified Listings'),
     )
 
+    exclude_agency_id = schema.TextLine(
+        description=_(
+            u'Enter an agency ID or a comma-separated list of agency IDs '
+            u'whose listings should be excluded from the search results.',
+        ),
+        required=False,
+        title=_(u'Exclude Agency IDs'),
+    )
+
     limit = schema.Int(
         default=25,
         required=False,

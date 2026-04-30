@@ -185,6 +185,15 @@ class IListingCollectionConfiguration(Interface):
         title=_(u'Only Show Unverified Listings'),
     )
 
+    exclude_agency_id = schema.TextLine(
+        description=_(
+            u'Enter an agency ID or a comma-separated list of agency IDs '
+            u'whose listings should be excluded from the collection.',
+        ),
+        required=False,
+        title=_(u'Exclude Agency IDs'),
+    )
+
     freetext = schema.TextLine(
         required=False,
         title=_(u'Freetext Search'),
