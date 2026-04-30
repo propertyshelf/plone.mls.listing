@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.24 (unreleased)
+1.24 (2026-04-30)
 -----------------
 
 - Add a new configuration option to exclude listings from certain agencies given a list of agency IDs.
