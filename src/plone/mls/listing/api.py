@@ -312,6 +312,13 @@ def search(params={}, batching=True, context=None, config=None):
     freetext = config.get('freetext')
     if freetext:
         params['q'] = freetext
+    exclude_src = ','.join(filter(None, [
+        settings.get('exclude_agency_id'),
+        params.get('exclude_agency_id'),
+    ]))
+    merged_exclude = ','.join(sorted({v.strip() for v in exclude_src.split(',') if v.strip()}))
+    if merged_exclude:
+        params['exclude_agency_id'] = merged_exclude
     search_params.update(params)
     base_url = settings.get('mls_site', None)
     api_key = settings.get('mls_key', None)
