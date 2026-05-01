@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.25 (unreleased)
+1.25 (2026-05-01)
 -----------------
 
 - Merge the exclude agency ID settings with the values that can be set through the global or local MLS settings.
