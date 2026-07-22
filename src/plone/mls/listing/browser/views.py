@@ -28,6 +28,7 @@ from zope.interface import implementer
 from zope.publisher.interfaces import NotFound
 
 import copy
+import datetime
 import logging
 import random
 
@@ -216,6 +217,45 @@ class ListingDetails(BrowserView):
     def long_description(self):
         if self.data is not None:
             return self.data.get('long_description', None)
+
+    @property
+    def listing_attribution(self):
+        """Return the MLS attribution notice for this listing.
+
+        Returns nothing unless the notice is switched on for this site and
+        the MLS actually provides one.
+        """
+        if self.data is None:
+            return None
+        settings = api.get_settings(context=self.context)
+        if not settings.get('show_listing_attribution', False):
+            return None
+        notice = self.data.get('listing_attribution', None)
+        if not notice:
+            return None
+        return self._resolve_attribution_placeholders(notice)
+
+    def _resolve_attribution_placeholders(self, notice):
+        """Resolve any placeholders left in the attribution notice.
+
+        The MLS resolves them before sending the notice. This is a fallback
+        for an MLS which is not new enough to do that, so the raw template is
+        never shown to a visitor.
+
+        Note that this names the original listing agency, not the agency a
+        site may have substituted through its own agency settings.
+        """
+        if u'{{agency_name}}' in notice:
+            agency_name = u''
+            agency = self.data.get('original_agency', None) or {}
+            name = agency.get('name', None) or {}
+            if isinstance(name, dict):
+                agency_name = name.get('value', None) or u''
+            notice = notice.replace(u'{{agency_name}}', agency_name)
+        if u'{{year}}' in notice:
+            year = unicode(datetime.date.today().year)
+            notice = notice.replace(u'{{year}}', year)
+        return notice
 
     @property
     def groups(self):

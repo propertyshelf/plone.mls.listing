@@ -275,10 +275,20 @@ def listing_details(listing_id, lang=None, context=None):
     except MLSError as e:
         logger.warn(e)
         return None
+    # The MLS returns the attribution notice next to the listing data, not
+    # inside of it. Move it in, so it travels with the listing it describes.
+    attribution = listing.get('listing_attribution', None)
     listing = listing.get('listing', None)
     if listing is not None:
         agent = copy.deepcopy(listing.get('contact', {}).get('agent'))
         listing['original_agent'] = agent
+        # The agency of the listing, before a site with its own agency
+        # settings overrides it. The attribution notice has to name the
+        # agency the listing actually came from.
+        agency = copy.deepcopy(listing.get('contact', {}).get('agency'))
+        listing['original_agency'] = agency
+        if attribution:
+            listing['listing_attribution'] = attribution
     return listing
 
 

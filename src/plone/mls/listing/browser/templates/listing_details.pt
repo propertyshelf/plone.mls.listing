@@ -264,6 +264,15 @@
         <p><a href="print-listing" onclick="return popitup(this.href)"
               tal:attributes="href string:${view/base_url}/print-listing"
               i18n:translate="">Print Listing</a></p>
+
+        <tal:attribution tal:define="notice view/listing_attribution | nothing"
+                         tal:condition="notice">
+          <!-- The inline style keeps this legible as fine print on themes
+               which do not style .listing-attribution themselves. -->
+          <p class="listing-attribution"
+             style="font-size: 0.8em; color: #999;"
+             tal:content="notice">Attribution notice.</p>
+        </tal:attribution>
         <div tal:replace="structure provider:plone.belowcontentbody" />
 
       </div>

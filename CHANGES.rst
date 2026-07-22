@@ -4,7 +4,7 @@ Changelog
 1.26 (unreleased)
 -----------------
 
-- Nothing changed yet.
+- Show the MLS listing attribution notice as fine print at the bottom of the listing detail page, when it is switched on in the MLS settings.
 
 
 1.25 (2026-05-01)
